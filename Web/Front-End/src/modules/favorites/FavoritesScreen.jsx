@@ -55,11 +55,11 @@ function FavoritesScreen() {
   const getStatusColor = (statusKey) => {
     switch (statusKey) {
       case 'dashboard.statusNormal':
-        return '#25e77c';
+        return 'var(--color-success)'
       case 'dashboard.statusWarning':
-        return '#ffb11a';
+        return 'var(--color-warning)'
       case 'dashboard.statusAlert':
-        return '#ff4d5b';
+        return 'var(--color-danger)'
       default:
         return '#8b949e';
     }
@@ -92,7 +92,7 @@ function FavoritesScreen() {
         {/* HEADER */}
         <div className="favorites-header">
           <div className="favorites-header-content">
-            <FaHeart size={32} color="#ff4d5b" />
+            <FaHeart size={32} color="var(--color-danger)" />
             <div>
               <h1>{t('favorites.title')}</h1>
               <p className="favorites-subtitle">{t('favorites.description')}</p>

@@ -241,7 +241,7 @@ body.dark-mode .fav-metric-box:hover {
 .fav-heart-btn-impact {
   background: var(--lb-surface);
   border: 1px solid var(--lb-glass-border);
-  color: #ff4d5b;
+  color: var(--color-danger);
   cursor: pointer;
   padding: 10px;
   border-radius: 10px;
@@ -254,9 +254,9 @@ body.dark-mode .fav-metric-box:hover {
 
 .fav-heart-btn-impact:hover {
   transform: scale(1.1);
-  background: rgba(255, 77, 91, 0.12);
-  border-color: rgba(255, 77, 91, 0.4);
-  box-shadow: 0 4px 12px rgba(255, 77, 91, 0.15);
+  background: rgba(214, 48, 48, 0.12);
+  border-color: rgba(214, 48, 48, 0.4);
+  box-shadow: 0 4px 12px rgba(214, 48, 48, 0.15);
 }
 
 .fav-heart-btn-impact:active {
@@ -428,7 +428,7 @@ body.dark-mode .modal-header-warning {
 
 .modal-body strong {
   font-weight: 700;
-  color: #ff4d5b;
+  color: var(--color-danger);
 }
 
 body.dark-mode .modal-body p {
@@ -489,12 +489,12 @@ body.dark-mode .modal-btn-cancel {
 }
 
 .modal-btn-danger {
-  background: #ff4d5b;
+  background: var(--color-danger);
 }
 
 .modal-btn-danger:hover {
-  background: #ff4d5b;
-  box-shadow: 0 4px 12px rgba(255, 77, 91, 0.3);
+  background: var(--color-danger);
+  box-shadow: 0 4px 12px rgba(214, 48, 48, 0.3);
 }
 
 /* ══════════════════════════════════════════════════════════════
