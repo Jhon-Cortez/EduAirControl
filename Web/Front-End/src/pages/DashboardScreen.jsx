@@ -218,6 +218,33 @@ function FilterSelect({ icon: Icon, value, options, onChange, isMetric = false, 
   );
 }
 
+// Tarjeta reutilizable para el resumen del hero: recibe su
+// contenido por props en vez de tenerlo quemado en el JSX.
+function HeroSummaryCard({ label, value, valueClassName, hint, highlight = false }) {
+  return (
+    <div className={`hero-summary-card ${highlight ? "hero-summary-total" : ""}`}>
+      <span className="hero-summary-label">{label}</span>
+      <strong className={valueClassName}>{value}</strong>
+      <small>{hint}</small>
+    </div>
+  );
+}
+
+// Tarjeta reutilizable para los indicadores (KPI): recibe ícono,
+// etiqueta, valor y una nota/tendencia opcional por props.
+function KpiCard({ className = "", icon, label, value, valueClassName, note }) {
+  return (
+    <article className={`analysis-kpi-card ${className}`}>
+      <div className="kpi-card-header">
+        <span>{label}</span>
+        {icon}
+      </div>
+      <strong className={valueClassName}>{value}</strong>
+      <small>{note}</small>
+    </article>
+  );
+}
+
 function DashboardScreen() {
   const { environments = [] } = useEnvironment();
   const [period, setPeriod] = useState("day");
@@ -289,6 +316,53 @@ function DashboardScreen() {
     URL.revokeObjectURL(url);
   };
 
+  // Config reutilizable de las tarjetas resumen del hero: cada una
+  // lee su valor de los datos ya calculados (environments/statusCounts).
+  const heroSummaryDefinitions = [
+    { key: "total", label: "Ambientes monitoreados", value: environments.length, hint: "espacios activos", highlight: true },
+    { key: "normal", label: "En condición normal", value: statusCounts.normal, valueClassName: "green-number", hint: `de ${visibleEnvironments.length || environments.length} seleccionados` },
+    { key: "attention", label: "Atención requerida", value: statusCounts.warning + statusCounts.alert, valueClassName: "amber-number", hint: "revisa su tendencia" },
+  ];
+
+  // Ciclo forEach: recorre la config y arma cada tarjeta con sus props.
+  const heroSummaryCards = [];
+  heroSummaryDefinitions.forEach((item) => {
+    heroSummaryCards.push(
+      <HeroSummaryCard
+        key={item.key}
+        label={item.label}
+        value={item.value}
+        valueClassName={item.valueClassName}
+        hint={item.hint}
+        highlight={item.highlight}
+      />
+    );
+  });
+
+  // Config reutilizable de las tarjetas KPI.
+  const kpiDefinitions = [
+    { key: "average", className: "primary-kpi", icon: <MetricIcon size={17} />, label: `Promedio ${metricInfo.label}`, value: formatMetric(average, metric), note: <><FaArrowDown size={13} /> 7.4% vs. periodo anterior</> },
+    { key: "normal", icon: <FaCheckCircle size={17} />, label: "Normal", value: statusCounts.normal, valueClassName: "green-number", note: "ambientes en rango" },
+    { key: "warning", icon: <IoStatsChart size={17} />, label: "Advertencias", value: statusCounts.warning, valueClassName: "amber-number", note: "requieren seguimiento" },
+    { key: "alert", className: "alert-kpi", icon: <FaTachometerAlt size={17} />, label: "Alertas", value: statusCounts.alert, valueClassName: "red-number", note: "requieren atención" },
+  ];
+
+  // Ciclo forEach: recorre la config y arma cada tarjeta KPI con sus props.
+  const kpiCards = [];
+  kpiDefinitions.forEach((item) => {
+    kpiCards.push(
+      <KpiCard
+        key={item.key}
+        className={item.className}
+        icon={item.icon}
+        label={item.label}
+        value={item.value}
+        valueClassName={item.valueClassName}
+        note={item.note}
+      />
+    );
+  });
+
   return (
     <div className="dashboard-analysis-screen">
       <Navbar />
@@ -301,9 +375,7 @@ function DashboardScreen() {
             <p>Compara la evolución de tus ambientes, identifica cambios y toma decisiones antes de que una alerta interrumpa el aprendizaje.</p>
           </div>
           <div className="analysis-hero-summary">
-            <div className="hero-summary-card hero-summary-total"><span className="hero-summary-label">Ambientes monitoreados</span><strong>{environments.length}</strong><small>espacios activos</small></div>
-            <div className="hero-summary-card"><span className="hero-summary-label">En condición normal</span><strong className="green-number">{statusCounts.normal}</strong><small>de {visibleEnvironments.length || environments.length} seleccionados</small></div>
-            <div className="hero-summary-card"><span className="hero-summary-label">Atención requerida</span><strong className="amber-number">{statusCounts.warning + statusCounts.alert}</strong><small>revisa su tendencia</small></div>
+            {heroSummaryCards}
           </div>
         </section>
 
@@ -339,10 +411,7 @@ function DashboardScreen() {
         </section>
 
         <section className="analysis-kpi-grid" aria-label="Indicadores del periodo">
-          <article className="analysis-kpi-card primary-kpi"><div className="kpi-card-header"><span>Promedio {metricInfo.label}</span><MetricIcon size={17} /></div><strong>{formatMetric(average, metric)}</strong><small><FaArrowDown size={13} /> 7.4% vs. periodo anterior</small></article>
-          <article className="analysis-kpi-card"><div className="kpi-card-header"><span>Normal</span><FaCheckCircle size={17} /></div><strong className="green-number">{statusCounts.normal}</strong><small>ambientes en rango</small></article>
-          <article className="analysis-kpi-card"><div className="kpi-card-header"><span>Advertencias</span><IoStatsChart size={17} /></div><strong className="amber-number">{statusCounts.warning}</strong><small>requieren seguimiento</small></article>
-          <article className="analysis-kpi-card alert-kpi"><div className="kpi-card-header"><span>Alertas</span><FaTachometerAlt size={17} /></div><strong className="red-number">{statusCounts.alert}</strong><small>requieren atención</small></article>
+          {kpiCards}
         </section>
 
         <div className="analysis-layout">

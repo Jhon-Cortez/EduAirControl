@@ -5,11 +5,31 @@ import Navbar from "../dashboard/components/Navbar/Navbar";
 import { useEnvironment } from "../../context/EnvironmentContext";
 import "./Favorites.css";
 
+const FAV_METRIC_DEFINITIONS = [
+  { key: 'temp', icon: '🌡️', labelKey: 'dashboard.temperature', getValue: (fav) => `${fav.temp}°C` },
+  { key: 'humidity', icon: '💧', labelKey: 'dashboard.humidity', getValue: (fav) => `${fav.humidity}%` },
+  { key: 'co2', icon: '🌫️', labelKey: null, staticLabel: 'CO₂', getValue: (fav) => `${fav.co2}ppm` },
+  { key: 'noise', icon: '🔊', labelKey: 'dashboard.noise', getValue: (fav) => `${fav.noise} dB` },
+]
+
+// Tarjeta reutilizable: recibe icono, etiqueta y valor por props.
+function FavMetricBox({ icon, label, value }) {
+  return (
+    <div className="fav-metric-box">
+      <span className="fav-metric-icon">{icon}</span>
+      <div className="fav-metric-info">
+        <span className="fav-metric-label">{label}</span>
+        <span className="fav-metric-value">{value}</span>
+      </div>
+    </div>
+  )
+}
+
 function FavoritesScreen() {
   const { t } = useTranslation()
   const { environments, toggleFavorite } = useEnvironment();
 
-  // favoritos memoizados (más limpio y eficiente)
+  // favoritos memoizados 
   const favorites = useMemo(
     () => environments.filter((e) => e.isFavorite),
     [environments]
@@ -40,7 +60,7 @@ function FavoritesScreen() {
   const handleConfirmRemove = () => {
     if (!selectedFav) return
 
-    // importante: depende de tu context
+
     toggleFavorite(selectedFav.id, false)
 
     setShowConfirmModal(false)
@@ -84,6 +104,21 @@ function FavoritesScreen() {
             {favorites.map((fav) => {
               const name = fav.nameKey ? t(fav.nameKey) : fav.name
 
+              // Ciclo forEach: recorre la config de métricas y, por cada
+              // una, toma el dato correspondiente de "fav" para construir
+              // la mini-tarjeta.
+              const favMetricBoxes = []
+              FAV_METRIC_DEFINITIONS.forEach((metric) => {
+                favMetricBoxes.push(
+                  <FavMetricBox
+                    key={metric.key}
+                    icon={metric.icon}
+                    label={metric.labelKey ? t(metric.labelKey) : metric.staticLabel}
+                    value={metric.getValue(fav)}
+                  />
+                )
+              })
+
               return (
                 <div key={fav.id} className="fav-card-impact">
 
@@ -109,38 +144,7 @@ function FavoritesScreen() {
 
                     {/* METRICS */}
                     <div className="fav-section-metrics">
-
-                      <div className="fav-metric-box">
-                        <span className="fav-metric-icon">🌡️</span>
-                        <div className="fav-metric-info">
-                          <span className="fav-metric-label">{t('dashboard.temperature')}</span>
-                          <span className="fav-metric-value">{fav.temp}°C</span>
-                        </div>
-                      </div>
-
-                      <div className="fav-metric-box">
-                        <span className="fav-metric-icon">💧</span>
-                        <div className="fav-metric-info">
-                          <span className="fav-metric-label">{t('dashboard.humidity')}</span>
-                          <span className="fav-metric-value">{fav.humidity}%</span>
-                        </div>
-                      </div>
-
-                      <div className="fav-metric-box">
-                        <span className="fav-metric-icon">🌫️</span>
-                        <div className="fav-metric-info">
-                          <span className="fav-metric-label">CO₂</span>
-                          <span className="fav-metric-value">{fav.co2}ppm</span>
-                        </div>
-                      </div>
-
-                      <div className="fav-metric-box">
-                        <span className="fav-metric-icon">🔊</span>
-                        <div className="fav-metric-info">
-                          <span className="fav-metric-label">{t('dashboard.noise')}</span>
-                          <span className="fav-metric-value">{fav.noise} dB</span>
-                        </div>
-                      </div>
+                      {favMetricBoxes}
                     </div>
 
                     {/* RIGHT */}

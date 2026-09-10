@@ -1,12 +1,54 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
+import { WiThermometer, WiHumidity } from "react-icons/wi";
+import { MdCo2 } from "react-icons/md";
+import { HiSpeakerWave } from "react-icons/hi2";
 import ScoreCircle from "../ScoreCircle/ScoreCircle";
 import MetricCard from "../MetricCard/MetricCard";
 import EnvironmentModal from "../EnvironmentModal/EnvironmentModal";
 import { calculateEnvironmentScore } from "../../utils/calculateEnvironmentScore";
 import { getEnvironmentStatus } from "../../utils/getEnvironmentStatus";
+import getMetricStatus from "../../utils/getMetricStatus";
 import "./EnvironmentCard.css";
+
+// Configuración reutilizable: cada métrica sabe cómo leer su propio
+// valor desde los datos del ambiente (los datos "de la API"/contexto)
+
+const METRIC_DEFINITIONS = [
+  {
+    key: "temp",
+    statusType: "temp",
+    icon: <WiThermometer className="summary-icon temp" />,
+    labelKey: "dashboard.temperature",
+    getValue: (env) => `${env.temp} °C`,
+    getRaw: (env) => env.temp,
+  },
+  {
+    key: "humidity",
+    statusType: "humidity",
+    icon: <WiHumidity className="summary-icon humidity" />,
+    labelKey: "dashboard.humidity",
+    getValue: (env) => `${env.humidity}%`,
+    getRaw: (env) => env.humidity,
+  },
+  {
+    key: "co2",
+    statusType: "co2",
+    icon: <MdCo2 className="summary-icon co2" />,
+    labelKey: "allEnvironments.co2",
+    getValue: (env) => `${env.co2} ppm`,
+    getRaw: (env) => env.co2,
+  },
+  {
+    key: "noise",
+    statusType: "noise",
+    icon: <HiSpeakerWave className="summary-icon noise" />,
+    labelKey: "dashboard.noise",
+    getValue: (env) => `${env.noise} dB`,
+    getRaw: (env) => env.noise,
+  },
+];
 
 function EnvironmentCard({ environment, onToggleFavorite }) {
   const { t } = useTranslation();
@@ -23,6 +65,22 @@ function EnvironmentCard({ environment, onToggleFavorite }) {
     setFavorite(value);
     onToggleFavorite?.(environment.id, value);
   };
+
+  // Ciclo forEach: recorre las definiciones de métricas y, por cada
+  // una, va tomando el dato correspondiente de "environment" (el dato
+  // que llega desde la API/contexto) para construir la tarjeta.
+  const metricCards = [];
+  METRIC_DEFINITIONS.forEach((metric) => {
+    metricCards.push(
+      <MetricCard
+        key={metric.key}
+        icon={metric.icon}
+        label={t(metric.labelKey)}
+        value={metric.getValue(environment)}
+        status={getMetricStatus(metric.statusType, metric.getRaw(environment), t)}
+      />
+    );
+  });
 
   return (
     <>
@@ -51,10 +109,7 @@ function EnvironmentCard({ environment, onToggleFavorite }) {
         </div>
 
         <div className="environment-metrics">
-          <MetricCard type="temperature" value={environment.temp} />
-          <MetricCard type="humidity" value={environment.humidity} />
-          <MetricCard type="co2" value={environment.co2} />
-          <MetricCard type="noise" value={environment.noise} />
+          {metricCards}
         </div>
       </article>
 

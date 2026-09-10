@@ -1,9 +1,6 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
-import { WiThermometer, WiHumidity } from "react-icons/wi";
-import { MdCo2 } from "react-icons/md";
-import { HiSpeakerWave } from "react-icons/hi2";
 
 import EnvironmentModal from "../EnvironmentModal/EnvironmentModal";
 import ScoreCircle from "../ScoreCircle/ScoreCircle";
@@ -12,6 +9,7 @@ import MetricCard from "../MetricCard/MetricCard";
 import calculateEnvironmentScore from "../../utils/calculateEnvironmentScore";
 import getMetricStatus from "../../utils/getMetricStatus";
 import { getEnvironmentStatus } from "../../utils/getEnvironmentStatus";
+import { METRIC_DEFINITIONS } from "../../constants/metricDefinitions";
 
 import "./EnvironmentSummaryCard.css";
 
@@ -43,6 +41,22 @@ function EnvironmentSummaryCard({
   const score = calculateEnvironmentScore(
     environment
   );
+
+  // Ciclo forEach: recorre la config reutilizable de métricas y, por
+  // cada una, toma el dato correspondiente de "environment" (lo que
+  // llega desde la API/contexto) para construir la tarjeta.
+  const metricCards = [];
+  METRIC_DEFINITIONS.forEach((metric) => {
+    metricCards.push(
+      <MetricCard
+        key={metric.key}
+        icon={metric.icon}
+        label={t(metric.labelKey)}
+        value={metric.getValue(environment)}
+        status={getMetricStatus(metric.statusType, metric.getRaw(environment), t)}
+      />
+    );
+  });
 
   return (
 
@@ -129,49 +143,7 @@ function EnvironmentSummaryCard({
 
         <div className="summary-card-grid">
 
-          <MetricCard
-            icon={<MdCo2 className="summary-icon co2" />}
-            label={t("allEnvironments.co2")}
-            value={`${environment.co2} ppm`}
-            status={getMetricStatus(
-              "co2",
-              environment.co2,
-              t
-            )}
-          />
-
-          <MetricCard
-            icon={<HiSpeakerWave className="summary-icon noise" />}
-            label={t("dashboard.noise")}
-            value={`${environment.noise} dB`}
-            status={getMetricStatus(
-              "noise",
-              environment.noise,
-              t
-            )}
-          />
-
-          <MetricCard
-            icon={<WiThermometer className="summary-icon temp" />}
-            label={t("dashboard.temperature")}
-            value={`${environment.temp} °C`}
-            status={getMetricStatus(
-              "temp",
-              environment.temp,
-              t
-            )}
-          />
-
-          <MetricCard
-            icon={<WiHumidity className="summary-icon humidity" />}
-            label={t("dashboard.humidity")}
-            value={`${environment.humidity}%`}
-            status={getMetricStatus(
-              "humidity",
-              environment.humidity,
-              t
-            )}
-          />
+          {metricCards}
 
         </div>
 
