@@ -8,39 +8,53 @@ import {
     FaDatabase
 } from "react-icons/fa";
 
+// Subcomponente reutilizable: recibe sus datos por props 
+
+function HeroCard({ icon, text, breakLines = false }) {
+    return (
+        <div className="hero-card">
+            <div className="hero-card-icon">{icon}</div>
+            <span>
+                {breakLines
+                    ? text.split(" ").map((word, i) => (
+                          <span key={i}>{word}<br /></span>
+                      ))
+                    : text}
+            </span>
+        </div>
+    );
+}
+
 function HeroCards() {
     const { t } = useTranslation();
 
+    
+    const cardsData = [
+        { key: "healthy", icon: <FaLeaf />, textKey: "landing.hero.cards.healthy" },
+        { key: "realtime", icon: <FaChartLine />, textKey: "landing.hero.cards.realtime", breakLines: true },
+        { key: "alerts", icon: <FaBell />, textKey: "landing.hero.cards.alerts" },
+        { key: "reports", icon: <FaDatabase />, textKey: "landing.hero.cards.reports" },
+    ];
+
+    // Ciclo forEach: recorre una por una las tarjetas 
+    
+    const cards = [];
+    cardsData.forEach((card) => {
+        cards.push(
+            <HeroCard
+                key={card.key}
+                icon={card.icon}
+                text={t(card.textKey)}
+                breakLines={card.breakLines}
+            />
+        );
+    });
+
     return (
-
         <div className="hero-cards">
-
-       <div className="hero-card">
-            <div className="hero-card-icon"><FaLeaf /></div>
-            <span>{t("landing.hero.cards.healthy")}</span>
+            {cards}
         </div>
-
-        <div className="hero-card">
-            <div className="hero-card-icon"><FaChartLine /></div>
-            <span>{t("landing.hero.cards.realtime").split(' ').map((text, i) => (
-                <span key={i}>{text}<br /></span>
-            ))}</span>
-        </div>
-
-        <div className="hero-card">
-            <div className="hero-card-icon"><FaBell /></div>
-            <span>{t("landing.hero.cards.alerts")}</span>
-        </div>
-
-        <div className="hero-card">
-            <div className="hero-card-icon"><FaDatabase /></div>
-            <span>{t("landing.hero.cards.reports")}</span>
-        </div>
-
-        </div>
-
     );
-
 }
 
 export default HeroCards;

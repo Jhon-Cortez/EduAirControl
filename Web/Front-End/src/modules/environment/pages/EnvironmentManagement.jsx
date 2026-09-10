@@ -12,6 +12,28 @@ import SensorVariablePanel from "../components/management/SensorVariablePanel/Se
 import { useManagementVM } from "../../../viewmodels/useManagementVM";
 import "./EnvironmentManagement.css";
 
+// Tarjeta reutilizable: recibe por props todo lo que antes estaba
+// quemado en cada bloque (ícono, etiqueta, valor, modificador de
+// color y el filtro que debe activar al hacer click).
+function SummaryCard({ modifier, icon, label, value, onClick }) {
+  return (
+    <div
+      className={`env-management-summary-card env-management-summary-card--${modifier}`}
+      onClick={onClick}
+    >
+      <div className={`env-management-summary-card__icon env-management-summary-card__icon--${modifier}`}>
+        {icon}
+      </div>
+      <div className="env-management-summary-card__info">
+        <span className="env-management-summary-card__label">{label}</span>
+        <span className={`env-management-summary-card__value env-management-summary-card__value--${modifier}`}>
+          {value}
+        </span>
+      </div>
+    </div>
+  )
+}
+
 function EnvironmentManagement() {
   const { t } = useTranslation()
   const [activeView, setActiveView] = useState('environments')
@@ -22,6 +44,30 @@ function EnvironmentManagement() {
     handleAdd, handleEdit, handleDelete,
     setActiveFilter, setSortBy,
   } = useManagementVM()
+
+
+  const summaryDefinitions = [
+    { modifier: 'total', icon: <TbBuildingCommunity size={19} />, labelKey: 'management.summaryTotal', fallback: 'Total', value: stats.total, filter: 'all' },
+    { modifier: 'normal', icon: '✅', labelKey: 'management.summaryNormal', fallback: 'Normal', value: stats.normals, filter: 'normal' },
+    { modifier: 'warning', icon: '🔔', labelKey: 'management.summaryWarnings', fallback: 'Advertencias', value: stats.warnings, filter: 'warning' },
+    { modifier: 'alert', icon: '⚠️', labelKey: 'management.summaryAlerts', fallback: 'En Alerta', value: stats.alerts, filter: 'alert' },
+  ]
+
+  // Ciclo forEach: recorre las definiciones y arma cada tarjeta con
+  // los datos y props correspondientes.
+  const summaryCards = []
+  summaryDefinitions.forEach((item) => {
+    summaryCards.push(
+      <SummaryCard
+        key={item.modifier}
+        modifier={item.modifier}
+        icon={item.icon}
+        label={t(item.labelKey, item.fallback)}
+        value={item.value}
+        onClick={() => setActiveFilter(item.filter)}
+      />
+    )
+  })
 
   return (
     <div className="env-management-page">
@@ -71,65 +117,7 @@ function EnvironmentManagement() {
 
         {/* ── Summary cards ── */}
         <div className="env-management-summary">
-          <div
-            className="env-management-summary-card env-management-summary-card--total"
-            onClick={() => setActiveFilter('all')}
-          >
-            <div className="env-management-summary-card__icon env-management-summary-card__icon--total">
-              <TbBuildingCommunity size={19} />
-            </div>
-            <div className="env-management-summary-card__info">
-              <span className="env-management-summary-card__label">
-                {t('management.summaryTotal', 'Total')}
-              </span>
-              <span className="env-management-summary-card__value">{stats.total}</span>
-            </div>
-          </div>
-
-          <div
-            className="env-management-summary-card env-management-summary-card--normal"
-            onClick={() => setActiveFilter('normal')}
-          >
-            <div className="env-management-summary-card__icon env-management-summary-card__icon--normal">✅</div>
-            <div className="env-management-summary-card__info">
-              <span className="env-management-summary-card__label">
-                {t('management.summaryNormal', 'Normal')}
-              </span>
-              <span className="env-management-summary-card__value env-management-summary-card__value--normal">
-                {stats.normals}
-              </span>
-            </div>
-          </div>
-
-          <div
-            className="env-management-summary-card env-management-summary-card--warning"
-            onClick={() => setActiveFilter('warning')}
-          >
-            <div className="env-management-summary-card__icon env-management-summary-card__icon--warning">🔔</div>
-            <div className="env-management-summary-card__info">
-              <span className="env-management-summary-card__label">
-                {t('management.summaryWarnings', 'Advertencias')}
-              </span>
-              <span className="env-management-summary-card__value env-management-summary-card__value--warning">
-                {stats.warnings}
-              </span>
-            </div>
-          </div>
-
-          <div
-            className="env-management-summary-card env-management-summary-card--alert"
-            onClick={() => setActiveFilter('alert')}
-          >
-            <div className="env-management-summary-card__icon env-management-summary-card__icon--alert">⚠️</div>
-            <div className="env-management-summary-card__info">
-              <span className="env-management-summary-card__label">
-                {t('management.summaryAlerts', 'En Alerta')}
-              </span>
-              <span className="env-management-summary-card__value env-management-summary-card__value--alert">
-                {stats.alerts}
-              </span>
-            </div>
-          </div>
+          {summaryCards}
         </div>
 
         {/* ── Capacidad + Ordenar ── */}

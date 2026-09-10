@@ -23,9 +23,9 @@ const THEME_LABELS = {
 
 const THEME_COLORS = {
     "": "#28F4D6",
-    "theme-protanopia": "#0072b2",
-    "theme-deuteranopia": "#E69F00",
-    "theme-tritanopia": "#D55E00",
+    "theme-protanopia": "#007AA7",
+    "theme-deuteranopia": "#4F7E00",
+    "theme-tritanopia": "#5B4B8A",
 };
 
 const COLOR_THEMES = ACCESSIBILITY_THEMES.map((key) => ({

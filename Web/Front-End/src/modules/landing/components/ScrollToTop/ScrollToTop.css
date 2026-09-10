@@ -121,23 +121,33 @@ body:not(.dark-mode) .scroll-to-top:hover {
 
 /* ── Temas de daltonismo ── */
 body.theme-protanopia .scroll-to-top {
-    border-color: rgba(0, 114, 178, 0.5);
-    color: #0072b2;
+    border-color: rgba(0, 122, 167, 0.5);
+    color: #007aa7;
 }
 
 body.theme-protanopia.dark-mode .scroll-to-top {
-    color: #4aa8d8;
-    border-color: rgba(74, 168, 216, 0.5);
+    color: #0085b5;
+    border-color: rgba(0, 133, 181, 0.5);
 }
 
-body.theme-deuteranopia .scroll-to-top {
+body.theme-deuteranopia:not(.dark-mode) .scroll-to-top {
+    border-color: rgba(79, 126, 0, 0.5);
+    color: #4f7e00;
+}
+
+body.theme-deuteranopia.dark-mode .scroll-to-top {
     border-color: rgba(230, 159, 0, 0.5);
-    color: #E69F00;
+    color: #e69f00;
 }
 
-body.theme-tritanopia .scroll-to-top {
+body.theme-tritanopia:not(.dark-mode) .scroll-to-top {
+    border-color: rgba(91, 75, 138, 0.5);
+    color: #5b4b8a;
+}
+
+body.theme-tritanopia.dark-mode .scroll-to-top {
     border-color: rgba(213, 94, 0, 0.5);
-    color: #D55E00;
+    color: #d55e00;
 }
 
 /* ── Responsive ── */
