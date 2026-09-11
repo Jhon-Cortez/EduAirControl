@@ -8,7 +8,6 @@ import {
   FaChevronDown,
   FaClock,
   FaDownload,
-  FaSlidersH,
   FaSyncAlt,
   FaTachometerAlt,
   FaThermometerHalf,
@@ -316,29 +315,6 @@ function DashboardScreen() {
     URL.revokeObjectURL(url);
   };
 
-  // Config reutilizable de las tarjetas resumen del hero: cada una
-  // lee su valor de los datos ya calculados (environments/statusCounts).
-  const heroSummaryDefinitions = [
-    { key: "total", label: "Ambientes monitoreados", value: environments.length, hint: "espacios activos", highlight: true },
-    { key: "normal", label: "En condición normal", value: statusCounts.normal, valueClassName: "green-number", hint: `de ${visibleEnvironments.length || environments.length} seleccionados` },
-    { key: "attention", label: "Atención requerida", value: statusCounts.warning + statusCounts.alert, valueClassName: "amber-number", hint: "revisa su tendencia" },
-  ];
-
-  // Ciclo forEach: recorre la config y arma cada tarjeta con sus props.
-  const heroSummaryCards = [];
-  heroSummaryDefinitions.forEach((item) => {
-    heroSummaryCards.push(
-      <HeroSummaryCard
-        key={item.key}
-        label={item.label}
-        value={item.value}
-        valueClassName={item.valueClassName}
-        hint={item.hint}
-        highlight={item.highlight}
-      />
-    );
-  });
-
   // Config reutilizable de las tarjetas KPI.
   const kpiDefinitions = [
     { key: "average", className: "primary-kpi", icon: <MetricIcon size={17} />, label: `Promedio ${metricInfo.label}`, value: formatMetric(average, metric), note: <><FaArrowDown size={13} /> 7.4% vs. periodo anterior</> },
@@ -374,9 +350,6 @@ function DashboardScreen() {
             <h1>La calidad ambiental<br /><em>también cuenta una historia.</em></h1>
             <p>Compara la evolución de tus ambientes, identifica cambios y toma decisiones antes de que una alerta interrumpa el aprendizaje.</p>
           </div>
-          <div className="analysis-hero-summary">
-            {heroSummaryCards}
-          </div>
         </section>
 
         <div className="analysis-flow-mark" aria-hidden="true"><span /><span /><span /><span /></div>
@@ -389,16 +362,6 @@ function DashboardScreen() {
           </div>
           <div className="analysis-period-context"><FaCalendarAlt size={15} /> {periodInfo.context}</div>
 
-          <FilterSelect
-            icon={FaSlidersH}
-            label="Filtrar ambiente"
-            value={environmentId}
-            onChange={setEnvironmentId}
-            options={[
-              { value: "all", label: "Todos los ambientes" },
-              ...environments.map((environment) => ({ value: String(environment.id), label: environment.name })),
-            ]}
-          />
           <FilterSelect
             icon={MetricIcon}
             label="Seleccionar métrica"
