@@ -1,7 +1,5 @@
 .summary-card {
-  background: var(--lb-glass-bg);
-  -webkit-backdrop-filter: var(--lb-glass-blur);
-  backdrop-filter: var(--lb-glass-blur);
+  background: #fff;
   border: 1px solid var(--lb-glass-border);
   border-radius: 20px;
   box-shadow: var(--lb-glass-shadow);
@@ -16,6 +14,12 @@
     box-shadow 0.3s ease,
     border-color 0.3s ease;
   overflow: hidden;
+}
+
+body.dark-mode .summary-card {
+  background: rgba(15, 24, 41, 0.9);
+  border-color: rgba(148, 163, 184, 0.2);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.38);
 }
 
 .summary-card:hover {

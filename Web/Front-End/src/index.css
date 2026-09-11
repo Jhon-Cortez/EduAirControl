@@ -1054,7 +1054,7 @@ button:active {
 }
 
 .summary-card {
-  background: rgba(15, 24, 41, 0.9);
+  background: #fff;
   border-radius: 15px;
   padding: 20px;
   box-shadow: var(--shadow-card);

@@ -146,7 +146,9 @@ body:not(.dark-mode) .dashboard-navbar {
 
   cursor: pointer;
 
-  color: #e0e0e0;
+    cursor:pointer;
+
+    color:#666666;
 
   font-size: calc(var(--a11y-font-size) * 0.875);
 
@@ -154,7 +156,12 @@ body:not(.dark-mode) .dashboard-navbar {
 
   transition: 0.25s;
 
-  user-select: none;
+    user-select:none;
+
+}
+
+body.dark-mode .dashboard-navbar-item{
+    color: #e0e0e0;
 }
 
 .dashboard-navbar-item svg {
