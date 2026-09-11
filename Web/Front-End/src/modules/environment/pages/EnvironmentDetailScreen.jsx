@@ -1,64 +1,62 @@
-import { useState, useRef } from 'react'
-import { useParams, useNavigate } from 'react-router-dom'
-import { useTranslation } from 'react-i18next'
-import { WiThermometer, WiHumidity } from 'react-icons/wi'
-import { MdCo2 } from 'react-icons/md'
-import { HiSpeakerWave } from 'react-icons/hi2'
-import { FaHeart, FaRegHeart, FaUser, FaMapMarkerAlt } from 'react-icons/fa'
-import { IoCheckmarkCircle, IoWarning, IoAlertCircle } from 'react-icons/io5'
-import Navbar from "../../dashboard/components/Navbar/Navbar";
-import { BackButton } from "../../../shared/components";
-import { useEnvironment } from "../../../context/EnvironmentContext";
-import {
-  STATUS_COLORS,
-  QUALITY_COLORS,
-  IDEAL_RANGES
-} from "../constants/environments";
-import "./EnvironmentDetail.css";
+import { useState, useRef } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+import { WiThermometer, WiHumidity } from 'react-icons/wi';
+import { MdCo2 } from 'react-icons/md';
+import { HiSpeakerWave } from 'react-icons/hi2';
+import { FaHeart, FaRegHeart, FaUser, FaMapMarkerAlt } from 'react-icons/fa';
+import { IoCheckmarkCircle, IoWarning, IoAlertCircle } from 'react-icons/io5';
+import Navbar from '../../dashboard/components/Navbar/Navbar';
+import { BackButton } from '../../../shared/components';
+import { useEnvironment } from '../../../context/EnvironmentContext';
+import { STATUS_COLORS, QUALITY_COLORS, IDEAL_RANGES } from '../constants/environments';
+import './EnvironmentDetail.css';
 
 function MetricBar({ value, min, max }) {
-  const pct = Math.min(100, Math.max(0, ((value - min) / (max - min)) * 100))
-  const color = pct < 60 ? '#4CAF50' : pct < 80 ? '#FFC107' : '#F44336'
+  const pct = Math.min(100, Math.max(0, ((value - min) / (max - min)) * 100));
+  const color = pct < 60 ? '#4CAF50' : pct < 80 ? '#FFC107' : '#F44336';
   return (
     <div className="metric-bar-track">
       <div className="metric-bar-fill" style={{ width: `${pct}%`, background: color }} />
     </div>
-  )
+  );
 }
 
 function StatusIcon({ statusKey }) {
-  if (statusKey === 'dashboard.statusNormal') return <IoCheckmarkCircle className="detail-status-icon normal" />
-  if (statusKey === 'dashboard.statusWarning') return <IoWarning className="detail-status-icon warning" />
-  return <IoAlertCircle className="detail-status-icon alert" />
+  if (statusKey === 'dashboard.statusNormal')
+    return <IoCheckmarkCircle className="detail-status-icon normal" />;
+  if (statusKey === 'dashboard.statusWarning')
+    return <IoWarning className="detail-status-icon warning" />;
+  return <IoAlertCircle className="detail-status-icon alert" />;
 }
 
 /* RatingCard: componente reutilizable para la calificación */
 function RatingCard({ rating, setRating, onSubmit, className = '' }) {
-  const starsRef = useRef([])
+  const starsRef = useRef([]);
   const handleKey = (e, value) => {
     if (e.key === 'Enter' || e.key === ' ') {
-      e.preventDefault()
-      setRating(value)
+      e.preventDefault();
+      setRating(value);
     } else if (e.key === 'ArrowLeft') {
-      e.preventDefault()
-      const prev = Math.max(1, value - 1)
-      starsRef.current[prev - 1]?.focus()
+      e.preventDefault();
+      const prev = Math.max(1, value - 1);
+      starsRef.current[prev - 1]?.focus();
     } else if (e.key === 'ArrowRight') {
-      e.preventDefault()
-      const next = Math.min(5, value + 1)
-      starsRef.current[next - 1]?.focus()
+      e.preventDefault();
+      const next = Math.min(5, value + 1);
+      starsRef.current[next - 1]?.focus();
     }
-  }
+  };
 
   return (
-    <div className={`detail-rating-card rating-card ${className}`} role="region" aria-label="Calificar aula">
+    <div
+      className={`detail-rating-card rating-card ${className}`}
+      role="region"
+      aria-label="Calificar aula"
+    >
       <p className="rating-question">¿Cómo percibes el confort de este ambiente?</p>
 
-      <div
-        className="stars"
-        role="radiogroup"
-        aria-label="Estrellas de calificación"
-      >
+      <div className="stars" role="radiogroup" aria-label="Estrellas de calificación">
         {[1, 2, 3, 4, 5].map((star) => (
           <span
             key={star}
@@ -87,19 +85,19 @@ function RatingCard({ rating, setRating, onSubmit, className = '' }) {
         </button>
       </div>
     </div>
-  )
+  );
 }
 
 function EnvironmentDetailScreen() {
-  const { id } = useParams()
-  const navigate = useNavigate()
-  const { t } = useTranslation()
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const { t } = useTranslation();
   const { environments, toggleFavorite } = useEnvironment();
 
-  const [rating, setRating] = useState(0)
-  const [isModalOpen, setIsModalOpen] = useState(false)
+  const [rating, setRating] = useState(0);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const env = environments.find((e) => String(e.id) === String(id))
+  const env = environments.find((e) => String(e.id) === String(id));
 
   if (!env) {
     return (
@@ -112,19 +110,19 @@ function EnvironmentDetailScreen() {
           </div>
         </div>
       </div>
-    )
+    );
   }
 
-  const name = env.nameKey ? t(env.nameKey) : env.name
-  const statusColor = STATUS_COLORS[env.statusKey]
+  const name = env.nameKey ? t(env.nameKey) : env.name;
+  const statusColor = STATUS_COLORS[env.statusKey];
   const qualityKey =
     env.qualityKey ||
     (env.statusKey === 'dashboard.statusAlert'
       ? 'dashboard.qualityBad'
       : env.statusKey === 'dashboard.statusWarning'
-      ? 'dashboard.qualityRegular'
-      : 'dashboard.qualityGood')
-  const qualityColor = QUALITY_COLORS[qualityKey]
+        ? 'dashboard.qualityRegular'
+        : 'dashboard.qualityGood');
+  const qualityColor = QUALITY_COLORS[qualityKey];
 
   const metrics = [
     {
@@ -133,7 +131,8 @@ function EnvironmentDetailScreen() {
       value: `${env.temp}°C`,
       rawValue: env.temp,
       ideal: IDEAL_RANGES.temp,
-      min: 0, max: 50,
+      min: 0,
+      max: 50,
       key: 'temp',
     },
     {
@@ -142,7 +141,8 @@ function EnvironmentDetailScreen() {
       value: `${env.humidity}%`,
       rawValue: env.humidity,
       ideal: IDEAL_RANGES.humidity,
-      min: 0, max: 100,
+      min: 0,
+      max: 100,
       key: 'humidity',
     },
     {
@@ -151,7 +151,8 @@ function EnvironmentDetailScreen() {
       value: `${env.co2} ppm`,
       rawValue: env.co2,
       ideal: IDEAL_RANGES.co2,
-      min: 0, max: 2000,
+      min: 0,
+      max: 2000,
       key: 'co2',
     },
     {
@@ -160,18 +161,19 @@ function EnvironmentDetailScreen() {
       value: `${env.noise} dB`,
       rawValue: env.noise,
       ideal: IDEAL_RANGES.noise,
-      min: 0, max: 120,
+      min: 0,
+      max: 120,
       key: 'noise',
     },
-  ]
+  ];
 
   const handleSubmitRating = (r) => {
     // Reemplaza el alert por tu llamada a la API si lo deseas
-    alert(`Calificación enviada: ${r} estrella${r === 1 ? '' : 's'}`)
+    alert(`Calificación enviada: ${r} estrella${r === 1 ? '' : 's'}`);
     // ejemplo:
     // fetch(`/api/environments/${env.id}/rating`, { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify({ rating: r }) })
-    setIsModalOpen(false)
-  }
+    setIsModalOpen(false);
+  };
 
   return (
     <div className="detail-page">
@@ -200,7 +202,10 @@ function EnvironmentDetailScreen() {
           </div>
 
           <div className="detail-hero-right">
-            <div className="detail-status-badge" style={{ borderColor: statusColor, color: statusColor }}>
+            <div
+              className="detail-status-badge"
+              style={{ borderColor: statusColor, color: statusColor }}
+            >
               <StatusIcon statusKey={env.statusKey} />
               <span>{t(env.statusKey)}</span>
             </div>
@@ -212,8 +217,8 @@ function EnvironmentDetailScreen() {
               {env.isFavorite ? <FaHeart /> : <FaRegHeart />}
               <span>
                 {env.isFavorite
-                  ? (t('detail.removeFav') || 'Quitar favorito')
-                  : (t('detail.addFav') || 'Agregar favorito')}
+                  ? t('detail.removeFav') || 'Quitar favorito'
+                  : t('detail.addFav') || 'Agregar favorito'}
               </span>
             </button>
           </div>
@@ -277,9 +282,7 @@ function EnvironmentDetailScreen() {
 
           <div className="detail-info-card">
             <h3>🌡️ {t('detail.conditionsTitle') || 'Condiciones'}</h3>
-            <p style={{ color: statusColor, fontWeight: 600 }}>
-              {t(env.statusKey)}
-            </p>
+            <p style={{ color: statusColor, fontWeight: 600 }}>{t(env.statusKey)}</p>
           </div>
         </div>
 
@@ -289,15 +292,11 @@ function EnvironmentDetailScreen() {
         <h2 className="detail-section-title">Calificación del aula</h2>
 
         <div>
-          <RatingCard
-            rating={rating}
-            setRating={setRating}
-            onSubmit={handleSubmitRating}
-          />
+          <RatingCard rating={rating} setRating={setRating} onSubmit={handleSubmitRating} />
         </div>
       </div>
     </div>
-  )
+  );
 }
 
-export default EnvironmentDetailScreen
+export default EnvironmentDetailScreen;

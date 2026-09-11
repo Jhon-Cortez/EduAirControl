@@ -52,8 +52,14 @@
 }
 
 @keyframes cardIn {
-  from { opacity: 0; transform: translateY(30px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* Header Centrado */
@@ -213,11 +219,11 @@
 .btn-signup-outline {
   width: 100%;
   padding: 12px;
-   border: 2px solid transparent;
-    background:
-        linear-gradient(#bdfff0, #fff) padding-box,
-        linear-gradient(90deg, #2c8a89, #76b6ff) border-box;
-    border-radius: 12px;
+  border: 2px solid transparent;
+  background:
+    linear-gradient(#bdfff0, #fff) padding-box,
+    linear-gradient(90deg, #2c8a89, #76b6ff) border-box;
+  border-radius: 12px;
   color: var(--accent);
   font-size: 14px;
   font-weight: 700;
@@ -261,9 +267,16 @@
 }
 
 @keyframes shake {
-  0%, 100% { transform: translateX(0); }
-  25% { transform: translateX(-5px); }
-  75% { transform: translateX(5px); }
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-5px);
+  }
+  75% {
+    transform: translateX(5px);
+  }
 }
 
 .loading-text {
@@ -307,9 +320,8 @@ body:not(.dark-mode) .input-wrapper input::placeholder {
     max-width: 95%;
     padding: 30px 20px;
   }
-  
+
   .login-header-centered h1 {
     font-size: 30px;
   }
 }
-

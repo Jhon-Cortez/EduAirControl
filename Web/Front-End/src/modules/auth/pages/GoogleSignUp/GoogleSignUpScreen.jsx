@@ -1,19 +1,19 @@
-import { useNavigate } from 'react-router-dom'
-import { useTranslation } from 'react-i18next'
-import { FaUser } from 'react-icons/fa'
-import AuthLayout from "../../components/AuthLayout/AuthLayout";
-import { BackButton } from "../../../../shared/components";
-import "./GoogleSignUp.css";
+import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+import { FaUser } from 'react-icons/fa';
+import AuthLayout from '../../components/AuthLayout/AuthLayout';
+import { BackButton } from '../../../../shared/components';
+import './GoogleSignUp.css';
 
 const MOCK_ACCOUNTS = [
   { name: 'Account 1', email: 'account1@gmail.com' },
   { name: 'Account 2', email: 'account2@gmail.com' },
   { name: 'Account 3', email: 'account3@gmail.com' },
-]
+];
 
 function GoogleSignUpScreen() {
-  const navigate = useNavigate()
-  const { t } = useTranslation()
+  const navigate = useNavigate();
+  const { t } = useTranslation();
 
   return (
     <AuthLayout>
@@ -29,7 +29,9 @@ function GoogleSignUpScreen() {
         <div className="account-list">
           {MOCK_ACCOUNTS.map((account, index) => (
             <div key={index} className="account-item" onClick={() => navigate('/')}>
-              <div className="account-avatar"><FaUser /></div>
+              <div className="account-avatar">
+                <FaUser />
+              </div>
               <div className="account-info">
                 <span className="account-name">{account.name}</span>
                 <span className="account-email">{account.email}</span>
@@ -43,7 +45,7 @@ function GoogleSignUpScreen() {
         </a>
       </div>
     </AuthLayout>
-  )
+  );
 }
 
-export default GoogleSignUpScreen
+export default GoogleSignUpScreen;

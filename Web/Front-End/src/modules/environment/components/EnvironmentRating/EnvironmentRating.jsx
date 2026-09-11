@@ -1,7 +1,7 @@
-import { useState } from "react";
-import { FaStar, FaRegStar } from "react-icons/fa";
-import { useTranslation } from "react-i18next";
-import "./EnvironmentRating.css";
+import { useState } from 'react';
+import { FaStar, FaRegStar } from 'react-icons/fa';
+import { useTranslation } from 'react-i18next';
+import './EnvironmentRating.css';
 
 function EnvironmentRating({ environmentId, initialRating = 0, onRate }) {
   const { t } = useTranslation();
@@ -10,11 +10,11 @@ function EnvironmentRating({ environmentId, initialRating = 0, onRate }) {
   const [submitted, setSubmitted] = useState(false);
 
   const labels = {
-    1: t("environmentRating.star1"),
-    2: t("environmentRating.star2"),
-    3: t("environmentRating.star3"),
-    4: t("environmentRating.star4"),
-    5: t("environmentRating.star5")
+    1: t('environmentRating.star1'),
+    2: t('environmentRating.star2'),
+    3: t('environmentRating.star3'),
+    4: t('environmentRating.star4'),
+    5: t('environmentRating.star5'),
   };
 
   const handleClick = (value) => {
@@ -27,14 +27,13 @@ function EnvironmentRating({ environmentId, initialRating = 0, onRate }) {
 
   return (
     <div className="environment-rating">
-
-      <h3>{t("environmentRating.title")}</h3>
-      <p className="environment-rating-desc">{t("environmentRating.description")}</p>
+      <h3>{t('environmentRating.title')}</h3>
+      <p className="environment-rating-desc">{t('environmentRating.description')}</p>
 
       <div
         className="environment-rating-stars"
         role="radiogroup"
-        aria-label={t("environmentRating.yourRating")}
+        aria-label={t('environmentRating.yourRating')}
       >
         {[1, 2, 3, 4, 5].map((value) => (
           <button
@@ -53,14 +52,9 @@ function EnvironmentRating({ environmentId, initialRating = 0, onRate }) {
         ))}
       </div>
 
-      {activeValue > 0 && (
-        <span className="environment-rating-label">{labels[activeValue]}</span>
-      )}
+      {activeValue > 0 && <span className="environment-rating-label">{labels[activeValue]}</span>}
 
-      {submitted && (
-        <p className="environment-rating-thanks">{t("environmentRating.thankYou")}</p>
-      )}
-
+      {submitted && <p className="environment-rating-thanks">{t('environmentRating.thankYou')}</p>}
     </div>
   );
 }

@@ -1,7 +1,5 @@
 export function getEnvironmentStatus(statusKey, t) {
-
   switch (statusKey) {
-
     case "dashboard.statusNormal":
       return {
         color: "#22c55e",
@@ -29,7 +27,5 @@ export function getEnvironmentStatus(statusKey, t) {
         text: t("common.unknown"),
         bg: "#94a3b820"
       };
-
   }
-
 }

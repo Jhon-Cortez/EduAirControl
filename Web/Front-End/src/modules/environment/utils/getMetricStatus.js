@@ -1,9 +1,6 @@
 export default function getMetricStatus(type, value, t) {
-
     switch (type) {
-
         case "temp":
-
             return value >= 20 && value <= 26
                 ? {
                       text: t("allEnvironments.statusIdeal"),
@@ -15,7 +12,6 @@ export default function getMetricStatus(type, value, t) {
                   };
 
         case "humidity":
-
             return value >= 40 && value <= 60
                 ? {
                       text: t("allEnvironments.statusIdeal"),
@@ -27,7 +23,6 @@ export default function getMetricStatus(type, value, t) {
                   };
 
         case "co2":
-
             if (value <= 800)
                 return {
                     text: t("allEnvironments.co2Good"),
@@ -46,7 +41,6 @@ export default function getMetricStatus(type, value, t) {
             };
 
         case "noise":
-
             if (value <= 50)
                 return {
                     text: t("allEnvironments.noiseLow"),
@@ -65,11 +59,9 @@ export default function getMetricStatus(type, value, t) {
             };
 
         default:
-
             return {
                 text: "",
                 color: "#999",
             };
     }
-
 }

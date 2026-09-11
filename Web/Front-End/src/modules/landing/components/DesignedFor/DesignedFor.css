@@ -388,9 +388,7 @@ body:not(.dark-mode) .user-card {
     .user-card p{
 
         font-size:.88rem;
-
         line-height:1.6;
 
     }
-
 }

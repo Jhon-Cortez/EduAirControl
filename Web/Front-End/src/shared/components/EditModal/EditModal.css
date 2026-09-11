@@ -32,7 +32,9 @@
   padding: 0;
 }
 
-.modal-close:hover { color: var(--text-primary, #333); }
+.modal-close:hover {
+  color: var(--text-primary, #333);
+}
 
 .modal-content h2 {
   margin-bottom: 6px;
@@ -93,8 +95,12 @@
   color: var(--text-muted, #999);
 }
 
-.format-chip--active .chip-label { color: var(--accent, var(--accent)); }
-.format-chip--active .chip-example { color: var(--text-secondary, #666); }
+.format-chip--active .chip-label {
+  color: var(--accent, var(--accent));
+}
+.format-chip--active .chip-example {
+  color: var(--text-secondary, #666);
+}
 
 /* ── Live preview ── */
 .format-preview {
@@ -179,4 +185,6 @@
   transition: background 0.2s;
 }
 
-.btn-save:hover { background: var(--accent-hover, #4dd4b6); }
+.btn-save:hover {
+  background: var(--accent-hover, #4dd4b6);
+}

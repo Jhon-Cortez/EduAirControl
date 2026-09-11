@@ -20,20 +20,19 @@
    12. Utilidades de espaciado
    ============================================================ */
 
-
 /* ============================================================
    2. CARDS REUTILIZABLES
    ============================================================ */
 
 /* Card base — glass limpio */
 .ds-card {
-  background:              var(--lb-glass-bg);
+  background: var(--lb-glass-bg);
   -webkit-backdrop-filter: var(--lb-glass-blur);
-  backdrop-filter:         var(--lb-glass-blur);
-  border:                  1px solid var(--lb-glass-border);
-  border-radius:           20px;
-  box-shadow:              var(--lb-glass-shadow);
-  padding:                 24px;
+  backdrop-filter: var(--lb-glass-blur);
+  border: 1px solid var(--lb-glass-border);
+  border-radius: 20px;
+  box-shadow: var(--lb-glass-shadow);
+  padding: 24px;
   transition:
     transform 0.25s ease,
     box-shadow 0.25s ease,
@@ -43,9 +42,9 @@
 
 /* Card con hover elevado */
 .ds-card--hoverable:hover {
-  transform:    translateY(-4px);
+  transform: translateY(-4px);
   border-color: var(--lb-glass-border-hover);
-  box-shadow:   0 16px 48px rgba(0, 0, 0, 0.22);
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.22);
 }
 
 body.dark-mode .ds-card--hoverable:hover {
@@ -54,58 +53,60 @@ body.dark-mode .ds-card--hoverable:hover {
 
 /* Card compacta */
 .ds-card--sm {
-  padding:       16px 20px;
+  padding: 16px 20px;
   border-radius: 16px;
 }
 
 /* Card grande */
 .ds-card--lg {
-  padding:       32px 36px;
+  padding: 32px 36px;
   border-radius: 24px;
 }
 
 /* Card de seccion (settings, profile) */
 .ds-card--section {
-  background:              var(--lb-glass-bg);
+  background: var(--lb-glass-bg);
   -webkit-backdrop-filter: var(--lb-glass-blur);
-  backdrop-filter:         var(--lb-glass-blur);
-  border:                  1px solid var(--lb-glass-border);
-  border-radius:           20px;
-  box-shadow:              var(--lb-glass-shadow);
-  padding:                 28px 32px;
-  margin-bottom:           24px;
+  backdrop-filter: var(--lb-glass-blur);
+  border: 1px solid var(--lb-glass-border);
+  border-radius: 20px;
+  box-shadow: var(--lb-glass-shadow);
+  padding: 28px 32px;
+  margin-bottom: 24px;
 }
 
 /* Card de hero / header de pantalla */
 .ds-card--hero {
-  background:              var(--lb-glass-bg);
+  background: var(--lb-glass-bg);
   -webkit-backdrop-filter: var(--lb-glass-blur);
-  backdrop-filter:         var(--lb-glass-blur);
-  border:                  1px solid var(--lb-glass-border);
-  border-radius:           20px;
-  box-shadow:              var(--lb-glass-shadow);
-  padding:                 20px 28px;
-  text-align:              center;
+  backdrop-filter: var(--lb-glass-blur);
+  border: 1px solid var(--lb-glass-border);
+  border-radius: 20px;
+  box-shadow: var(--lb-glass-shadow);
+  padding: 20px 28px;
+  text-align: center;
 }
 
 /* Card de metrica / stat */
 .ds-card--stat {
-  background:              var(--lb-glass-bg);
+  background: var(--lb-glass-bg);
   -webkit-backdrop-filter: var(--lb-glass-blur);
-  backdrop-filter:         var(--lb-glass-blur);
-  border:                  1px solid var(--lb-glass-border);
-  border-radius:           16px;
-  box-shadow:              var(--lb-glass-shadow);
-  padding:                 18px 16px;
-  display:                 flex;
-  flex-direction:          column;
-  align-items:             center;
-  gap:                     6px;
-  transition:              transform 0.2s ease, box-shadow 0.2s ease;
+  backdrop-filter: var(--lb-glass-blur);
+  border: 1px solid var(--lb-glass-border);
+  border-radius: 16px;
+  box-shadow: var(--lb-glass-shadow);
+  padding: 18px 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
 .ds-card--stat:hover {
-  transform:  translateY(-3px);
+  transform: translateY(-3px);
   box-shadow: 0 10px 28px rgba(0, 0, 0, 0.15);
 }
 
@@ -113,51 +114,50 @@ body.dark-mode .ds-card--stat:hover {
   box-shadow: 0 10px 28px rgba(0, 0, 0, 0.45);
 }
 
-
 /* ============================================================
    3. OVERLAYS Y BACKDROPS
    ============================================================ */
 
 /* Overlay oscuro para modales */
 .ds-overlay {
-  position:        fixed;
-  inset:           0;
-  background:      rgba(0, 0, 0, 0.55);
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
   -webkit-backdrop-filter: blur(4px);
   backdrop-filter: blur(4px);
-  display:         flex;
-  align-items:     center;
+  display: flex;
+  align-items: center;
   justify-content: center;
-  z-index:         1000;
-  padding:         20px;
-  box-sizing:      border-box;
-  animation:       ds-fade-in 0.2s ease;
+  z-index: 1000;
+  padding: 20px;
+  box-sizing: border-box;
+  animation: ds-fade-in 0.2s ease;
 }
 
 /* Overlay para paneles laterales */
 .ds-overlay--side {
-  position:        fixed;
-  inset:           0;
-  background:      rgba(0, 0, 0, 0.45);
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
   -webkit-backdrop-filter: blur(3px);
   backdrop-filter: blur(3px);
-  z-index:         999;
-  animation:       ds-fade-in 0.2s ease;
+  z-index: 999;
+  animation: ds-fade-in 0.2s ease;
 }
 
 /* Modal centrado */
 .ds-modal {
-  background:              var(--lb-glass-bg);
+  background: var(--lb-glass-bg);
   -webkit-backdrop-filter: var(--lb-glass-blur);
-  backdrop-filter:         var(--lb-glass-blur);
-  border:                  1px solid var(--lb-glass-border);
-  border-radius:           24px;
-  box-shadow:              0 20px 60px rgba(0, 0, 0, 0.35);
-  padding:                 32px 28px;
-  width:                   100%;
-  max-width:               440px;
-  position:                relative;
-  animation:               ds-scale-in 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+  backdrop-filter: var(--lb-glass-blur);
+  border: 1px solid var(--lb-glass-border);
+  border-radius: 24px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+  padding: 32px 28px;
+  width: 100%;
+  max-width: 440px;
+  position: relative;
+  animation: ds-scale-in 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 body.dark-mode .ds-modal {
@@ -167,7 +167,7 @@ body.dark-mode .ds-modal {
 /* Modal pequeno */
 .ds-modal--sm {
   max-width: 360px;
-  padding:   24px 22px;
+  padding: 24px 22px;
 }
 
 /* Modal grande */
@@ -177,25 +177,26 @@ body.dark-mode .ds-modal {
 
 /* Boton cerrar modal */
 .ds-modal__close {
-  position:      absolute;
-  top:           16px;
-  right:         16px;
-  background:    none;
-  border:        none;
-  font-size:     calc(var(--a11y-font-size) * 1.25);
-  color:         var(--text-muted);
-  cursor:        pointer;
-  padding:       4px;
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: none;
+  border: none;
+  font-size: calc(var(--a11y-font-size) * 1.25);
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 4px;
   border-radius: 8px;
-  transition:    color 0.2s, background 0.2s;
-  line-height:   1;
+  transition:
+    color 0.2s,
+    background 0.2s;
+  line-height: 1;
 }
 
 .ds-modal__close:hover {
-  color:      var(--text-primary);
+  color: var(--text-primary);
   background: var(--lb-surface);
 }
-
 
 /* ============================================================
    4. PANELES LATERALES
@@ -203,21 +204,21 @@ body.dark-mode .ds-modal {
 
 /* Panel lateral derecho (notificaciones, filtros) */
 .ds-panel {
-  position:        fixed;
-  top:             0;
-  right:           0;
-  width:           360px;
-  max-width:       100vw;
-  height:          100%;
-  background:      var(--lb-glass-bg);
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 360px;
+  max-width: 100vw;
+  height: 100%;
+  background: var(--lb-glass-bg);
   -webkit-backdrop-filter: var(--lb-glass-blur);
   backdrop-filter: var(--lb-glass-blur);
-  border-left:     1px solid var(--lb-glass-border);
-  box-shadow:      -8px 0 40px rgba(0, 0, 0, 0.25);
-  z-index:         1000;
-  display:         flex;
-  flex-direction:  column;
-  animation:       ds-slide-from-right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border-left: 1px solid var(--lb-glass-border);
+  box-shadow: -8px 0 40px rgba(0, 0, 0, 0.25);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  animation: ds-slide-from-right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 body.dark-mode .ds-panel {
@@ -225,37 +226,40 @@ body.dark-mode .ds-panel {
 }
 
 .ds-panel__header {
-  display:         flex;
-  align-items:     center;
+  display: flex;
+  align-items: center;
   justify-content: space-between;
-  padding:         20px 20px 16px;
-  border-bottom:   1px solid var(--lb-glass-border);
-  flex-shrink:     0;
+  padding: 20px 20px 16px;
+  border-bottom: 1px solid var(--lb-glass-border);
+  flex-shrink: 0;
 }
 
 .ds-panel__title {
-  font-size:   calc(var(--a11y-font-size) * 1);
+  font-size: calc(var(--a11y-font-size) * 1);
   font-weight: 700;
-  color:       var(--text-primary);
-  margin:      0;
+  color: var(--text-primary);
+  margin: 0;
 }
 
 .ds-panel__body {
-  flex:           1;
-  overflow-y:     auto;
-  padding:        16px;
-  display:        flex;
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px;
+  display: flex;
   flex-direction: column;
-  gap:            10px;
+  gap: 10px;
 }
 
-.ds-panel__body::-webkit-scrollbar { width: 4px; }
-.ds-panel__body::-webkit-scrollbar-track { background: transparent; }
+.ds-panel__body::-webkit-scrollbar {
+  width: 4px;
+}
+.ds-panel__body::-webkit-scrollbar-track {
+  background: transparent;
+}
 .ds-panel__body::-webkit-scrollbar-thumb {
-  background:    var(--lb-glass-border);
+  background: var(--lb-glass-border);
   border-radius: 2px;
 }
-
 
 /* ============================================================
    5. PAGE WRAPPERS
@@ -263,38 +267,42 @@ body.dark-mode .ds-panel {
 
 /* Wrapper de pagina app (con navbar fija de 78px) */
 .ds-page {
-  min-height:  100vh;
+  min-height: 100vh;
   padding-top: 78px;
-  background:  transparent;
-  box-sizing:  border-box;
+  background: transparent;
+  box-sizing: border-box;
 }
 
 /* Contenedor centrado de contenido */
 .ds-container {
-  max-width:  900px;
-  margin:     0 auto;
-  padding:    32px 24px 60px;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 32px 24px 60px;
   box-sizing: border-box;
-  width:      100%;
+  width: 100%;
 }
 
-.ds-container--wide   { max-width: 1100px; }
-.ds-container--narrow { max-width: 680px; }
+.ds-container--wide {
+  max-width: 1100px;
+}
+.ds-container--narrow {
+  max-width: 680px;
+}
 
 /* Fondo de pagina con gradiente ambiental */
 .ds-page-bg {
-  position:       fixed;
-  inset:          0;
-  z-index:        -1;
+  position: fixed;
+  inset: 0;
+  z-index: -1;
   pointer-events: none;
   background:
-    radial-gradient(ellipse at 15% 20%, rgb(var(--accent-rgb) /  0.06) 0%, transparent 50%),
+    radial-gradient(ellipse at 15% 20%, rgb(var(--accent-rgb) / 0.06) 0%, transparent 50%),
     radial-gradient(ellipse at 85% 80%, rgba(0, 120, 255, 0.05) 0%, transparent 50%);
 }
 
 body.dark-mode .ds-page-bg {
   background:
-    radial-gradient(ellipse at 15% 20%, rgb(var(--accent-rgb) /  0.08) 0%, transparent 50%),
+    radial-gradient(ellipse at 15% 20%, rgb(var(--accent-rgb) / 0.08) 0%, transparent 50%),
     radial-gradient(ellipse at 85% 80%, rgba(0, 120, 255, 0.07) 0%, transparent 50%);
 }
 
@@ -316,353 +324,496 @@ body.theme-tritanopia .ds-page-bg {
     radial-gradient(ellipse at 85% 80%, rgba(160, 60, 0, 0.05) 0%, transparent 50%);
 }
 
-
 /* ============================================================
    6. SECCIONES Y TITULOS
    ============================================================ */
 
 /* Titulo de seccion con linea accent */
 .ds-section-title {
-  font-size:   18px;
+  font-size: 18px;
   font-weight: 700;
-  color:       var(--text-primary);
-  margin:      0 0 16px;
-  display:     flex;
+  color: var(--text-primary);
+  margin: 0 0 16px;
+  display: flex;
   align-items: center;
-  gap:         10px;
+  gap: 10px;
 }
 
 .ds-section-title::before {
-  content:       '';
-  display:       block;
-  width:         4px;
-  height:        20px;
-  background:    var(--accent);
+  content: '';
+  display: block;
+  width: 4px;
+  height: 20px;
+  background: var(--accent);
   border-radius: 2px;
-  flex-shrink:   0;
+  flex-shrink: 0;
 }
 
 /* Subtitulo / descripcion de seccion */
 .ds-section-desc {
-  font-size:   13px;
-  color:       var(--text-muted);
-  margin:      -8px 0 20px;
+  font-size: 13px;
+  color: var(--text-muted);
+  margin: -8px 0 20px;
   line-height: 1.6;
 }
 
 /* Separador de seccion */
 .ds-divider {
-  height:     1px;
+  height: 1px;
   background: var(--lb-glass-border);
-  margin:     20px 0;
-  border:     none;
+  margin: 20px 0;
+  border: none;
 }
 
 /* Header de pantalla (hero banner) */
 .ds-page-header {
-  background:              var(--lb-glass-bg);
+  background: var(--lb-glass-bg);
   -webkit-backdrop-filter: var(--lb-glass-blur);
-  backdrop-filter:         var(--lb-glass-blur);
-  border:                  1px solid var(--lb-glass-border);
-  border-radius:           20px;
-  box-shadow:              var(--lb-glass-shadow);
-  padding:                 20px 28px;
-  margin-bottom:           24px;
-  display:                 flex;
-  align-items:             center;
-  gap:                     14px;
+  backdrop-filter: var(--lb-glass-blur);
+  border: 1px solid var(--lb-glass-border);
+  border-radius: 20px;
+  box-shadow: var(--lb-glass-shadow);
+  padding: 20px 28px;
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
 }
 
 .ds-page-header__icon {
-  font-size:   28px;
-  color:       var(--accent);
+  font-size: 28px;
+  color: var(--accent);
   flex-shrink: 0;
 }
 
 .ds-page-header__title {
-  font-size:   24px;
+  font-size: 24px;
   font-weight: 800;
-  color:       var(--text-primary);
-  margin:      0;
+  color: var(--text-primary);
+  margin: 0;
   line-height: 1.2;
 }
 
 .ds-page-header__sub {
   font-size: 13px;
-  color:     var(--text-muted);
-  margin:    4px 0 0;
+  color: var(--text-muted);
+  margin: 4px 0 0;
 }
-
 
 /* ============================================================
    7. BADGES Y PILLS DE ESTADO
    ============================================================ */
 
 .ds-badge {
-  display:       inline-flex;
-  align-items:   center;
-  gap:           5px;
-  padding:       4px 10px;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px;
   border-radius: 999px;
-  font-size:     12px;
-  font-weight:   700;
-  border:        1px solid transparent;
-  white-space:   nowrap;
+  font-size: 12px;
+  font-weight: 700;
+  border: 1px solid transparent;
+  white-space: nowrap;
 }
 
-.ds-badge--normal  { background: rgba(76, 175, 80, 0.12);  color: #4CAF50; border-color: rgba(76, 175, 80, 0.25); }
-.ds-badge--warning { background: rgba(255, 193, 7, 0.12);  color: #FFC107; border-color: rgba(255, 193, 7, 0.25); }
-.ds-badge--alert   { background: rgba(244, 67, 54, 0.12);  color: #F44336; border-color: rgba(244, 67, 54, 0.25); }
-.ds-badge--accent  { background: var(--lb-surface);        color: var(--accent); border-color: var(--lb-glass-border); }
+.ds-badge--normal {
+  background: rgba(76, 175, 80, 0.12);
+  color: #4caf50;
+  border-color: rgba(76, 175, 80, 0.25);
+}
+.ds-badge--warning {
+  background: rgba(255, 193, 7, 0.12);
+  color: #ffc107;
+  border-color: rgba(255, 193, 7, 0.25);
+}
+.ds-badge--alert {
+  background: rgba(244, 67, 54, 0.12);
+  color: #f44336;
+  border-color: rgba(244, 67, 54, 0.25);
+}
+.ds-badge--accent {
+  background: var(--lb-surface);
+  color: var(--accent);
+  border-color: var(--lb-glass-border);
+}
 
-.ds-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; flex-shrink: 0; }
-.ds-dot--normal  { background: #4CAF50; }
-.ds-dot--warning { background: #FFC107; }
-.ds-dot--alert   { background: #F44336; }
-.ds-dot--accent  { background: var(--accent); }
-
+.ds-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  display: inline-block;
+  flex-shrink: 0;
+}
+.ds-dot--normal {
+  background: #4caf50;
+}
+.ds-dot--warning {
+  background: #ffc107;
+}
+.ds-dot--alert {
+  background: #f44336;
+}
+.ds-dot--accent {
+  background: var(--accent);
+}
 
 /* ============================================================
    8. BOTONES DE ACCION GLOBALES
    ============================================================ */
 
 .ds-btn {
-  display:         inline-flex;
-  align-items:     center;
+  display: inline-flex;
+  align-items: center;
   justify-content: center;
-  gap:             8px;
-  padding:         11px 22px;
-  border-radius:   12px;
-  border:          none;
-  font-size:       14px;
-  font-weight:     600;
-  cursor:          pointer;
-  transition:      all 0.2s ease;
-  white-space:     nowrap;
+  gap: 8px;
+  padding: 11px 22px;
+  border-radius: 12px;
+  border: none;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
 }
 
 .ds-btn--primary {
   background: var(--accent);
-  color:      #fff;
+  color: #fff;
 }
 
 .ds-btn--primary:hover {
   background: var(--accent-hover);
-  transform:  translateY(-2px);
-  box-shadow: 0 6px 20px rgb(var(--accent-rgb) /  0.35);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgb(var(--accent-rgb) / 0.35);
 }
 
 body.dark-mode .ds-btn--primary:hover {
-  box-shadow: 0 6px 20px rgb(var(--accent-rgb) /  0.25);
+  box-shadow: 0 6px 20px rgb(var(--accent-rgb) / 0.25);
 }
 
 .ds-btn--ghost {
   background: transparent;
-  color:      var(--accent);
-  border:     1.5px solid var(--accent);
+  color: var(--accent);
+  border: 1.5px solid var(--accent);
 }
 
 .ds-btn--ghost:hover {
   background: var(--accent);
-  color:      #fff;
-  transform:  translateY(-2px);
+  color: #fff;
+  transform: translateY(-2px);
 }
 
 .ds-btn--danger {
   background: rgba(244, 67, 54, 0.1);
-  color:      #F44336;
-  border:     1.5px solid rgba(244, 67, 54, 0.3);
+  color: #f44336;
+  border: 1.5px solid rgba(244, 67, 54, 0.3);
 }
 
 .ds-btn--danger:hover {
-  background: #F44336;
-  color:      #fff;
-  transform:  translateY(-2px);
+  background: #f44336;
+  color: #fff;
+  transform: translateY(-2px);
 }
 
-.ds-btn--sm { padding: 7px 14px;  font-size: calc(var(--a11y-font-size) * 0.8125); border-radius: 9px; }
-.ds-btn--lg { padding: 14px 28px; font-size: calc(var(--a11y-font-size) * 1); border-radius: 14px; }
+.ds-btn--sm {
+  padding: 7px 14px;
+  font-size: calc(var(--a11y-font-size) * 0.8125);
+  border-radius: 9px;
+}
+.ds-btn--lg {
+  padding: 14px 28px;
+  font-size: calc(var(--a11y-font-size) * 1);
+  border-radius: 14px;
+}
 
 .ds-btn-icon {
-  display:         flex;
-  align-items:     center;
+  display: flex;
+  align-items: center;
   justify-content: center;
-  width:           38px;
-  height:          38px;
-  border-radius:   10px;
-  border:          none;
-  background:      var(--lb-surface);
-  color:           var(--accent);
-  font-size:       18px;
-  cursor:          pointer;
-  transition:      all 0.2s ease;
-  flex-shrink:     0;
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  border: none;
+  background: var(--lb-surface);
+  color: var(--accent);
+  font-size: 18px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
 }
 
 .ds-btn-icon:hover {
   background: var(--accent);
-  color:      #fff;
-  transform:  scale(1.08);
+  color: #fff;
+  transform: scale(1.08);
 }
-
 
 /* ============================================================
    9. INPUTS GLOBALES MEJORADOS
    ============================================================ */
 
 .ds-input {
-  width:           100%;
-  padding:         12px 16px;
-  background:      var(--lb-glass-bg);
+  width: 100%;
+  padding: 12px 16px;
+  background: var(--lb-glass-bg);
   -webkit-backdrop-filter: var(--lb-glass-blur);
   backdrop-filter: var(--lb-glass-blur);
-  border:          1.5px solid var(--lb-glass-border);
-  border-radius:   12px;
-  color:           var(--text-primary);
-  font-size:       14px;
-  box-sizing:      border-box;
-  transition:      border-color 0.2s, box-shadow 0.2s;
-  outline:         none;
+  border: 1.5px solid var(--lb-glass-border);
+  border-radius: 12px;
+  color: var(--text-primary);
+  font-size: 14px;
+  box-sizing: border-box;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
+  outline: none;
 }
 
-.ds-input::placeholder { color: var(--text-muted); }
+.ds-input::placeholder {
+  color: var(--text-muted);
+}
 
 .ds-input:focus {
   border-color: var(--accent);
-  box-shadow:   0 0 0 3px var(--lb-surface);
+  box-shadow: 0 0 0 3px var(--lb-surface);
 }
 
-.ds-input--error { border-color: #F44336; }
-.ds-input--error:focus { box-shadow: 0 0 0 3px rgba(244, 67, 54, 0.12); }
+.ds-input--error {
+  border-color: #f44336;
+}
+.ds-input--error:focus {
+  box-shadow: 0 0 0 3px rgba(244, 67, 54, 0.12);
+}
 
-.ds-field { position: relative; margin-bottom: 16px; }
+.ds-field {
+  position: relative;
+  margin-bottom: 16px;
+}
 
 .ds-field__label {
-  display:        block;
-  font-size:      12px;
-  font-weight:    600;
-  color:          var(--text-muted);
-  margin-bottom:  6px;
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-bottom: 6px;
   text-transform: uppercase;
   letter-spacing: 0.04em;
 }
 
 .ds-field__error {
-  font-size:   12px;
-  color:       #F44336;
-  margin-top:  5px;
-  display:     flex;
+  font-size: 12px;
+  color: #f44336;
+  margin-top: 5px;
+  display: flex;
   align-items: center;
-  gap:         4px;
+  gap: 4px;
 }
-
 
 /* ============================================================
    10. ANIMACIONES DE ENTRADA
    ============================================================ */
 
 @keyframes ds-fade-in {
-  from { opacity: 0; }
-  to   { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes ds-scale-in {
-  from { opacity: 0; transform: scale(0.94); }
-  to   { opacity: 1; transform: scale(1); }
+  from {
+    opacity: 0;
+    transform: scale(0.94);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
 @keyframes ds-slide-from-right {
-  from { transform: translateX(100%); opacity: 0; }
-  to   { transform: translateX(0);    opacity: 1; }
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
 }
 
 @keyframes ds-slide-from-bottom {
-  from { transform: translateY(20px); opacity: 0; }
-  to   { transform: translateY(0);    opacity: 1; }
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
 
 @keyframes ds-rise {
-  from { opacity: 0; transform: translateY(24px); }
-  to   { opacity: 1; transform: translateY(0);    }
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-.ds-anim-fade   { animation: ds-fade-in  0.3s ease both; }
-.ds-anim-scale  { animation: ds-scale-in 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) both; }
-.ds-anim-rise   { animation: ds-rise 0.4s ease both; }
-.ds-anim-rise-1 { animation: ds-rise 0.4s 0.05s ease both; }
-.ds-anim-rise-2 { animation: ds-rise 0.4s 0.10s ease both; }
-.ds-anim-rise-3 { animation: ds-rise 0.4s 0.15s ease both; }
-.ds-anim-rise-4 { animation: ds-rise 0.4s 0.20s ease both; }
-
+.ds-anim-fade {
+  animation: ds-fade-in 0.3s ease both;
+}
+.ds-anim-scale {
+  animation: ds-scale-in 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+.ds-anim-rise {
+  animation: ds-rise 0.4s ease both;
+}
+.ds-anim-rise-1 {
+  animation: ds-rise 0.4s 0.05s ease both;
+}
+.ds-anim-rise-2 {
+  animation: ds-rise 0.4s 0.1s ease both;
+}
+.ds-anim-rise-3 {
+  animation: ds-rise 0.4s 0.15s ease both;
+}
+.ds-anim-rise-4 {
+  animation: ds-rise 0.4s 0.2s ease both;
+}
 
 /* ============================================================
    11. SCROLLBAR PERSONALIZADO (webkit)
    ============================================================ */
 
-::-webkit-scrollbar { width: 8px; height: 8px; }
-::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
 ::-webkit-scrollbar-thumb {
-  background:    var(--lb-glass-border);
+  background: var(--lb-glass-border);
   border-radius: 4px;
 }
-::-webkit-scrollbar-thumb:hover { background: var(--accent); }
-
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent);
+}
 
 /* ============================================================
    12. UTILIDADES DE ESPACIADO Y LAYOUT
    ============================================================ */
 
-.ds-grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
-.ds-grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
-.ds-grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+.ds-grid-2 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+.ds-grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+.ds-grid-4 {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
 
 @media (max-width: 768px) {
   .ds-grid-2,
   .ds-grid-3,
-  .ds-grid-4 { grid-template-columns: 1fr; }
+  .ds-grid-4 {
+    grid-template-columns: 1fr;
+  }
 
-  .ds-container { padding: 20px 16px 48px; }
+  .ds-container {
+    padding: 20px 16px 48px;
+  }
 
   .ds-page-header {
-    padding:       16px 20px;
+    padding: 16px 20px;
     border-radius: 16px;
   }
 
-  .ds-page-header__title { font-size: calc(var(--a11y-font-size) * 1.25); }
+  .ds-page-header__title {
+    font-size: calc(var(--a11y-font-size) * 1.25);
+  }
 
   .ds-modal {
     border-radius: 20px;
-    padding:       24px 20px;
+    padding: 24px 20px;
   }
 
-  .ds-panel { width: 100%; }
+  .ds-panel {
+    width: 100%;
+  }
 }
 
 @media (max-width: 480px) {
-  .ds-grid-2  { grid-template-columns: 1fr; }
-  .ds-container { padding: 16px 12px 40px; }
+  .ds-grid-2 {
+    grid-template-columns: 1fr;
+  }
+  .ds-container {
+    padding: 16px 12px 40px;
+  }
 }
 
 /* Flex helpers */
-.ds-flex         { display: flex; }
-.ds-flex-center  { display: flex; align-items: center; justify-content: center; }
-.ds-flex-between { display: flex; align-items: center; justify-content: space-between; }
-.ds-flex-gap-sm  { gap: 8px; }
-.ds-flex-gap-md  { gap: 16px; }
-.ds-flex-gap-lg  { gap: 24px; }
+.ds-flex {
+  display: flex;
+}
+.ds-flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.ds-flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.ds-flex-gap-sm {
+  gap: 8px;
+}
+.ds-flex-gap-md {
+  gap: 16px;
+}
+.ds-flex-gap-lg {
+  gap: 24px;
+}
 
 /* Texto */
-.ds-text-accent   { color: var(--accent); }
-.ds-text-muted    { color: var(--text-muted); }
-.ds-text-primary  { color: var(--text-primary); }
-.ds-text-danger   { color: #F44336; }
-.ds-text-warning  { color: #FFC107; }
-.ds-text-success  { color: #4CAF50; }
+.ds-text-accent {
+  color: var(--accent);
+}
+.ds-text-muted {
+  color: var(--text-muted);
+}
+.ds-text-primary {
+  color: var(--text-primary);
+}
+.ds-text-danger {
+  color: #f44336;
+}
+.ds-text-warning {
+  color: #ffc107;
+}
+.ds-text-success {
+  color: #4caf50;
+}
 
 /* Truncar texto */
 .ds-truncate {
-  white-space:   nowrap;
-  overflow:      hidden;
+  white-space: nowrap;
+  overflow: hidden;
   text-overflow: ellipsis;
 }
 /* ============================================================
@@ -670,23 +821,32 @@ body.dark-mode .ds-btn--primary:hover {
    ============================================================ */
 
 /* Forzar el uso de variables lb-glass en todos los componentes ds-card */
-.ds-card, .ds-card--section, .ds-card--hero, .ds-card--stat, .ds-modal, .ds-panel {
+.ds-card,
+.ds-card--section,
+.ds-card--hero,
+.ds-card--stat,
+.ds-modal,
+.ds-panel {
   background: var(--lb-glass-bg) !important;
   border-color: var(--lb-glass-border) !important;
   color: var(--text-primary) !important;
 }
 
-.ds-card:hover, .ds-card--hoverable:hover, .ds-card--stat:hover {
+.ds-card:hover,
+.ds-card--hoverable:hover,
+.ds-card--stat:hover {
   background: var(--lb-glass-bg-hover) !important;
   border-color: var(--lb-glass-border-hover) !important;
 }
 
 /* Asegurar que los textos muted tengan contraste en modo claro */
-.ds-text-muted, .ds-field__label, .ds-page-header__subtitle {
+.ds-text-muted,
+.ds-field__label,
+.ds-page-header__subtitle {
   color: var(--text-muted) !important;
 }
 
-body:not(.dark-mode) .ds-text-muted, 
+body:not(.dark-mode) .ds-text-muted,
 body:not(.dark-mode) .ds-field__label {
   color: #555555 !important; /* Gris oscuro para modo claro */
 }

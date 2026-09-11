@@ -1,23 +1,32 @@
-import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { useTranslation } from 'react-i18next'
-import { FaArrowLeft } from 'react-icons/fa'
-import LoginForm from '../loginForm/LoginForm'
-import SignUpForm from '../signUpForm/SignUpForm'
-import SocialLogin from '../SocialLogin/SocialLogin'
-import { Divider } from '../../../../shared/components'
-import './AuthSlider.css'
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+import { FaArrowLeft } from 'react-icons/fa';
+import LoginForm from '../loginForm/LoginForm';
+import SignUpForm from '../signUpForm/SignUpForm';
+import SocialLogin from '../SocialLogin/SocialLogin';
+import { Divider } from '../../../../shared/components';
+import './AuthSlider.css';
 
 function AuthSlider({ initialRegister = false }) {
-  const navigate = useNavigate()
-  const { t } = useTranslation()
-  const [isRegister, setIsRegister] = useState(initialRegister)
+  const navigate = useNavigate();
+  const { t } = useTranslation();
+  const [isRegister, setIsRegister] = useState(initialRegister);
 
   return (
     <div className={`auth-slider ${isRegister ? 'right-panel-active' : ''}`}>
       <div className="auth-slider-forms">
-        <section className="auth-slider-form auth-slider-login" aria-hidden={isRegister} inert={isRegister}>
-          <button className="auth-slider-back" type="button" onClick={() => navigate('/landing')} aria-label={t('common.back', 'Volver')}>
+        <section
+          className="auth-slider-form auth-slider-login"
+          aria-hidden={isRegister}
+          inert={isRegister}
+        >
+          <button
+            className="auth-slider-back"
+            type="button"
+            onClick={() => navigate('/landing')}
+            aria-label={t('common.back', 'Volver')}
+          >
             <FaArrowLeft />
           </button>
           <div className="auth-slider-heading">
@@ -29,8 +38,11 @@ function AuthSlider({ initialRegister = false }) {
           <SocialLogin />
         </section>
 
-        <section className="auth-slider-form auth-slider-register" aria-hidden={!isRegister} inert={!isRegister}>
-    
+        <section
+          className="auth-slider-form auth-slider-register"
+          aria-hidden={!isRegister}
+          inert={!isRegister}
+        >
           <div className="auth-slider-heading">
             <h1>{t('signup.title')}</h1>
             <p>{t('signup.subtitle', 'Únete a la red de monitoreo inteligente')}</p>
@@ -43,14 +55,18 @@ function AuthSlider({ initialRegister = false }) {
         <div className="auth-slider-overlay-bg" aria-hidden="true" />
         <div className="auth-slider-overlay-panel auth-slider-overlay-login">
           <h2>{t('signup.sliderWelcome', 'Únete a EduAirControl')}</h2>
-          <p>{t('signup.sliderPrompt', 'Crea tu cuenta para comenzar a monitorear tus espacios.')}</p>
+          <p>
+            {t('signup.sliderPrompt', 'Crea tu cuenta para comenzar a monitorear tus espacios.')}
+          </p>
           <button type="button" className="auth-slider-button" onClick={() => setIsRegister(true)}>
             {t('login.signUpBtn')}
           </button>
         </div>
         <div className="auth-slider-overlay-panel auth-slider-overlay-register">
           <h2>{t('login.sliderWelcome', 'Qué bueno verte de nuevo')}</h2>
-          <p>{t('login.sliderPrompt', 'Inicia sesión para continuar con tu monitoreo ambiental.')}</p>
+          <p>
+            {t('login.sliderPrompt', 'Inicia sesión para continuar con tu monitoreo ambiental.')}
+          </p>
           <button type="button" className="auth-slider-button" onClick={() => setIsRegister(false)}>
             {t('login.title')}
           </button>
@@ -63,7 +79,7 @@ function AuthSlider({ initialRegister = false }) {
         </button>
       </div>
     </div>
-  )
+  );
 }
 
-export default AuthSlider
+export default AuthSlider;

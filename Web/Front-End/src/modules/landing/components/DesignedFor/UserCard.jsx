@@ -3,7 +3,6 @@ import "./DesignedFor.css";
 function UserCard({ icon: Icon, title, description }) {
   return (
     <div className="user-card">
-
       <div className="user-icon">
         <Icon size={32}/>
       </div>
@@ -11,7 +10,6 @@ function UserCard({ icon: Icon, title, description }) {
       <h3>{title}</h3>
 
       <p>{description}</p>
-
     </div>
   );
 }

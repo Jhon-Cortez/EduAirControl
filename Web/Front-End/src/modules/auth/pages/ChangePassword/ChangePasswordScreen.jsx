@@ -1,14 +1,13 @@
-import { useNavigate } from 'react-router-dom'
-import { useTranslation } from 'react-i18next'
-import AuthLayout from "../../components/AuthLayout/AuthLayout";
-import ChangePasswordForm from '../../components/ChangePasswordForm/ChangePasswordForm'
-import { BackButton } from "../../../../shared/components";
-import "./ChangePassword.css";
-
+import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+import AuthLayout from '../../components/AuthLayout/AuthLayout';
+import ChangePasswordForm from '../../components/ChangePasswordForm/ChangePasswordForm';
+import { BackButton } from '../../../../shared/components';
+import './ChangePassword.css';
 
 function ChangePasswordScreen() {
-  const navigate = useNavigate()
-  const { t } = useTranslation()
+  const navigate = useNavigate();
+  const { t } = useTranslation();
 
   return (
     <AuthLayout>
@@ -20,7 +19,7 @@ function ChangePasswordScreen() {
         <ChangePasswordForm />
       </div>
     </AuthLayout>
-  )
+  );
 }
 
-export default ChangePasswordScreen
+export default ChangePasswordScreen;

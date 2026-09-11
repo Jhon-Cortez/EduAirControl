@@ -48,15 +48,12 @@
 .auth-overlay {
   position: absolute;
   inset: 0;
-  
+
   pointer-events: none;
 }
 
 body:not(.dark-mode) .auth-overlay {
-  background: linear-gradient(
-    rgba(232, 244, 240, 0.55),
-    rgba(220, 240, 235, 0.65)
-  );
+  background: linear-gradient(rgba(232, 244, 240, 0.55), rgba(220, 240, 235, 0.65));
 }
 
 /* ── Tarjeta ── */
@@ -92,18 +89,13 @@ body:not(.dark-mode) .auth-overlay {
 
 /* ── Efecto brillo ── */
 .auth-card::before {
-  content: "";
+  content: '';
   position: absolute;
   top: 0;
   left: -60%;
   width: 200%;
   height: 100%;
-  background: linear-gradient(
-    120deg,
-    transparent,
-    rgba(255, 255, 255, 0.06),
-    transparent
-  );
+  background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.06), transparent);
   transform: rotate(8deg);
   pointer-events: none;
 }
@@ -128,7 +120,9 @@ body:not(.dark-mode) .auth-overlay {
   border-radius: 12px;
   color: var(--text-primary);
   cursor: pointer;
-  transition: background 0.2s, border-color 0.2s;
+  transition:
+    background 0.2s,
+    border-color 0.2s;
 }
 
 .lang-btn-premium:hover {
@@ -152,8 +146,14 @@ body:not(.dark-mode) .auth-overlay {
 }
 
 @keyframes slideDown {
-  from { opacity: 0; transform: translateY(-10px); }
-  to   { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .lang-option-premium {
@@ -166,7 +166,9 @@ body:not(.dark-mode) .auth-overlay {
   border: none;
   color: var(--text-primary);
   cursor: pointer;
-  transition: background 0.2s, color 0.2s;
+  transition:
+    background 0.2s,
+    color 0.2s;
   text-align: left;
   font-size: 14px;
 }
@@ -240,4 +242,3 @@ body:not(.dark-mode) .auth-overlay {
     padding: 25px 18px;
   }
 }
-

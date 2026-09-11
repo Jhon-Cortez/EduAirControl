@@ -1,19 +1,19 @@
-import { useNavigate } from 'react-router-dom'
-import { useTranslation } from 'react-i18next'
-import { FaUser } from 'react-icons/fa'
-import AuthLayout from "../../components/AuthLayout/AuthLayout";
-import { BackButton } from "../../../../shared/components";
-import "./FacebookSignUp.css";
+import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+import { FaUser } from 'react-icons/fa';
+import AuthLayout from '../../components/AuthLayout/AuthLayout';
+import { BackButton } from '../../../../shared/components';
+import './FacebookSignUp.css';
 
 const MOCK_ACCOUNTS = [
   { name: 'Account 1', email: 'account1@facebook.com' },
   { name: 'Account 2', email: 'account2@facebook.com' },
   { name: 'Account 3', email: 'account3@facebook.com' },
-]
+];
 
 function FacebookSignUpScreen() {
-  const navigate = useNavigate()
-  const { t } = useTranslation()
+  const navigate = useNavigate();
+  const { t } = useTranslation();
 
   return (
     <AuthLayout>
@@ -41,11 +41,7 @@ function FacebookSignUpScreen() {
 
         <div className="facebook-account-list">
           {MOCK_ACCOUNTS.map((account, index) => (
-            <div
-              key={index}
-              className="facebook-account-item"
-              onClick={() => navigate('/')}
-            >
+            <div key={index} className="facebook-account-item" onClick={() => navigate('/')}>
               <div className="facebook-account-avatar">
                 <FaUser />
               </div>
@@ -57,16 +53,12 @@ function FacebookSignUpScreen() {
           ))}
         </div>
 
-        <a
-          href="#"
-          className="facebook-other-account"
-          onClick={(e) => e.preventDefault()}
-        >
+        <a href="#" className="facebook-other-account" onClick={(e) => e.preventDefault()}>
           {t('facebook.otherAccount')}
         </a>
       </div>
     </AuthLayout>
-  )
+  );
 }
 
-export default FacebookSignUpScreen
+export default FacebookSignUpScreen;

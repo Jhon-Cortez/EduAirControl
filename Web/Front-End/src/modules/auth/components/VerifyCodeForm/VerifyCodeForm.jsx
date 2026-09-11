@@ -1,25 +1,25 @@
-import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { useTranslation } from 'react-i18next'
-import { Button } from '../../../../shared/components'
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+import { Button } from '../../../../shared/components';
 
 function VerifyCodeForm() {
-  const [code, setCode] = useState(['', '', '', '', ''])
-  const navigate = useNavigate()
-  const { t } = useTranslation()
+  const [code, setCode] = useState(['', '', '', '', '']);
+  const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const handleChange = (index, value) => {
-    if (value.length > 1) return
-    const newCode = [...code]
-    newCode[index] = value
-    setCode(newCode)
-    if (value && index < 4) document.getElementById(`code-${index + 1}`).focus()
-  }
+    if (value.length > 1) return;
+    const newCode = [...code];
+    newCode[index] = value;
+    setCode(newCode);
+    if (value && index < 4) document.getElementById(`code-${index + 1}`).focus();
+  };
 
   const handleSubmit = (e) => {
-    e.preventDefault()
-    navigate('/change-password')
-  }
+    e.preventDefault();
+    navigate('/change-password');
+  };
 
   return (
     <form onSubmit={handleSubmit}>
@@ -41,7 +41,7 @@ function VerifyCodeForm() {
       </a>
       <Button text={t('verifyCode.verifyBtn')} className="btn-login" type="submit" />
     </form>
-  )
+  );
 }
 
-export default VerifyCodeForm
+export default VerifyCodeForm;

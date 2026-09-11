@@ -8,7 +8,6 @@
 
   background: transparent;
   background-image: url('/Web/Front-End/src/shared/assets/bg.png');
-   
 
   background-size: cover;
   background-position: center;
@@ -33,10 +32,7 @@
 
   margin: 0 auto;
 
-  padding:
-    30px
-    40px
-    60px;
+  padding: 30px 40px 60px;
 
   display: flex;
   flex-direction: column;
@@ -52,8 +48,7 @@
 .dashboard-layout {
   display: grid;
 
-  grid-template-columns:
-    repeat(auto-fit, minmax(260px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
 
   gap: 24px;
 
@@ -70,18 +65,15 @@
 .profile-card,
 .filter-card,
 .mgmt-card {
-  background:
-    rgba(10, 20, 45, 0.72) !important;
+  background: rgba(10, 20, 45, 0.72) !important;
 
   backdrop-filter: blur(14px);
 
-  border:
-    1px solid rgba(93, 230, 200, 0.10);
+  border: 1px solid rgba(93, 230, 200, 0.1);
 
   border-radius: 24px;
 
-  box-shadow:
-    0 10px 40px rgba(0,0,0,0.28);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.28);
 
   overflow: hidden;
 
@@ -96,14 +88,11 @@
 .profile-card:hover,
 .filter-card:hover,
 .mgmt-card:hover {
-
   transform: translateY(-4px);
 
-  border-color:
-    rgba(93, 230, 200, 0.22);
+  border-color: rgba(93, 230, 200, 0.22);
 
-  box-shadow:
-    0 16px 42px rgba(0,0,0,0.35);
+  box-shadow: 0 16px 42px rgba(0, 0, 0, 0.35);
 }
 
 /* =========================================
@@ -130,16 +119,13 @@
 ========================================= */
 
 .navbar {
-  background:
-    rgba(4, 10, 25, 0.82) !important;
+  background: rgba(4, 10, 25, 0.82) !important;
 
   backdrop-filter: blur(18px);
 
-  border-bottom:
-    1px solid rgba(93,230,200,0.18);
+  border-bottom: 1px solid rgba(93, 230, 200, 0.18);
 
-  box-shadow:
-    0 6px 24px rgba(0,0,0,0.25);
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.25);
 }
 
 /* =========================================

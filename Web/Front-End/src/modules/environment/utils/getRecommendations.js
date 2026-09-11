@@ -1,5 +1,4 @@
 export function getRecommendations(environment, t) {
-
     const recommendations = [];
 
     if (environment.temp > 27) {
@@ -23,5 +22,4 @@ export function getRecommendations(environment, t) {
     }
 
     return recommendations;
-
 }

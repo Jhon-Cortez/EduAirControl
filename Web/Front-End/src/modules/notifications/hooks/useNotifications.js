@@ -12,7 +12,6 @@ export const useNotifications = () => {
     let warnings = 0;
 
     environments.forEach((env) => {
-
       // CO₂
       if (env.co2 > 1000) {
         alerts++;

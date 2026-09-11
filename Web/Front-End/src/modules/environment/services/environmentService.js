@@ -1,29 +1,21 @@
-import environmentsData from "../data/environmentsData";
+import environmentsData from '../data/environmentsData';
 
 const environmentService = {
-
   getAll() {
     return [...environmentsData];
   },
 
   getById(id) {
-    return environmentsData.find(
-      environment => environment.id === id
-    );
+    return environmentsData.find((environment) => environment.id === id);
   },
 
   getFavorites() {
-    return environmentsData.filter(
-      environment => environment.isFavorite
-    );
+    return environmentsData.filter((environment) => environment.isFavorite);
   },
 
   getByStatus(statusKey) {
-    return environmentsData.filter(
-      environment => environment.statusKey === statusKey
-    );
-  }
-
+    return environmentsData.filter((environment) => environment.statusKey === statusKey);
+  },
 };
 
 export default environmentService;

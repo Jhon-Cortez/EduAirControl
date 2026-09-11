@@ -1,12 +1,7 @@
-﻿import { useTranslation } from "react-i18next";
-import "./EnvironmentFilters.css";
+﻿import { useTranslation } from 'react-i18next';
+import './EnvironmentFilters.css';
 
-function EnvironmentFilters({
-  filters,
-  setFilters,
-  suggestions,
-}) {
-
+function EnvironmentFilters({ filters, setFilters, suggestions }) {
   const { t } = useTranslation();
 
   const update = (field, value) => {
@@ -18,36 +13,25 @@ function EnvironmentFilters({
 
   return (
     <section className="environment-filters">
-
       <div className="filter-group">
-        <label>{t("filters.name")}</label>
+        <label>{t('filters.name')}</label>
 
         <input
           type="text"
           value={filters.name}
-          placeholder={t("filters.searchEnvironment")}
-          onChange={(e) =>
-            update("name", e.target.value)
-          }
+          placeholder={t('filters.searchEnvironment')}
+          onChange={(e) => update('name', e.target.value)}
         />
       </div>
 
       <div className="filter-group">
-        <label>{t("filters.building")}</label>
+        <label>{t('filters.building')}</label>
 
-        <select
-          value={filters.building}
-          onChange={(e) => update("building", e.target.value)}
-        >
-          <option value="">
-            {t("filters.all")}
-          </option>
+        <select value={filters.building} onChange={(e) => update('building', e.target.value)}>
+          <option value="">{t('filters.all')}</option>
 
           {suggestions.buildings?.map((building) => (
-            <option
-              key={building}
-              value={building}
-            >
+            <option key={building} value={building}>
               {building}
             </option>
           ))}
@@ -55,21 +39,13 @@ function EnvironmentFilters({
       </div>
 
       <div className="filter-group">
-        <label>{t("filters.floor")}</label>
+        <label>{t('filters.floor')}</label>
 
-        <select
-          value={filters.floor}
-          onChange={(e) => update("floor", Number(e.target.value))}
-        >
-          <option value="">
-            {t("filters.all")}
-          </option>
+        <select value={filters.floor} onChange={(e) => update('floor', Number(e.target.value))}>
+          <option value="">{t('filters.all')}</option>
 
           {suggestions.floors?.map((floor) => (
-            <option
-              key={floor}
-              value={floor}
-            >
+            <option key={floor} value={floor}>
               {floor}
             </option>
           ))}
@@ -77,17 +53,14 @@ function EnvironmentFilters({
       </div>
 
       <div className="filter-group checkbox">
-        <label>{t("filters.favorites")}</label>
+        <label>{t('filters.favorites')}</label>
 
         <input
           type="checkbox"
           checked={filters.favorite}
-          onChange={(e) =>
-            update("favorite", e.target.checked)
-          }
+          onChange={(e) => update('favorite', e.target.checked)}
         />
       </div>
-
     </section>
   );
 }

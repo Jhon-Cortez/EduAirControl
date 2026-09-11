@@ -71,10 +71,18 @@
   box-shadow: var(--shadow-sm);
 }
 
-.detail-status-icon { font-size: 20px; }
-.detail-status-icon.normal  { color: #4CAF50; }
-.detail-status-icon.warning { color: #FFC107; }
-.detail-status-icon.alert   { color: #F44336; }
+.detail-status-icon {
+  font-size: 20px;
+}
+.detail-status-icon.normal {
+  color: #4caf50;
+}
+.detail-status-icon.warning {
+  color: #ffc107;
+}
+.detail-status-icon.alert {
+  color: #f44336;
+}
 
 .detail-fav-btn {
   display: flex;
@@ -185,7 +193,9 @@ body.theme-tritanopia .detail-fav-btn.active {
   border-radius: 16px;
   padding: 20px;
   box-shadow: var(--lb-glass-shadow);
-  transition: transform 0.2s, border-color 0.2s;
+  transition:
+    transform 0.2s,
+    border-color 0.2s;
 }
 
 .detail-metric-card:hover {
@@ -200,11 +210,22 @@ body.theme-tritanopia .detail-fav-btn.active {
   margin-bottom: 16px;
 }
 
-.detail-metric-icon { font-size: 36px; flex-shrink: 0; }
-.detail-metric-icon.temp     { color: #FF6B6B; }
-.detail-metric-icon.humidity { color: #4FC3F7; }
-.detail-metric-icon.co2      { color: #78909C; }
-.detail-metric-icon.noise    { color: #FFB74D; }
+.detail-metric-icon {
+  font-size: 36px;
+  flex-shrink: 0;
+}
+.detail-metric-icon.temp {
+  color: #ff6b6b;
+}
+.detail-metric-icon.humidity {
+  color: #4fc3f7;
+}
+.detail-metric-icon.co2 {
+  color: #78909c;
+}
+.detail-metric-icon.noise {
+  color: #ffb74d;
+}
 
 /* Daltonismo: usar el acento del tema para los iconos de métricas */
 body.theme-protanopia .detail-metric-icon,
@@ -290,17 +311,30 @@ body.theme-tritanopia .detail-metric-icon {
 
 /* Responsive */
 @media (max-width: 768px) {
-  .detail-container { padding-top: 120px; }
-  .detail-metrics-grid { grid-template-columns: 1fr; }
-  .detail-info-row { grid-template-columns: 1fr; }
-  .detail-hero { flex-direction: column; }
-  .detail-hero-right { align-items: flex-start; }
-  .detail-name { font-size: 24px; }
+  .detail-container {
+    padding-top: 120px;
+  }
+  .detail-metrics-grid {
+    grid-template-columns: 1fr;
+  }
+  .detail-info-row {
+    grid-template-columns: 1fr;
+  }
+  .detail-hero {
+    flex-direction: column;
+  }
+  .detail-hero-right {
+    align-items: flex-start;
+  }
+  .detail-name {
+    font-size: 24px;
+  }
 }
 
 /* Dark Mode — las variables --lb-glass-* cambian automaticamente */
-body.dark-mode .detail-page { background-color: transparent; }
-
+body.dark-mode .detail-page {
+  background-color: transparent;
+}
 
 /* ============================================================
    RATING SECTION
@@ -318,7 +352,9 @@ body.dark-mode .detail-page { background-color: transparent; }
   margin: 18px auto;
   text-align: center;
   display: block;
-  transition: box-shadow 0.2s ease, transform 0.2s ease;
+  transition:
+    box-shadow 0.2s ease,
+    transform 0.2s ease;
 }
 
 .detail-rating-card:hover {
@@ -343,7 +379,9 @@ body.dark-mode .detail-page { background-color: transparent; }
 .star {
   cursor: pointer;
   color: var(--text-muted);
-  transition: transform 0.15s ease, color 0.15s ease;
+  transition:
+    transform 0.15s ease,
+    color 0.15s ease;
   margin: 0 6px;
   user-select: none;
   outline: none;
@@ -358,9 +396,13 @@ body.dark-mode .detail-page { background-color: transparent; }
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
 }
 
-.star.active { color: #FFD700; }
+.star.active {
+  color: #ffd700;
+}
 
-.rating-actions { margin-top: 14px; }
+.rating-actions {
+  margin-top: 14px;
+}
 
 .rating-submit-btn {
   margin-top: 15px;
@@ -382,7 +424,7 @@ body.dark-mode .detail-page { background-color: transparent; }
 }
 
 .rating-submit-btn[disabled],
-.rating-submit-btn[aria-disabled="true"] {
+.rating-submit-btn[aria-disabled='true'] {
   opacity: 0.5;
   cursor: not-allowed;
 }

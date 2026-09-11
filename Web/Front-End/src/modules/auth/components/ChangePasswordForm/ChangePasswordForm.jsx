@@ -1,19 +1,22 @@
-import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { useTranslation } from 'react-i18next'
-import { Input, Button } from '../../../../shared/components'
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+import { Input, Button } from '../../../../shared/components';
 
 function ChangePasswordForm() {
-  const [newPassword, setNewPassword] = useState('')
-  const [confirmPassword, setConfirmPassword] = useState('')
-  const navigate = useNavigate()
-  const { t } = useTranslation()
+  const [newPassword, setNewPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const handleSubmit = (e) => {
-    e.preventDefault()
-    if (newPassword !== confirmPassword) { alert(t('changePassword.mismatch')); return }
-    navigate('/')
-  }
+    e.preventDefault();
+    if (newPassword !== confirmPassword) {
+      alert(t('changePassword.mismatch'));
+      return;
+    }
+    navigate('/');
+  };
 
   return (
     <form onSubmit={handleSubmit}>
@@ -33,7 +36,7 @@ function ChangePasswordForm() {
       />
       <Button text={t('changePassword.confirmBtn')} className="btn-confirm" type="submit" />
     </form>
-  )
+  );
 }
 
-export default ChangePasswordForm
+export default ChangePasswordForm;

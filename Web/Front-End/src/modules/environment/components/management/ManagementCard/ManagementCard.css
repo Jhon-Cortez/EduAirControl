@@ -1,11 +1,11 @@
 /* ─── Management Card ───────────────────────────────────────── */
 .mgmt-card {
-  background:              var(--lb-glass-bg);
+  background: var(--lb-glass-bg);
   -webkit-backdrop-filter: var(--lb-glass-blur);
-  backdrop-filter:         var(--lb-glass-blur);
-  border:                  1.5px solid var(--lb-glass-border);
-  border-radius:           20px;
-  box-shadow:              var(--lb-glass-shadow);
+  backdrop-filter: var(--lb-glass-blur);
+  border: 1.5px solid var(--lb-glass-border);
+  border-radius: 20px;
+  box-shadow: var(--lb-glass-shadow);
 
   padding: 20px 24px;
   cursor: pointer;
@@ -24,8 +24,14 @@
 }
 
 @keyframes mgmt-card-in {
-  from { opacity: 0; transform: translateY(10px); }
-  to   { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .mgmt-card:hover {
@@ -48,13 +54,23 @@
   transition: background 0.25s;
 }
 
-.mgmt-card[data-status="normal"]::before  { background: var(--accent); }
-.mgmt-card[data-status="warning"]::before { background: #d69e2e; }
-.mgmt-card[data-status="alert"]::before   { background: #e53e3e; }
+.mgmt-card[data-status='normal']::before {
+  background: var(--accent);
+}
+.mgmt-card[data-status='warning']::before {
+  background: #d69e2e;
+}
+.mgmt-card[data-status='alert']::before {
+  background: #e53e3e;
+}
 
 /* Ambient glow on status hover */
-.mgmt-card[data-status="alert"]:hover   { border-color: rgba(229, 62, 62, 0.40); }
-.mgmt-card[data-status="warning"]:hover { border-color: rgba(214, 158, 46, 0.40); }
+.mgmt-card[data-status='alert']:hover {
+  border-color: rgba(229, 62, 62, 0.4);
+}
+.mgmt-card[data-status='warning']:hover {
+  border-color: rgba(214, 158, 46, 0.4);
+}
 
 /* ─── Header ────────────────────────────────────────────────── */
 .mgmt-card__header {
@@ -140,7 +156,7 @@
   border-color: var(--lb-glass-border-hover);
   color: var(--text-primary);
   transform: translateY(-1px);
-  box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
 }
 
 .mgmt-card__btn--danger {
@@ -178,7 +194,10 @@
   display: flex;
   flex-direction: column;
   gap: 9px;
-  transition: background 0.2s, border-color 0.2s, transform 0.18s;
+  transition:
+    background 0.2s,
+    border-color 0.2s,
+    transform 0.18s;
   position: relative;
   overflow: hidden;
 }
@@ -219,11 +238,19 @@
 
 /* ─── Responsive ─────────────────────────────────────────────── */
 @media (max-width: 640px) {
-  .mgmt-card__metrics { grid-template-columns: repeat(2, 1fr); }
+  .mgmt-card__metrics {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 @media (max-width: 420px) {
-  .mgmt-card__metric-value { font-size: calc(var(--a11y-font-size) * 1.0625); }
-  .mgmt-card__header-right { gap: 6px; }
-  .mgmt-card { padding: 16px 18px; }
+  .mgmt-card__metric-value {
+    font-size: calc(var(--a11y-font-size) * 1.0625);
+  }
+  .mgmt-card__header-right {
+    gap: 6px;
+  }
+  .mgmt-card {
+    padding: 16px 18px;
+  }
 }

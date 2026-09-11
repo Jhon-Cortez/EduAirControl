@@ -16,15 +16,16 @@
   width: 100%;
   max-width: 400px;
   color: #fff;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
   animation: fadeIn 0.8s ease-in-out;
 }
 
 /* Títulos */
-.auth-card h1, .auth-card h2 {
+.auth-card h1,
+.auth-card h2 {
   text-align: center;
   margin-bottom: 1.5rem;
-  color: #4CAF50;
+  color: #4caf50;
 }
 
 /* Inputs */
@@ -41,7 +42,7 @@
   width: 100%;
   padding: 0.8rem;
   margin-top: 1rem;
-  background: #4CAF50;
+  background: #4caf50;
   border: none;
   border-radius: 8px;
   color: #fff;
@@ -82,13 +83,19 @@
 }
 
 .auth-extra a {
-  color: #4CAF50;
+  color: #4caf50;
   text-decoration: none;
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(-20px); }
-  to   { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* Botón de registro */
@@ -96,7 +103,7 @@
   width: 100%;
   padding: 0.8rem;
   margin-top: 1rem;
-  background: #4CAF50;
+  background: #4caf50;
   border: none;
   border-radius: 8px;
   color: #fff;

@@ -1,16 +1,32 @@
-import { useState, useMemo } from 'react'
-import { useTranslation } from 'react-i18next'
-import { FaHeart } from 'react-icons/fa'
-import Navbar from "../dashboard/components/Navbar/Navbar";
-import { useEnvironment } from "../../context/EnvironmentContext";
-import "./Favorites.css";
+import { useState, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
+import { FaHeart } from 'react-icons/fa';
+import Navbar from '../dashboard/components/Navbar/Navbar';
+import { useEnvironment } from '../../context/EnvironmentContext';
+import './Favorites.css';
 
 const FAV_METRIC_DEFINITIONS = [
-  { key: 'temp', icon: '🌡️', labelKey: 'dashboard.temperature', getValue: (fav) => `${fav.temp}°C` },
-  { key: 'humidity', icon: '💧', labelKey: 'dashboard.humidity', getValue: (fav) => `${fav.humidity}%` },
-  { key: 'co2', icon: '🌫️', labelKey: null, staticLabel: 'CO₂', getValue: (fav) => `${fav.co2}ppm` },
+  {
+    key: 'temp',
+    icon: '🌡️',
+    labelKey: 'dashboard.temperature',
+    getValue: (fav) => `${fav.temp}°C`,
+  },
+  {
+    key: 'humidity',
+    icon: '💧',
+    labelKey: 'dashboard.humidity',
+    getValue: (fav) => `${fav.humidity}%`,
+  },
+  {
+    key: 'co2',
+    icon: '🌫️',
+    labelKey: null,
+    staticLabel: 'CO₂',
+    getValue: (fav) => `${fav.co2}ppm`,
+  },
   { key: 'noise', icon: '🔊', labelKey: 'dashboard.noise', getValue: (fav) => `${fav.noise} dB` },
-]
+];
 
 // Tarjeta reutilizable: recibe icono, etiqueta y valor por props.
 function FavMetricBox({ icon, label, value }) {
@@ -22,71 +38,64 @@ function FavMetricBox({ icon, label, value }) {
         <span className="fav-metric-value">{value}</span>
       </div>
     </div>
-  )
+  );
 }
 
 function FavoritesScreen() {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
   const { environments, toggleFavorite } = useEnvironment();
 
-  // favoritos memoizados 
-  const favorites = useMemo(
-    () => environments.filter((e) => e.isFavorite),
-    [environments]
-  )
+  // favoritos memoizados
+  const favorites = useMemo(() => environments.filter((e) => e.isFavorite), [environments]);
 
   // Modal state
-  const [showConfirmModal, setShowConfirmModal] = useState(false)
-  const [selectedFav, setSelectedFav] = useState(null)
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
+  const [selectedFav, setSelectedFav] = useState(null);
 
   const getStatusColor = (statusKey) => {
     switch (statusKey) {
       case 'dashboard.statusNormal':
-        return '#25e77c'
+        return '#25e77c';
       case 'dashboard.statusWarning':
-        return '#ffb11a'
+        return '#ffb11a';
       case 'dashboard.statusAlert':
-        return '#ff4d5b'
+        return '#ff4d5b';
       default:
-        return '#8b949e'
+        return '#8b949e';
     }
-  }
+  };
 
   const handleRemoveFavoriteClick = (fav) => {
-    setSelectedFav(fav)
-    setShowConfirmModal(true)
-  }
+    setSelectedFav(fav);
+    setShowConfirmModal(true);
+  };
 
   const handleConfirmRemove = () => {
-    if (!selectedFav) return
+    if (!selectedFav) return;
 
+    toggleFavorite(selectedFav.id, false);
 
-    toggleFavorite(selectedFav.id, false)
-
-    setShowConfirmModal(false)
-    setSelectedFav(null)
-  }
+    setShowConfirmModal(false);
+    setSelectedFav(null);
+  };
 
   const handleCancelRemove = () => {
-    setShowConfirmModal(false)
-    setSelectedFav(null)
-  }
+    setShowConfirmModal(false);
+    setSelectedFav(null);
+  };
 
   return (
     <div className="favorites-page">
       <Navbar />
 
       <div className="app-page-container">
-
         {/* HEADER */}
         <div className="favorites-header">
           <div className="favorites-header-content">
             <FaHeart size={32} color="#ff4d5b" />
             <div>
               <h1>{t('favorites.title')}</h1>
-              <p className="favorites-subtitle">
-                {t('favorites.description')}
-              </p>
+              <p className="favorites-subtitle">{t('favorites.description')}</p>
             </div>
           </div>
         </div>
@@ -102,12 +111,12 @@ function FavoritesScreen() {
           /* LIST */
           <div className="favorites-list">
             {favorites.map((fav) => {
-              const name = fav.nameKey ? t(fav.nameKey) : fav.name
+              const name = fav.nameKey ? t(fav.nameKey) : fav.name;
 
               // Ciclo forEach: recorre la config de métricas y, por cada
               // una, toma el dato correspondiente de "fav" para construir
               // la mini-tarjeta.
-              const favMetricBoxes = []
+              const favMetricBoxes = [];
               FAV_METRIC_DEFINITIONS.forEach((metric) => {
                 favMetricBoxes.push(
                   <FavMetricBox
@@ -116,12 +125,11 @@ function FavoritesScreen() {
                     label={metric.labelKey ? t(metric.labelKey) : metric.staticLabel}
                     value={metric.getValue(fav)}
                   />
-                )
-              })
+                );
+              });
 
               return (
                 <div key={fav.id} className="fav-card-impact">
-
                   <div
                     className="fav-status-indicator"
                     style={{ backgroundColor: getStatusColor(fav.statusKey) }}
@@ -129,7 +137,6 @@ function FavoritesScreen() {
 
                   {/* CONTENT */}
                   <div className="fav-card-content">
-
                     {/* LEFT */}
                     <div className="fav-section-left">
                       <h3>{name}</h3>
@@ -143,13 +150,10 @@ function FavoritesScreen() {
                     </div>
 
                     {/* METRICS */}
-                    <div className="fav-section-metrics">
-                      {favMetricBoxes}
-                    </div>
+                    <div className="fav-section-metrics">{favMetricBoxes}</div>
 
                     {/* RIGHT */}
                     <div className="fav-section-right">
-
                       <div className="fav-quality-info">
                         <span className="fav-quality-label">{t('dashboard.airQuality')}</span>
                         <span className="fav-quality-value">{t(fav.qualityKey)}</span>
@@ -162,12 +166,10 @@ function FavoritesScreen() {
                       >
                         <FaHeart size={20} />
                       </button>
-
                     </div>
-
                   </div>
                 </div>
-              )
+              );
             })}
           </div>
         )}
@@ -176,10 +178,7 @@ function FavoritesScreen() {
       {/* MODAL */}
       {showConfirmModal && selectedFav && (
         <div className="modal-overlay" onClick={handleCancelRemove}>
-          <div
-            className="modal-content"
-            onClick={(e) => e.stopPropagation()}
-          >
+          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
             <div className="modal-header modal-header-warning">
               <FaHeart size={24} color="#ff4d5b" />
               <h2>Eliminar de Favoritos</h2>
@@ -188,20 +187,13 @@ function FavoritesScreen() {
             <div className="modal-body">
               <p>
                 ¿Seguro que quieres eliminar{' '}
-                <strong>
-                  {selectedFav.nameKey
-                    ? t(selectedFav.nameKey)
-                    : selectedFav.name}
-                </strong>{' '}
+                <strong>{selectedFav.nameKey ? t(selectedFav.nameKey) : selectedFav.name}</strong>{' '}
                 de favoritos?
               </p>
             </div>
 
             <div className="modal-footer">
-              <button
-                className="modal-btn modal-btn-cancel"
-                onClick={handleCancelRemove}
-              >
+              <button className="modal-btn modal-btn-cancel" onClick={handleCancelRemove}>
                 Cancelar
               </button>
 
@@ -216,7 +208,7 @@ function FavoritesScreen() {
         </div>
       )}
     </div>
-  )
+  );
 }
 
-export default FavoritesScreen
+export default FavoritesScreen;
