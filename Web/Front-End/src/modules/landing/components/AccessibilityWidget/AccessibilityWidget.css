@@ -506,87 +506,79 @@ body.theme-protanopia.dark-mode .a11y-theme-btn--active {
 }
 
 /* Deuteranopia */
-body.theme-deuteranopia:not(.dark-mode) .a11y-trigger {
-  border-color: rgba(79, 126, 0, 0.5);
-  color: #4f7e00;
+body.theme-deuteranopia .a11y-trigger {
+    border-color: rgba(79, 126, 0, 0.5);
+    color: #4F7E00;
 }
 
 body.theme-deuteranopia.dark-mode .a11y-trigger {
-  border-color: rgba(230, 159, 0, 0.5);
-  color: #e69f00;
+    border-color: rgba(117, 181, 64, 0.5);
+    color: #75b540;
 }
 
-body.theme-deuteranopia:not(.dark-mode) .a11y-panel {
-  border-color: rgba(79, 126, 0, 0.25);
+body.theme-deuteranopia .a11y-panel {
+    border-color: rgba(79, 126, 0, 0.25);
 }
 
-body.theme-deuteranopia.dark-mode .a11y-panel {
-  border-color: rgba(230, 159, 0, 0.25);
-}
-
-body.theme-deuteranopia:not(.dark-mode) .a11y-panel__title,
-body.theme-deuteranopia:not(.dark-mode) .a11y-theme-check {
-  color: #4f7e00;
+body.theme-deuteranopia .a11y-panel__title,
+body.theme-deuteranopia .a11y-theme-check {
+    color: #4F7E00;
 }
 
 body.theme-deuteranopia.dark-mode .a11y-panel__title,
 body.theme-deuteranopia.dark-mode .a11y-theme-check {
-  color: #e69f00;
+    color: #75b540;
 }
 
-body.theme-deuteranopia:not(.dark-mode) .a11y-font-btn--active,
-body.theme-deuteranopia:not(.dark-mode) .a11y-mode-btn--active,
-body.theme-deuteranopia:not(.dark-mode) .a11y-theme-btn--active {
-  border-color: #4f7e00;
-  background: rgba(79, 126, 0, 0.12);
+body.theme-deuteranopia .a11y-font-btn--active,
+body.theme-deuteranopia .a11y-mode-btn--active,
+body.theme-deuteranopia .a11y-theme-btn--active {
+    border-color: #4F7E00;
+    background: rgba(79, 126, 0, 0.12);
 }
 
 body.theme-deuteranopia.dark-mode .a11y-font-btn--active,
 body.theme-deuteranopia.dark-mode .a11y-mode-btn--active,
 body.theme-deuteranopia.dark-mode .a11y-theme-btn--active {
-  border-color: #e69f00;
-  background: rgba(230, 159, 0, 0.12);
+    border-color: #75b540;
+    background: rgba(117, 181, 64, 0.12);
 }
 
 /* Tritanopia */
-body.theme-tritanopia:not(.dark-mode) .a11y-trigger {
-  border-color: rgba(91, 75, 138, 0.5);
-  color: #5b4b8a;
+body.theme-tritanopia .a11y-trigger {
+    border-color: rgba(91, 75, 138, 0.5);
+    color: #5B4B8A;
 }
 
 body.theme-tritanopia.dark-mode .a11y-trigger {
-  border-color: rgba(213, 94, 0, 0.5);
-  color: #d55e00;
+    border-color: rgba(138, 122, 230, 0.5);
+    color: #8a7ae6;
 }
 
-body.theme-tritanopia:not(.dark-mode) .a11y-panel {
-  border-color: rgba(91, 75, 138, 0.25);
+body.theme-tritanopia .a11y-panel {
+    border-color: rgba(91, 75, 138, 0.25);
 }
 
-body.theme-tritanopia.dark-mode .a11y-panel {
-  border-color: rgba(213, 94, 0, 0.25);
-}
-
-body.theme-tritanopia:not(.dark-mode) .a11y-panel__title,
-body.theme-tritanopia:not(.dark-mode) .a11y-theme-check {
-  color: #5b4b8a;
+body.theme-tritanopia .a11y-panel__title,
+body.theme-tritanopia .a11y-theme-check {
+    color: #5B4B8A;
 }
 
 body.theme-tritanopia.dark-mode .a11y-panel__title,
 body.theme-tritanopia.dark-mode .a11y-theme-check {
-  color: #d55e00;
+    color: #8a7ae6;
 }
 
-body.theme-tritanopia:not(.dark-mode) .a11y-font-btn--active,
-body.theme-tritanopia:not(.dark-mode) .a11y-mode-btn--active,
-body.theme-tritanopia:not(.dark-mode) .a11y-theme-btn--active {
-  border-color: #5b4b8a;
-  background: rgba(91, 75, 138, 0.12);
+body.theme-tritanopia .a11y-font-btn--active,
+body.theme-tritanopia .a11y-mode-btn--active,
+body.theme-tritanopia .a11y-theme-btn--active {
+    border-color: #5B4B8A;
+    background: rgba(91, 75, 138, 0.12);
 }
 
 body.theme-tritanopia.dark-mode .a11y-font-btn--active,
 body.theme-tritanopia.dark-mode .a11y-mode-btn--active,
 body.theme-tritanopia.dark-mode .a11y-theme-btn--active {
-  border-color: #d55e00;
-  background: rgba(213, 94, 0, 0.12);
+    border-color: #8a7ae6;
+    background: rgba(138, 122, 230, 0.12);
 }

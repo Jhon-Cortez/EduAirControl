@@ -140,8 +140,11 @@ body.theme-tritanopia {
 }
 
 body.dark-mode.theme-tritanopia {
-  --accent:                #57b752;
-  --accent-rgb:            87 183 82;
+  --accent:                #8a7ae6;
+  --accent-rgb:            138 122 230;
+  --accent-hover:          #7664d6;
+  --accent-light:          #f1eeff;
+  --accent-dark:           #5d4eb1;
   --text-primary:          #e2e8f0;
   --text-secondary:        #cbd5e1;
   --text-muted:            #94a3b8;
