@@ -115,10 +115,13 @@
   width: 222%;
   height: 100%;
   background-image:
-    linear-gradient(rgba(4, 15, 35, 0.48), rgba(4, 15, 35, 0.62)),
-    url('../../../../shared/assets/fondo-login.png');
+    linear-gradient(90deg, rgba(4, 15, 35, 0.62) 0%, rgba(4, 15, 35, 0.4) 52%, rgba(4, 15, 35, 0.54) 100%),
+    linear-gradient(rgba(4, 15, 35, 0.42), rgba(4, 15, 35, 0.58)),
+    url('../../../../shared/assets/l-fondo.png');
   background-size: cover;
   background-position: center;
+  box-shadow: inset 0 0 90px rgba(0, 0, 0, 0.42);
+  filter: contrast(1.05) saturate(0.94);
   z-index: 0;
   transition: left 0.6s ease-in-out;
 }
@@ -145,9 +148,10 @@
   font-size: clamp(24px, 3vw, 34px);
 }
 .auth-slider-overlay-panel p {
-  max-width: 300px;
-  line-height: 1.6;
-  opacity: 0.88;
+  max-width: 340px;
+  font-size: clamp(18px, 1.8vw, 20px);
+  line-height: 1.5;
+  opacity: 0.96;
 }
 .auth-slider-overlay-login {
   transform: translateX(0);
@@ -169,20 +173,28 @@
 .auth-slider-button {
   margin-top: 22px;
   padding: 12px 26px;
-  border: 1px solid rgba(255, 255, 255, 0.7);
+  border: 1px solid #fff;
   border-radius: 12px;
-  background: transparent;
-  color: #fff;
+  background: #fff;
+  color: #0c6f76;
   cursor: pointer;
   font-weight: 700;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.22);
   transition:
-    background 0.2s,
-    color 0.2s;
+    background 0.2s ease,
+    color 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.2s ease;
 }
 .auth-slider-button:hover,
 .auth-slider-button:focus-visible {
-  background: #fff;
-  color: #0c6f76;
+  background: #dffff7;
+  color: #07545b;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  transform: translateY(-2px);
+}
+.auth-slider-button:active {
+  transform: translateY(0) scale(0.97);
 }
 .auth-slider-mobile-switch {
   display: none;
