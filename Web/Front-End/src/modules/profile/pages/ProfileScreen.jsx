@@ -5,6 +5,7 @@ import { IoLogOut } from 'react-icons/io5';
 import { MdEdit } from 'react-icons/md';
 
 import { useProfileVM } from '../../../viewmodels';
+import { Modal, Button } from '../../../shared/components';
 import Navbar from '../../dashboard/components/Navbar/Navbar';
 import './Profile.css';
 
@@ -104,18 +105,17 @@ function ProfileScreen() {
           </div>
 
           {!isEditing ? (
-            <button className="btn-edit-profile-final" onClick={() => setIsEditing(true)}>
-              <MdEdit />
+            <Button variant="primary" icon={<MdEdit />} onClick={() => setIsEditing(true)}>
               {t('profile.update')}
-            </button>
+            </Button>
           ) : (
             <div className="hero-actions-final">
-              <button className="btn-save-final" onClick={handleSave}>
+              <Button variant="primary" onClick={handleSave}>
                 {t('profile.save')}
-              </button>
-              <button className="btn-cancel-final" onClick={handleCancel}>
+              </Button>
+              <Button variant="secondary" onClick={handleCancel}>
                 {t('profile.cancel')}
-              </button>
+              </Button>
             </div>
           )}
         </div>
@@ -148,33 +148,28 @@ function ProfileScreen() {
 
         {/* LOGOUT */}
         <div className="profile-footer-final">
-          <button className="btn-logout-final" onClick={() => setLogoutModal(true)}>
-            <IoLogOut />
+          <Button variant="danger" icon={<IoLogOut />} onClick={() => setLogoutModal(true)}>
             {t('profile.logoutBtn')}
-          </button>
+          </Button>
         </div>
       </div>
 
       {/* MODAL LOGOUT */}
-      {logoutModal && (
-        <div className="modal-overlay-final" onClick={() => setLogoutModal(false)}>
-          <div className="modal-final modal-logout" onClick={(e) => e.stopPropagation()}>
-            <div className="logout-modal-header">
-              <IoLogOut size={30} color="#ff4d5b" />
-              <h3>{t('profile.logoutTitle')}</h3>
-            </div>
-            <p className="logout-modal-message">{t('profile.logoutMessage')}</p>
-            <div className="modal-actions-final">
-              <button className="btn-cancel-final" onClick={() => setLogoutModal(false)}>
-                {t('profile.cancel', 'Cancelar')}
-              </button>
-              <button className="btn-logout-confirm-final" onClick={handleLogout}>
-                {t('profile.logoutBtn')}
-              </button>
-            </div>
-          </div>
+      <Modal isOpen={logoutModal} onClose={() => setLogoutModal(false)} size="sm">
+        <div className="logout-modal-header">
+          <IoLogOut size={30} color="#ff4d5b" />
+          <h3>{t('profile.logoutTitle')}</h3>
         </div>
-      )}
+        <p className="logout-modal-message">{t('profile.logoutMessage')}</p>
+        <div className="modal-actions-final">
+          <Button variant="secondary" onClick={() => setLogoutModal(false)}>
+            {t('profile.cancel', 'Cancelar')}
+          </Button>
+          <Button variant="danger-solid" onClick={handleLogout}>
+            {t('profile.logoutBtn')}
+          </Button>
+        </div>
+      </Modal>
     </div>
   );
 }
