@@ -1,0 +1,11 @@
+.ds-modal__title {
+  margin: 0 0 16px;
+  font-size: calc(var(--a11y-font-size) * 1.25);
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.ds-modal__body {
+  color: var(--text-secondary);
+  line-height: 1.6;
+}

@@ -7,27 +7,32 @@
 /* ============================================ */
 
 :root {
-  --accent: #00b894;
-  --accent-rgb: 0 184 148;
-  --accent-hover: #00a381;
-  --accent-light: #e8faf5;
-  --accent-dark: #007a5e;
+  --accent:          #01805b;
+  --accent-rgb:      1 128 91;
+  --accent-hover:    #016d4d;
+  --accent-light:    #e8faf5;
+  --accent-dark:     #00513d;
 
-  --bg-body: #f0fafa;
-  --bg-card: #ffffff;
-  --bg-input: #ffffff;
-  --bg-field-icon: #f0fafa;
-  --bg-subtle: #f5f5f5;
-  --bg-nav: #ffffff;
+  --bg-body:         #f0fafa;
+  --bg-card:         #ffffff;
+  --bg-input:        #ffffff;
+  --bg-field-icon:   #f0fafa;
+  --bg-subtle:       #f3f6f6;
+  --bg-nav:          #ffffff;
 
-  --text-primary: #0f172a;
-  --text-secondary: #666666;
-  --text-muted: #999999;
-  --text-nav: #555555;
+  --color-success:   #368139;
+  --color-warning:   #9d6602;
+  --color-danger:    #d63030;
+  --color-info:      #3376b0;
 
-  --border-color: #cccccc;
-  --border-card: #f0f0f0;
-  --border-nav: var(--accent);
+  --text-primary:    #111827;
+  --text-secondary:  #374151;
+  --text-muted:      #4b5563;
+  --text-nav:        #1f2937;
+
+  --border-color:    #d1d5db;
+  --border-card:     #e5e7eb;
+  --border-nav:      var(--accent);
 
   --shadow-card: 0 2px 10px rgba(0, 0, 0, 0.08);
   --shadow-nav: 0 2px 5px rgba(0, 0, 0, 0.1);
@@ -72,86 +77,100 @@
 
 /* ── Protanopia (Daltonismo Rojo) ── */
 body.theme-protanopia {
-  --accent: #0072b2;
-  --accent-rgb: 0 114 178;
-  --accent-hover: #005a8e;
-  --accent-light: #e6f2fa;
-  --accent-dark: #4aa8d8;
-  --border-nav: #0072b2;
-  --lb-glass-border: rgba(0, 114, 178, 0.28);
-  --lb-glass-border-hover: rgba(0, 114, 178, 0.58);
-  --lb-surface: rgba(0, 114, 178, 0.12);
-  --text-primary: #0f172a;
-  --text-secondary: #333333;
-  --text-muted: #666666;
+  --accent:                #007aa7;
+  --accent-rgb:            0 122 167;
+  --accent-hover:          #005f8a;
+  --accent-light:          #e6f5fb;
+  --accent-dark:           #005a82;
+  --border-nav:            #007aa7;
+  --lb-glass-border:       rgba(0, 122, 167, 0.28);
+  --lb-glass-border-hover: rgba(0, 122, 167, 0.58);
+  --lb-surface:            rgba(0, 122, 167, 0.12);
+  --text-primary:          #0f172a;
+  --text-secondary:        #333333;
+  --text-muted:            #666666;
 }
 
 body.dark-mode.theme-protanopia {
-  --text-primary: #e2e8f0;
-  --text-secondary: #cbd5e1;
-  --text-muted: #94a3b8;
+  --accent:                #0085b5;
+  --accent-rgb:            0 133 181;
+  --text-primary:          #e2e8f0;
+  --text-secondary:        #cbd5e1;
+  --text-muted:            #94a3b8;
 }
 
 /* ── Deuteranopia (Daltonismo Verde) ── */
 body.theme-deuteranopia {
-  --accent: #e69f00;
-  --accent-rgb: 230 159 0;
-  --accent-hover: #c8880a;
-  --accent-light: #fdf3dc;
-  --accent-dark: #c8880a;
-  --border-nav: #e69f00;
-  --lb-glass-border: rgba(230, 159, 0, 0.28);
-  --lb-glass-border-hover: rgba(230, 159, 0, 0.58);
-  --lb-surface: rgba(230, 159, 0, 0.12);
-  --text-primary: #0f172a;
-  --text-secondary: #333333;
-  --text-muted: #666666;
+  --accent:                #4f7e00;
+  --accent-rgb:            79 126 0;
+  --accent-hover:          #3f6500;
+  --accent-light:          #eef9dc;
+  --accent-dark:           #335d00;
+  --border-nav:            #4f7e00;
+  --lb-glass-border:       rgba(79, 126, 0, 0.28);
+  --lb-glass-border-hover: rgba(79, 126, 0, 0.58);
+  --lb-surface:            rgba(79, 126, 0, 0.12);
+  --text-primary:          #0f172a;
+  --text-secondary:        #333333;
+  --text-muted:            #666666;
 }
 
 body.dark-mode.theme-deuteranopia {
-  --text-primary: #e2e8f0;
-  --text-secondary: #cbd5e1;
-  --text-muted: #94a3b8;
+  --accent:                #4ca649;
+  --accent-rgb:            76 166 73;
+  --text-primary:          #e2e8f0;
+  --text-secondary:        #cbd5e1;
+  --text-muted:            #94a3b8;
 }
 
 /* ── Tritanopia (Daltonismo Azul-Amarillo) ── */
 body.theme-tritanopia {
-  --accent: #d55e00;
-  --accent-rgb: 213 94 0;
-  --accent-hover: #b34e00;
-  --accent-light: #fce8dc;
-  --accent-dark: #e8743a;
-  --border-nav: #d55e00;
-  --lb-glass-border: rgba(213, 94, 0, 0.28);
-  --lb-glass-border-hover: rgba(213, 94, 0, 0.58);
-  --lb-surface: rgba(213, 94, 0, 0.12);
-  --text-primary: #0f172a;
-  --text-secondary: #333333;
-  --text-muted: #666666;
+  --accent:                #5b4b8a;
+  --accent-rgb:            91 75 138;
+  --accent-hover:          #483d72;
+  --accent-light:          #f0ebff;
+  --accent-dark:           #413460;
+  --border-nav:            #5b4b8a;
+  --lb-glass-border:       rgba(91, 75, 138, 0.28);
+  --lb-glass-border-hover: rgba(91, 75, 138, 0.58);
+  --lb-surface:            rgba(91, 75, 138, 0.12);
+  --text-primary:          #0f172a;
+  --text-secondary:        #333333;
+  --text-muted:            #666666;
 }
 
 body.dark-mode.theme-tritanopia {
-  --text-primary: #e2e8f0;
-  --text-secondary: #cbd5e1;
-  --text-muted: #94a3b8;
+  --accent:                #8a7ae6;
+  --accent-rgb:            138 122 230;
+  --accent-hover:          #7664d6;
+  --accent-light:          #f1eeff;
+  --accent-dark:           #5d4eb1;
+  --text-primary:          #e2e8f0;
+  --text-secondary:        #cbd5e1;
+  --text-muted:            #94a3b8;
 }
 
 /* ── Dark Mode ── */
 body.dark-mode {
-  --bg-body: #0a0f1e;
-  --bg-card: #0f1829;
-  --bg-input: #1a2540;
-  --bg-field-icon: #1a2540;
-  --bg-subtle: #162035;
-  --bg-nav: #060c1a;
+  --bg-body:         #0a0f1e;
+  --bg-card:         #5b7bbd;
+  --bg-input:        #1a2540;
+  --bg-field-icon:   #1a2540;
+  --bg-subtle:       #162035;
+  --bg-nav:          #060c1a;
 
   --text-primary: #f1f5f9;
   --text-secondary: #cbd5e1;
   --text-muted: #94a3b8;
   --text-nav: #e2e8f0;
 
-  --border-color: #2d3f5c;
-  --border-card: #1e2d45;
+  --border-color:    #2d3f5c;
+  --border-card:     #1e2d45;
+
+  --color-success:   #4ca649;
+  --color-warning:   #ffc107;
+  --color-danger:    #f23838;
+  --color-info:      #57b752;
 
   --shadow-card: 0 4px 20px rgba(0, 0, 0, 0.55);
   --shadow-nav: 0 4px 16px rgba(0, 0, 0, 0.55);
@@ -944,7 +963,7 @@ button:active {
 .env-card {
   width: 100%;
   min-height: 180px;
-  background: var(--bg-card);
+  background: rgba(15, 24, 41, 0.9);
   border-radius: 15px;
   padding: 25px;
   box-shadow: var(--shadow-card);
@@ -1035,7 +1054,7 @@ button:active {
 }
 
 .summary-card {
-  background: var(--bg-card);
+  background: #fff;
   border-radius: 15px;
   padding: 20px;
   box-shadow: var(--shadow-card);
@@ -1497,52 +1516,19 @@ body.dark-mode.theme-tritanopia .preview-line {
 /* STATUS BADGES                                */
 /* ============================================ */
 
-.status-normal {
-  color: #4caf50;
-}
-.status-alert {
-  color: #f44336;
-}
-.status-warning {
-  color: #ff9800;
-}
-.summary-badge {
-  padding: 15px 25px;
-  border-radius: 10px;
-  text-align: center;
-  color: white;
-  min-width: 120px;
-}
-.summary-badge.normal {
-  background-color: #4caf50;
-}
-.summary-badge.warning {
-  background-color: #ffc107;
-}
-.summary-badge.alert {
-  background-color: #f44336;
-}
-.badge-normal {
-  background-color: #2e7d32;
-  color: white;
-}
-.badge-warning {
-  background-color: #e65100;
-  color: white;
-}
-.badge-alert {
-  background-color: #b71c1c;
-  color: white;
-}
-.trend-up {
-  color: #4caf50;
-}
-.trend-down {
-  color: #f44336;
-}
-.trend-warning {
-  color: #ff9800;
-}
+.status-normal { color: var(--color-success); }
+.status-alert  { color: var(--color-danger); }
+.status-warning{ color: var(--color-warning); }
+.summary-badge { padding: 15px 25px; border-radius: 10px; text-align: center; color: white; min-width: 120px; }
+.summary-badge.normal  { background-color: var(--color-success); }
+.summary-badge.warning { background-color: var(--color-warning); }
+.summary-badge.alert   { background-color: var(--color-danger); }
+.badge-normal  { background-color: #2e7d32; color: white; }
+.badge-warning { background-color: #e65100; color: white; }
+.badge-alert   { background-color: #b71c1c; color: white; }
+.trend-up      { color: var(--color-success); }
+.trend-down    { color: var(--color-danger); }
+.trend-warning { color: var(--color-warning); }
 
 /* ============================================ */
 /* ██████████ RESPONSIVE ██████████            */

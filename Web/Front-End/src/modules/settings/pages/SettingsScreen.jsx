@@ -22,7 +22,7 @@ import { MdEdit } from 'react-icons/md';
 import Navbar from '../../dashboard/components/Navbar/Navbar';
 
 // Shared
-import { EditModal } from '../../../shared/components';
+import { EditModal, Modal, Button } from '../../../shared/components';
 import { useDarkMode } from '../../../shared/hooks/useDarkMode';
 import { saveDateFormat } from '../../../shared/hooks/useDateFormat';
 import {
@@ -186,7 +186,6 @@ function SettingsScreen() {
       return;
     }
     // Aquí luego conectas backend
-    console.log('Cambio de contraseña:', passwordData);
     setPasswordError('');
     setPasswordSuccess(true);
     setTimeout(() => {
@@ -210,7 +209,6 @@ function SettingsScreen() {
 
   const handleDeleteRequest = () => {
     // Aquí luego conectas backend / envías email
-    console.log('Solicitud de eliminación de cuenta');
     setDeleteStep('sent');
   };
 
@@ -499,67 +497,63 @@ function SettingsScreen() {
       </div>
 
       {/* ── MODAL CAMBIAR CONTRASEÑA ── */}
-      {showPasswordModal && (
-        <div className="password-overlay" onClick={handleClosePasswordModal}>
-          <div className="password-modal" onClick={(e) => e.stopPropagation()}>
-            <h3 className="password-title">🔐 {t('settings.passwordModal.title')}</h3>
-            {passwordSuccess ? (
-              <div className="password-success">
-                <span className="password-success-icon">✓</span>
-                <p>{t('settings.passwordModal.success')}</p>
-              </div>
-            ) : (
-              <div className="password-form">
-                <input
-                  type="password"
-                  placeholder={t('settings.passwordModal.current')}
-                  value={passwordData.current}
-                  onChange={(e) => handlePasswordChange('current', e.target.value)}
-                />
-                <div className="input-password">
-                  <input
-                    type={showPassword.new ? 'text' : 'password'}
-                    placeholder={t('settings.passwordModal.new')}
-                    value={passwordData.new}
-                    onChange={(e) => handlePasswordChange('new', e.target.value)}
-                  />
-                  <button
-                    type="button"
-                    className="toggle-password"
-                    onClick={() => setShowPassword((prev) => ({ ...prev, new: !prev.new }))}
-                  >
-                    {showPassword.new ? <FaEye /> : <FaEyeSlash />}
-                  </button>
-                </div>
-                <div className="input-password">
-                  <input
-                    type={showPassword.confirm ? 'text' : 'password'}
-                    placeholder={t('settings.passwordModal.confirm')}
-                    value={passwordData.confirm}
-                    onChange={(e) => handlePasswordChange('confirm', e.target.value)}
-                  />
-                  <button
-                    type="button"
-                    className="toggle-password"
-                    onClick={() => setShowPassword((prev) => ({ ...prev, confirm: !prev.confirm }))}
-                  >
-                    {showPassword.confirm ? <FaEye /> : <FaEyeSlash />}
-                  </button>
-                </div>
-                {passwordError && <p className="password-error">{passwordError}</p>}
-                <div className="password-actions">
-                  <button className="btn-save" onClick={handleSavePassword}>
-                    {t('settings.passwordModal.save')}
-                  </button>
-                  <button className="btn-cancel" onClick={handleClosePasswordModal}>
-                    {t('settings.passwordModal.cancel')}
-                  </button>
-                </div>
-              </div>
-            )}
+      <Modal isOpen={showPasswordModal} onClose={handleClosePasswordModal} size="sm">
+        <h3 className="password-title">🔐 {t('settings.passwordModal.title')}</h3>
+        {passwordSuccess ? (
+          <div className="password-success">
+            <span className="password-success-icon">✓</span>
+            <p>{t('settings.passwordModal.success')}</p>
           </div>
-        </div>
-      )}
+        ) : (
+          <div className="password-form">
+            <input
+              type="password"
+              placeholder={t('settings.passwordModal.current')}
+              value={passwordData.current}
+              onChange={(e) => handlePasswordChange('current', e.target.value)}
+            />
+            <div className="input-password">
+              <input
+                type={showPassword.new ? 'text' : 'password'}
+                placeholder={t('settings.passwordModal.new')}
+                value={passwordData.new}
+                onChange={(e) => handlePasswordChange('new', e.target.value)}
+              />
+              <button
+                type="button"
+                className="toggle-password"
+                onClick={() => setShowPassword((prev) => ({ ...prev, new: !prev.new }))}
+              >
+                {showPassword.new ? <FaEye /> : <FaEyeSlash />}
+              </button>
+            </div>
+            <div className="input-password">
+              <input
+                type={showPassword.confirm ? 'text' : 'password'}
+                placeholder={t('settings.passwordModal.confirm')}
+                value={passwordData.confirm}
+                onChange={(e) => handlePasswordChange('confirm', e.target.value)}
+              />
+              <button
+                type="button"
+                className="toggle-password"
+                onClick={() => setShowPassword((prev) => ({ ...prev, confirm: !prev.confirm }))}
+              >
+                {showPassword.confirm ? <FaEye /> : <FaEyeSlash />}
+              </button>
+            </div>
+            {passwordError && <p className="password-error">{passwordError}</p>}
+            <div className="password-actions">
+              <Button variant="primary" onClick={handleSavePassword}>
+                {t('settings.passwordModal.save')}
+              </Button>
+              <Button variant="secondary" onClick={handleClosePasswordModal}>
+                {t('settings.passwordModal.cancel')}
+              </Button>
+            </div>
+          </div>
+        )}
+      </Modal>
 
       {/* Modal editar */}
       {modalOpen && (
@@ -572,208 +566,183 @@ function SettingsScreen() {
       )}
 
       {/* Modal idioma */}
-      {showLangModal && (
-        <div className="lang-modal-overlay" onClick={() => setShowLangModal(false)}>
-          <div className="lang-modal" onClick={(e) => e.stopPropagation()}>
-            <h3>{t('settings.language')}</h3>
-            {LANGUAGES.map(({ code, label, flag, flagAlt }) => (
-              <button
-                key={code}
-                className={i18n.language === code ? 'lang-modal-btn--active' : ''}
-                onClick={() => handleChangeLanguage(code)}
-              >
-                <img src={flag} alt={flagAlt} className="lang-modal-flag" loading="lazy" />
-                <span>{label}</span>
-                {i18n.language === code && <span className="lang-modal-check">✓</span>}
-              </button>
-            ))}
-          </div>
-        </div>
-      )}
+      <Modal isOpen={showLangModal} onClose={() => setShowLangModal(false)} size="sm">
+        <h3>{t('settings.language')}</h3>
+        {LANGUAGES.map(({ code, label, flag, flagAlt }) => (
+          <button
+            key={code}
+            className={i18n.language === code ? 'lang-modal-btn--active' : ''}
+            onClick={() => handleChangeLanguage(code)}
+          >
+            <img src={flag} alt={flagAlt} className="lang-modal-flag" loading="lazy" />
+            <span>{label}</span>
+            {i18n.language === code && <span className="lang-modal-check">✓</span>}
+          </button>
+        ))}
+      </Modal>
 
       {/* ── MODAL ELIMINAR CUENTA ── */}
-      {showDeleteModal && (
-        <div className="lang-modal-overlay" onClick={() => setShowDeleteModal(false)}>
-          <div className="lang-modal" onClick={(e) => e.stopPropagation()}>
-            {deleteStep === 'confirm' ? (
-              <>
-                <h3 style={{ color: '#ff4d5b' }}>⚠️ {t('settings.deleteAccount')}</h3>
-                <p
-                  style={{
-                    fontSize: 'calc(var(--a11y-font-size) * 0.875)',
-                    color: 'var(--text-secondary)',
-                    textAlign: 'center',
-                    margin: '0 0 4px',
-                  }}
-                >
-                  {t('settings.deleteAccountConfirm')}
-                </p>
-                <p
-                  style={{
-                    fontSize: 'calc(var(--a11y-font-size) * 0.8125)',
-                    color: 'var(--text-muted)',
-                    textAlign: 'center',
-                    margin: '0 0 12px',
-                  }}
-                >
-                  {t('settings.deleteAccountDetail')}
-                </p>
-                <button
-                  onClick={() => setShowDeleteModal(false)}
-                  style={{ background: 'var(--bg-subtle)' }}
-                >
-                  {t('editModal.cancel')}
-                </button>
-                <button
-                  onClick={handleDeleteRequest}
-                  style={{ background: '#ff4d5b', color: 'white', border: 'none' }}
-                >
-                  {t('settings.deleteBtn')}
-                </button>
-              </>
-            ) : (
-              <>
-                <h3 style={{ color: 'var(--accent)' }}>✉️ {t('settings.deleteRequestSent')}</h3>
-                <button
-                  onClick={() => setShowDeleteModal(false)}
-                  style={{ background: 'var(--bg-subtle)', marginTop: 8 }}
-                >
-                  {t('editModal.cancel')}
-                </button>
-              </>
-            )}
-          </div>
-        </div>
-      )}
+      <Modal isOpen={showDeleteModal} onClose={() => setShowDeleteModal(false)} size="sm">
+        {deleteStep === 'confirm' ? (
+          <>
+            <h3 style={{ color: '#ff4d5b' }}>⚠️ {t('settings.deleteAccount')}</h3>
+            <p
+              style={{
+                fontSize: 'calc(var(--a11y-font-size) * 0.875)',
+                color: 'var(--text-secondary)',
+                textAlign: 'center',
+                margin: '0 0 4px',
+              }}
+            >
+              {t('settings.deleteAccountConfirm')}
+            </p>
+            <p
+              style={{
+                fontSize: 'calc(var(--a11y-font-size) * 0.8125)',
+                color: 'var(--text-muted)',
+                textAlign: 'center',
+                margin: '0 0 12px',
+              }}
+            >
+              {t('settings.deleteAccountDetail')}
+            </p>
+            <div className="password-actions">
+              <Button variant="secondary" onClick={() => setShowDeleteModal(false)}>
+                {t('editModal.cancel')}
+              </Button>
+              <Button variant="danger-solid" onClick={handleDeleteRequest}>
+                {t('settings.deleteBtn')}
+              </Button>
+            </div>
+          </>
+        ) : (
+          <>
+            <h3 style={{ color: 'var(--accent)' }}>✉️ {t('settings.deleteRequestSent')}</h3>
+            <Button
+              variant="secondary"
+              onClick={() => setShowDeleteModal(false)}
+              className="mt-2"
+            >
+              {t('editModal.cancel')}
+            </Button>
+          </>
+        )}
+      </Modal>
 
       {/* Modal ayuda */}
-      {helpModal.open && (
-        <div
-          className="lang-modal-overlay"
-          onClick={() => setHelpModal({ open: false, type: null })}
-        >
-          <div className="help-modal" onClick={(e) => e.stopPropagation()}>
-            <button
-              className="help-modal-close"
-              onClick={() => setHelpModal({ open: false, type: null })}
-            >
-              ✕
-            </button>
-
-            {helpModal.type === 'faq' && (
-              <>
-                <h3>❓ {t('settings.helpFaq')}</h3>
-                <div className="help-modal-body">
-                  {[
-                    { q: t('settings.faq.q1'), a: t('settings.faq.a1') },
-                    { q: t('settings.faq.q2'), a: t('settings.faq.a2') },
-                    { q: t('settings.faq.q3'), a: t('settings.faq.a3') },
-                    { q: t('settings.faq.q4'), a: t('settings.faq.a4') },
-                  ].map(({ q, a }) => (
-                    <div key={q} className="faq-item">
-                      <strong>{q}</strong>
-                      <p>{a}</p>
-                    </div>
-                  ))}
+      <Modal isOpen={helpModal.open} onClose={() => setHelpModal({ open: false, type: null })} size="lg">
+        {helpModal.type === 'faq' && (
+          <>
+            <h3>❓ {t('settings.helpFaq')}</h3>
+            <div className="help-modal-body">
+              {[
+                { q: t('settings.faq.q1'), a: t('settings.faq.a1') },
+                { q: t('settings.faq.q2'), a: t('settings.faq.a2') },
+                { q: t('settings.faq.q3'), a: t('settings.faq.a3') },
+                { q: t('settings.faq.q4'), a: t('settings.faq.a4') },
+              ].map(({ q, a }) => (
+                <div key={q} className="faq-item">
+                  <strong>{q}</strong>
+                  <p>{a}</p>
                 </div>
-              </>
-            )}
+              ))}
+            </div>
+          </>
+        )}
 
-            {helpModal.type === 'contact' && (
-              <>
-                <h3>📬 {t('settings.helpContact')}</h3>
-                <div className="help-modal-body">
-                  {[
-                    {
-                      icon: '✉️',
-                      title: t('settings.contact.emailTitle'),
-                      desc: 'soporte@eduaircontrol.com',
-                    },
-                    {
-                      icon: '🕐',
-                      title: t('settings.contact.scheduleTitle'),
-                      desc: t('settings.contact.scheduleDesc'),
-                    },
-                    {
-                      icon: '⏱️',
-                      title: t('settings.contact.responseTitle'),
-                      desc: t('settings.contact.responseDesc'),
-                    },
-                  ].map(({ icon, title, desc }) => (
-                    <div key={title} className="contact-item">
-                      <span className="contact-icon">{icon}</span>
-                      <div>
-                        <strong>{title}</strong>
-                        <p>{desc}</p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </>
-            )}
-
-            {helpModal.type === 'terms' && (
-              <>
-                <h3> {t('settings.helpTerms')}</h3>
-                <div className="help-modal-body help-modal-scroll">
-                  <p>{t('settings.terms.intro')}</p>
-                  {t('settings.terms.sections', { returnObjects: true }).map((section, i) => (
-                    <div className="policy-section" key={i}>
-                      <h4>{section.title}</h4>
-                      <ul>
-                        {section.items.map((item, j) => (
-                          <li key={j}>{item}</li>
-                        ))}
-                      </ul>
-                    </div>
-                  ))}
-                  <p className="policy-footer">{t('settings.terms.footer')}</p>
-                </div>
-              </>
-            )}
-
-            {helpModal.type === 'privacy' && (
-              <>
-                <h3>🔒 {t('settings.helpPrivacy')}</h3>
-                <div className="help-modal-body help-modal-scroll">
-                  <p>{t('settings.privacyModal.intro')}</p>
-                  {t('settings.privacyModal.sections', { returnObjects: true }).map(
-                    (section, i) => (
-                      <div className="policy-section" key={i}>
-                        <h4>{section.title}</h4>
-                        <ul>
-                          {section.items.map((item, j) => (
-                            <li key={j}>{item}</li>
-                          ))}
-                        </ul>
-                      </div>
-                    )
-                  )}
-                  <p className="policy-footer">{t('settings.privacyModal.footer')}</p>
-                </div>
-              </>
-            )}
-
-            {helpModal.type === 'version' && (
-              <>
-                <h3>📱 {t('settings.helpVersion')}</h3>
-                <div className="help-modal-body">
-                  <div className="version-info">
-                    <div className="version-badge">v1.0.0</div>
-                    <p>{t('settings.versionDesc')}</p>
-                    <p className="version-date">{t('settings.versionDate')}</p>
-                    <div className="version-tags">
-                      <span className="version-tag">React 18</span>
-                      <span className="version-tag">i18n</span>
-                      <span className="version-tag">Dark Mode</span>
-                    </div>
+        {helpModal.type === 'contact' && (
+          <>
+            <h3>📬 {t('settings.helpContact')}</h3>
+            <div className="help-modal-body">
+              {[
+                {
+                  icon: '✉️',
+                  title: t('settings.contact.emailTitle'),
+                  desc: 'soporte@eduaircontrol.com',
+                },
+                {
+                  icon: '🕐',
+                  title: t('settings.contact.scheduleTitle'),
+                  desc: t('settings.contact.scheduleDesc'),
+                },
+                {
+                  icon: '⏱️',
+                  title: t('settings.contact.responseTitle'),
+                  desc: t('settings.contact.responseDesc'),
+                },
+              ].map(({ icon, title, desc }) => (
+                <div key={title} className="contact-item">
+                  <span className="contact-icon">{icon}</span>
+                  <div>
+                    <strong>{title}</strong>
+                    <p>{desc}</p>
                   </div>
                 </div>
-              </>
-            )}
-          </div>
-        </div>
-      )}
+              ))}
+            </div>
+          </>
+        )}
+
+        {helpModal.type === 'terms' && (
+          <>
+            <h3> {t('settings.helpTerms')}</h3>
+            <div className="help-modal-body help-modal-scroll">
+              <p>{t('settings.terms.intro')}</p>
+              {t('settings.terms.sections', { returnObjects: true }).map((section, i) => (
+                <div className="policy-section" key={i}>
+                  <h4>{section.title}</h4>
+                  <ul>
+                    {section.items.map((item, j) => (
+                      <li key={j}>{item}</li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+              <p className="policy-footer">{t('settings.terms.footer')}</p>
+            </div>
+          </>
+        )}
+
+        {helpModal.type === 'privacy' && (
+          <>
+            <h3>🔒 {t('settings.helpPrivacy')}</h3>
+            <div className="help-modal-body help-modal-scroll">
+              <p>{t('settings.privacyModal.intro')}</p>
+              {t('settings.privacyModal.sections', { returnObjects: true }).map(
+                (section, i) => (
+                  <div className="policy-section" key={i}>
+                    <h4>{section.title}</h4>
+                    <ul>
+                      {section.items.map((item, j) => (
+                        <li key={j}>{item}</li>
+                      ))}
+                    </ul>
+                  </div>
+                )
+              )}
+              <p className="policy-footer">{t('settings.privacyModal.footer')}</p>
+            </div>
+          </>
+        )}
+
+        {helpModal.type === 'version' && (
+          <>
+            <h3>📱 {t('settings.helpVersion')}</h3>
+            <div className="help-modal-body">
+              <div className="version-info">
+                <div className="version-badge">v1.0.0</div>
+                <p>{t('settings.versionDesc')}</p>
+                <p className="version-date">{t('settings.versionDate')}</p>
+                <div className="version-tags">
+                  <span className="version-tag">React 18</span>
+                  <span className="version-tag">i18n</span>
+                  <span className="version-tag">Dark Mode</span>
+                </div>
+              </div>
+            </div>
+          </>
+        )}
+      </Modal>
     </div>
   );
 }

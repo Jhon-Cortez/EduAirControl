@@ -57,7 +57,7 @@ function EnvironmentCard({ environment, onToggleFavorite }) {
   const [open, setOpen] = useState(false);
 
   const score = calculateEnvironmentScore(environment);
-  const status = getEnvironmentStatus(score);
+  const status = getEnvironmentStatus(environment.statusKey, t);
 
   const handleFavorite = (e) => {
     e.stopPropagation();

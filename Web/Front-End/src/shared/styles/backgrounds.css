@@ -59,13 +59,21 @@
    CARDS PRINCIPALES
 ========================================= */
 
-.summary-card,
-.env-card,
 .settings-card,
 .profile-card,
 .filter-card,
 .mgmt-card {
-  background: rgba(10, 20, 45, 0.72) !important;
+  background: var(--bg-card) !important;
+
+  backdrop-filter: blur(14px);
+
+  border:
+    1px solid rgba(93, 230, 200, 0.10);
+}
+
+.summary-card,
+.env-card {
+  background: var(--bg-card) !important;
 
   backdrop-filter: blur(14px);
 
@@ -78,6 +86,11 @@
   overflow: hidden;
 
   transition: all 0.3s ease;
+}
+
+body.dark-mode .summary-card,
+body.dark-mode .env-card {
+  background: rgba(15, 24, 41, 0.9) !important;
 }
 
 /* Hover elegante */

@@ -9,10 +9,10 @@
   --analysis-muted: #91a2b7;
   --analysis-muted-strong: #c0cad8;
   --analysis-accent: var(--accent);
-  --analysis-green: #25e77c;
-  --analysis-amber: #ffb11a;
-  --analysis-red: #ff4d5b;
-  --analysis-blue: #58afff;
+  --analysis-green: var(--color-success);
+  --analysis-amber: var(--color-warning);
+  --analysis-red: var(--color-danger);
+  --analysis-blue: var(--color-info);
   position: relative;
   min-height: 100vh;
   overflow: hidden;
@@ -43,10 +43,10 @@ body:not(.dark-mode) .dashboard-analysis-screen {
   --analysis-muted: #5d7587;
   --analysis-muted-strong: #36566d;
   --analysis-accent: var(--accent);
-  --analysis-green: #199f66;
-  --analysis-amber: #d58a08;
-  --analysis-red: #d75461;
-  --analysis-blue: #3e88d8;
+  --analysis-green: var(--color-success);
+  --analysis-amber: var(--color-warning);
+  --analysis-red: var(--color-danger);
+  --analysis-blue: var(--color-info);
   background-color: var(--analysis-bg);
   background-image:
     linear-gradient(

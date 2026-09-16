@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { FaHeart } from 'react-icons/fa';
 import Navbar from '../dashboard/components/Navbar/Navbar';
 import { useEnvironment } from '../../context/EnvironmentContext';
+import { Modal, Button } from '../../shared/components';
 import './Favorites.css';
 
 const FAV_METRIC_DEFINITIONS = [
@@ -55,11 +56,11 @@ function FavoritesScreen() {
   const getStatusColor = (statusKey) => {
     switch (statusKey) {
       case 'dashboard.statusNormal':
-        return '#25e77c';
+        return 'var(--color-success)'
       case 'dashboard.statusWarning':
-        return '#ffb11a';
+        return 'var(--color-warning)'
       case 'dashboard.statusAlert':
-        return '#ff4d5b';
+        return 'var(--color-danger)'
       default:
         return '#8b949e';
     }
@@ -92,7 +93,7 @@ function FavoritesScreen() {
         {/* HEADER */}
         <div className="favorites-header">
           <div className="favorites-header-content">
-            <FaHeart size={32} color="#ff4d5b" />
+            <FaHeart size={32} color="var(--color-danger)" />
             <div>
               <h1>{t('favorites.title')}</h1>
               <p className="favorites-subtitle">{t('favorites.description')}</p>
@@ -176,37 +177,30 @@ function FavoritesScreen() {
       </div>
 
       {/* MODAL */}
-      {showConfirmModal && selectedFav && (
-        <div className="modal-overlay" onClick={handleCancelRemove}>
-          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-            <div className="modal-header modal-header-warning">
-              <FaHeart size={24} color="#ff4d5b" />
-              <h2>Eliminar de Favoritos</h2>
-            </div>
-
-            <div className="modal-body">
-              <p>
-                ¿Seguro que quieres eliminar{' '}
-                <strong>{selectedFav.nameKey ? t(selectedFav.nameKey) : selectedFav.name}</strong>{' '}
-                de favoritos?
-              </p>
-            </div>
-
-            <div className="modal-footer">
-              <button className="modal-btn modal-btn-cancel" onClick={handleCancelRemove}>
-                Cancelar
-              </button>
-
-              <button
-                className="modal-btn modal-btn-confirm modal-btn-danger"
-                onClick={handleConfirmRemove}
-              >
-                Eliminar
-              </button>
-            </div>
-          </div>
+      <Modal isOpen={showConfirmModal && !!selectedFav} onClose={handleCancelRemove} size="sm">
+        <div className="modal-header modal-header-warning">
+          <FaHeart size={24} color="#ff4d5b" />
+          <h2>{t('favorites.removeFavorite')}</h2>
         </div>
-      )}
+
+        <div className="modal-body">
+          <p>
+            {t('favorites.confirmRemove', '¿Seguro que quieres eliminar')}{' '}
+            <strong>{selectedFav?.nameKey ? t(selectedFav.nameKey) : selectedFav?.name}</strong>{' '}
+            {t('favorites.fromFavorites', 'de favoritos?')}
+          </p>
+        </div>
+
+        <div className="modal-footer">
+          <Button variant="secondary" onClick={handleCancelRemove}>
+            {t('profile.cancel', 'Cancelar')}
+          </Button>
+
+          <Button variant="danger-solid" onClick={handleConfirmRemove}>
+            {t('favorites.remove', 'Eliminar')}
+          </Button>
+        </div>
+      </Modal>
     </div>
   );
 }
