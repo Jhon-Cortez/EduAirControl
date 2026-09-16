@@ -19,8 +19,7 @@ function LoginForm() {
     resolver: zodResolver(loginSchema),
   });
 
-  const onSubmit = (data) => {
-    console.log(data);
+  const onSubmit = () => {
     // Aquí se incluiría la lógica para validar el companyCode junto con las credenciales
     navigate('/dashboard');
   };

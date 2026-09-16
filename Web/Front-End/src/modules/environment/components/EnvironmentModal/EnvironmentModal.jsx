@@ -106,9 +106,8 @@ function EnvironmentModal({ isOpen, onClose, environment, isFavorite, onToggleFa
           <EnvironmentRating
             environmentId={environment.id}
             initialRating={environment.userRating || 0}
-            onRate={(id, value) => {
+            onRate={() => {
               // Conecta aquí con tu backend/context para persistir la calificación
-              console.log('Ambiente', id, 'calificado con', value, 'estrellas');
             }}
           />
         </div>

@@ -9,8 +9,7 @@ export const RegisterSchema = z.object({
     .regex(/[A-Z]/, 'errors.uppercaseRequired:_password'),
 
   confirmPassword: z.string(),
-});
-refine((data) => data.password === data.confirmPassword, {
+}).refine((data) => data.password === data.confirmPassword, {
   message: 'errors.passwords_dont_match',
   path: ['confirmPassword'],
 });

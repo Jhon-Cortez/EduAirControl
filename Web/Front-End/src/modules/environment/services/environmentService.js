@@ -1,4 +1,4 @@
-import environmentsData from '../data/environmentsData';
+import environmentsData from '../data/environmentData';
 
 const environmentService = {
   getAll() {

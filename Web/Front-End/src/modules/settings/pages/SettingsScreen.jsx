@@ -186,7 +186,6 @@ function SettingsScreen() {
       return;
     }
     // Aquí luego conectas backend
-    console.log('Cambio de contraseña:', passwordData);
     setPasswordError('');
     setPasswordSuccess(true);
     setTimeout(() => {
@@ -210,7 +209,6 @@ function SettingsScreen() {
 
   const handleDeleteRequest = () => {
     // Aquí luego conectas backend / envías email
-    console.log('Solicitud de eliminación de cuenta');
     setDeleteStep('sent');
   };
 
