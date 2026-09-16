@@ -1,0 +1,34 @@
+.ds-empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 24px;
+  text-align: center;
+}
+
+.ds-empty-state__icon {
+  font-size: 48px;
+  color: var(--text-muted);
+  margin-bottom: 16px;
+  opacity: 0.6;
+}
+
+.ds-empty-state__title {
+  margin: 0 0 8px;
+  font-size: calc(var(--a11y-font-size) * 1.125);
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.ds-empty-state__description {
+  margin: 0 0 24px;
+  font-size: calc(var(--a11y-font-size) * 0.875);
+  color: var(--text-muted);
+  max-width: 320px;
+}
+
+.ds-empty-state__action {
+  display: flex;
+  gap: 12px;
+}
