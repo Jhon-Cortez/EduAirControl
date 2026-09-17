@@ -854,6 +854,89 @@
     "favoriteAdd": "Marque este ambiente como favorito para encontrá-lo mais rápido.",
     "favoriteRemove": "Remova este ambiente dos seus favoritos.",
     "closeBtn": "Fecha esta janela."
+  },
+  "dashboardAnalysis": {
+    "title": "PAINEL DE ANÁLISE",
+    "subtitle": "também conta uma história.",
+    "description": "Compare a evolução dos seus ambientes, identifique mudanças e tome decisões antes que um alerta interrompa a aprendizagem.",
+    "periods": {
+      "day": "Dia",
+      "dayContext": "Últimas 24 horas",
+      "week": "Semana",
+      "weekContext": "18 — 24 agosto 2026",
+      "month": "Mês",
+      "monthContext": "Agosto 2026",
+      "year": "Ano",
+      "yearContext": "Janeiro — agosto 2026"
+    },
+    "labels": {
+      "temperature": "Temperatura",
+      "humidity": "Umidade",
+      "noise": "Ruído",
+      "normal": "Normal",
+      "warning": "Aviso",
+      "alert": "Alerta"
+    },
+    "chart": {
+      "weekdays": ["Seg", "Ter", "Qua", "Qui", "Sex", "Sáb", "Dom"],
+      "months": ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago"],
+      "weeks": ["Sem 1", "Sem 2", "Sem 3", "Sem 4", "Atual"],
+      "hours": ["00h", "03h", "06h", "09h", "12h", "15h", "18h", "21h"],
+      "comfortThreshold": "limite de conforto",
+      "recommendedAverage": "Média recomendada: ",
+      "referenceRange": "Faixa de referência",
+      "co2Range": "Abaixo de 800 ppm",
+      "throughTime": "ao longo do tempo",
+      "syncedData": "Dados sincronizados"
+    },
+    "kpi": {
+      "averagePrefix": "Média ",
+      "vsPreviousPeriod": "7,4% vs. período anterior",
+      "environmentsInRange": "ambientes dentro da faixa",
+      "requireFollowUp": "requerem acompanhamento",
+      "requireAttention": "requerem atenção"
+    },
+    "context": {
+      "environments": "Ambientes",
+      "selectEnvironment": "Escolha um espaço para revisar sua evolução específica.",
+      "allEnvironments": "Todos os ambientes",
+      "consolidatedView": "Visão consolidada",
+      "floor": "Andar",
+      "lastReading": "Última leitura",
+      "refreshData": "Atualizar dados"
+    },
+    "quickReading": {
+      "title": "LEITURA RÁPIDA",
+      "alertMessage": "Há um ambiente que pede atenção.",
+      "normalMessage": "A rede mantém-se estável.",
+      "alertDescription": "Verifique a tendência do ambiente em alerta e compare com suas horas de maior ocupação.",
+      "normalDescription": "A maioria dos espaços está dentro da faixa recomendada.",
+      "viewDetail": "Ver detalhe"
+    },
+    "comparison": {
+      "title": "COMPARAÇÃO",
+      "byEnvironment": "Por ambiente",
+      "descriptionPrefix": "Média de",
+      "descriptionSuffix": "no período"
+    },
+    "network": {
+      "title": "ESTADO ATUAL",
+      "health": "Saúde da rede",
+      "monitoring": "Monitorando",
+      "inRange": "na faixa",
+      "dataUpdated": "Dados atualizados"
+    },
+    "footer": {
+      "brand": "EduAirControl · Monitoramento Inteligente do Ar",
+      "autoUpdate": "ambientes · Atualização automática a cada 5 min"
+    },
+    "ariaLabels": {
+      "controls": "Controles da análise",
+      "selectPeriod": "Selecionar período",
+      "selectMetric": "Selecionar métrica",
+      "periodIndicators": "Indicadores do período",
+      "refreshData": "Atualizar dados"
+    }
   }
 }
 }

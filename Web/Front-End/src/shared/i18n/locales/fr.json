@@ -851,6 +851,89 @@
     "favoriteAdd": "Marquez cet environnement comme favori pour le retrouver plus rapidement.",
     "favoriteRemove": "Retirez cet environnement de vos favoris.",
     "closeBtn": "Ferme cette fenêtre."
+  },
+  "dashboardAnalysis": {
+    "title": "TABLEAU DE BORD D'ANALYSE",
+    "subtitle": "raconte aussi une histoire.",
+    "description": "Comparez l'évolution de vos environnements, identifiez les changements et prenez des décisions avant qu'une alerte n'interrompe l'apprentissage.",
+    "periods": {
+      "day": "Jour",
+      "dayContext": "Dernières 24 heures",
+      "week": "Semaine",
+      "weekContext": "18 — 24 août 2026",
+      "month": "Mois",
+      "monthContext": "Août 2026",
+      "year": "Année",
+      "yearContext": "Janvier — août 2026"
+    },
+    "labels": {
+      "temperature": "Température",
+      "humidity": "Humidité",
+      "noise": "Bruit",
+      "normal": "Normal",
+      "warning": "Avertissement",
+      "alert": "Alerte"
+    },
+    "chart": {
+      "weekdays": ["Lun", "Mar", "Mer", "Jeu", "Ven", "Sam", "Dim"],
+      "months": ["Jan", "Fév", "Mar", "Avr", "Mai", "Jun", "Jul", "Aoû"],
+      "weeks": ["Sem 1", "Sem 2", "Sem 3", "Sem 4", "Actuel"],
+      "hours": ["00h", "03h", "06h", "09h", "12h", "15h", "18h", "21h"],
+      "comfortThreshold": "seuil de confort",
+      "recommendedAverage": "Moyenne recommandée : ",
+      "referenceRange": "Plage de référence",
+      "co2Range": "Inférieur à 800 ppm",
+      "throughTime": "au fil du temps",
+      "syncedData": "Données synchronisées"
+    },
+    "kpi": {
+      "averagePrefix": "Moyenne ",
+      "vsPreviousPeriod": "7,4 % vs. période précédente",
+      "environmentsInRange": "environnements dans la plage",
+      "requireFollowUp": "nécessitent un suivi",
+      "requireAttention": "nécessitent une attention"
+    },
+    "context": {
+      "environments": "Environnements",
+      "selectEnvironment": "Choisissez un espace pour examiner son évolution spécifique.",
+      "allEnvironments": "Tous les environnements",
+      "consolidatedView": "Vue consolidée",
+      "floor": "Étage",
+      "lastReading": "Dernière lecture",
+      "refreshData": "Actualiser les données"
+    },
+    "quickReading": {
+      "title": "LECTURE RAPIDE",
+      "alertMessage": "Un environnement nécessite une attention.",
+      "normalMessage": "Le réseau reste stable.",
+      "alertDescription": "Vérifiez la tendance de l'environnement en alerte et comparez-la avec ses heures d'occupation maximale.",
+      "normalDescription": "La plupart des espaces se trouvent dans la plage recommandée.",
+      "viewDetail": "Voir le détail"
+    },
+    "comparison": {
+      "title": "COMPARAISON",
+      "byEnvironment": "Par environnement",
+      "descriptionPrefix": "Moyenne de",
+      "descriptionSuffix": "dans la période"
+    },
+    "network": {
+      "title": "ÉTAT ACTUEL",
+      "health": "Santé du réseau",
+      "monitoring": "Surveillance",
+      "inRange": "dans la plage",
+      "dataUpdated": "Données actualisées"
+    },
+    "footer": {
+      "brand": "EduAirControl · Surveillance Intelligente de l'Air",
+      "autoUpdate": "environnements · Mise à jour automatique toutes les 5 min"
+    },
+    "ariaLabels": {
+      "controls": "Contrôles de l'analyse",
+      "selectPeriod": "Sélectionner la période",
+      "selectMetric": "Sélectionner la métrique",
+      "periodIndicators": "Indicateurs de période",
+      "refreshData": "Actualiser les données"
+    }
   }
   }
 }

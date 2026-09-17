@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import {
   FaArrowDown,
   FaArrowUp,
@@ -32,24 +33,9 @@ import {
 } from 'recharts';
 
 import { useEnvironment } from '../context/EnvironmentContext';
-import { getComputedA11yFontSizePx } from '../shared/accessibility/accessibilitySettings';
 import Navbar from '../modules/dashboard/components/Navbar/Navbar';
 
 import './DashboardScreen.css';
-
-const PERIODS = [
-  { id: 'day', label: 'Día', context: 'Últimas 24 horas' },
-  { id: 'week', label: 'Semana', context: '18 — 24 agosto 2026' },
-  { id: 'month', label: 'Mes', context: 'Agosto 2026' },
-  { id: 'year', label: 'Año', context: 'Enero — agosto 2026' },
-];
-
-const PERIOD_LABELS = {
-  day: ['00 h', '03 h', '06 h', '09 h', '12 h', '15 h', '18 h', '21 h'],
-  week: ['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom'],
-  month: ['Sem 1', 'Sem 2', 'Sem 3', 'Sem 4', 'Actual'],
-  year: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago'],
-};
 
 const CURVES = {
   day: [0.94, 0.9, 0.82, 1.03, 1.2, 1.09, 0.98, 0.86],
@@ -69,7 +55,7 @@ const METRICS = {
     icon: FaWind,
   },
   temperature: {
-    label: 'Temperatura',
+    label: 'temperature',
     unit: '°C',
     color: '#FF6873',
     softColor: '#542C38',
@@ -78,7 +64,7 @@ const METRICS = {
     icon: FaThermometerHalf,
   },
   humidity: {
-    label: 'Humedad',
+    label: 'humidity',
     unit: '%',
     color: '#58AFFF',
     softColor: '#173F5C',
@@ -87,7 +73,7 @@ const METRICS = {
     icon: FaTint,
   },
   noise: {
-    label: 'Ruido',
+    label: 'noise',
     unit: 'dB',
     color: '#D98AFF',
     softColor: '#442C5D',
@@ -97,18 +83,18 @@ const METRICS = {
   },
 };
 
-const STATUS = {
-  normal: { label: 'Normal', className: 'normal', color: '#25E77C' },
-  warning: { label: 'Advertencia', className: 'warning', color: '#FFB11A' },
-  alert: { label: 'Alerta', className: 'alert', color: '#FF4D5B' },
+const STATUS_KEYS = {
+  normal: { className: 'normal', color: '#25E77C' },
+  warning: { className: 'warning', color: '#FFB11A' },
+  alert: { className: 'alert', color: '#FF4D5B' },
 };
 
 const ENVIRONMENT_COLORS = ['var(--accent)', '#FFB11A', '#FF4D5B', '#9D73FF', '#49D17D', '#58AFFF'];
 
 function normalizeStatus(statusKey) {
-  if (statusKey?.toLowerCase().includes('alert')) return STATUS.alert;
-  if (statusKey?.toLowerCase().includes('warning')) return STATUS.warning;
-  return STATUS.normal;
+  if (statusKey?.toLowerCase().includes('alert')) return STATUS_KEYS.alert;
+  if (statusKey?.toLowerCase().includes('warning')) return STATUS_KEYS.warning;
+  return STATUS_KEYS.normal;
 }
 
 function formatMetric(value, metric) {
@@ -166,9 +152,10 @@ function ChartTooltip({ active, payload, label, metric }) {
   );
 }
 
-function FilterSelect({ icon: Icon, value, options, onChange, isMetric = false, label }) {
+function FilterSelect({ icon, value, options, onChange, isMetric = false, label }) {
   const [open, setOpen] = useState(false);
   const selected = options.find((option) => option.value === value) || options[0];
+  const Icon = icon;
 
   useEffect(() => {
     if (!open) return;
@@ -220,8 +207,6 @@ function FilterSelect({ icon: Icon, value, options, onChange, isMetric = false, 
   );
 }
 
-// Tarjeta reutilizable para el resumen del hero: recibe su
-// contenido por props en vez de tenerlo quemado en el JSX.
 function HeroSummaryCard({ label, value, valueClassName, hint, highlight = false }) {
   return (
     <div className={`hero-summary-card ${highlight ? 'hero-summary-total' : ''}`}>
@@ -232,8 +217,6 @@ function HeroSummaryCard({ label, value, valueClassName, hint, highlight = false
   );
 }
 
-// Tarjeta reutilizable para los indicadores (KPI): recibe ícono,
-// etiqueta, valor y una nota/tendencia opcional por props.
 function KpiCard({ className = '', icon, label, value, valueClassName, note }) {
   return (
     <article className={`analysis-kpi-card ${className}`}>
@@ -248,11 +231,39 @@ function KpiCard({ className = '', icon, label, value, valueClassName, note }) {
 }
 
 function DashboardScreen() {
+  const { t } = useTranslation();
   const { environments = [] } = useEnvironment();
   const [period, setPeriod] = useState('day');
   const [metric, setMetric] = useState('co2');
   const [environmentId, setEnvironmentId] = useState('all');
   const [lastUpdated, setLastUpdated] = useState('hace 3 min');
+
+  const PERIODS = useMemo(() => [
+    { id: 'day', label: t('dashboardAnalysis.periods.day'), context: t('dashboardAnalysis.periods.dayContext') },
+    { id: 'week', label: t('dashboardAnalysis.periods.week'), context: t('dashboardAnalysis.periods.weekContext') },
+    { id: 'month', label: t('dashboardAnalysis.periods.month'), context: t('dashboardAnalysis.periods.monthContext') },
+    { id: 'year', label: t('dashboardAnalysis.periods.year'), context: t('dashboardAnalysis.periods.yearContext') },
+  ], [t]);
+
+  const PERIOD_LABELS = useMemo(() => ({
+    day: t('dashboardAnalysis.chart.hours', { returnObjects: true }),
+    week: t('dashboardAnalysis.chart.weekdays', { returnObjects: true }),
+    month: t('dashboardAnalysis.chart.weeks', { returnObjects: true }),
+    year: t('dashboardAnalysis.chart.months', { returnObjects: true }),
+  }), [t]);
+
+  const metricLabels = useMemo(() => ({
+    co2: 'CO₂',
+    temperature: t('dashboardAnalysis.labels.temperature'),
+    humidity: t('dashboardAnalysis.labels.humidity'),
+    noise: t('dashboardAnalysis.labels.noise'),
+  }), [t]);
+
+  const statusLabels = useMemo(() => ({
+    normal: t('dashboardAnalysis.labels.normal'),
+    warning: t('dashboardAnalysis.labels.warning'),
+    alert: t('dashboardAnalysis.labels.alert'),
+  }), [t]);
 
   useEffect(() => {
     document.body.classList.add('dashboard-analysis-mode');
@@ -270,7 +281,7 @@ function DashboardScreen() {
   const periodInfo = PERIODS.find((item) => item.id === period) || PERIODS[0];
   const selectedLabel =
     environmentId === 'all'
-      ? 'Todos los ambientes'
+      ? t('dashboardAnalysis.context.allEnvironments')
       : visibleEnvironments[0]?.name || 'Sin ambiente seleccionado';
 
   const chartData = useMemo(
@@ -287,7 +298,7 @@ function DashboardScreen() {
         });
         return row;
       }),
-    [metric, period, visibleEnvironments]
+    [metric, period, visibleEnvironments, PERIOD_LABELS]
   );
 
   const comparisonData = useMemo(
@@ -323,77 +334,51 @@ function DashboardScreen() {
     [visibleEnvironments]
   );
 
-  // Tamaños de fuente escalables para ticks y elementos que requieren números
-  const baseA11yPx = typeof window !== 'undefined' ? getComputedA11yFontSizePx() : 16;
-  const tickFont11 = Math.max(10, Math.round((baseA11yPx * 11) / 16));
-  const tickFont10 = Math.max(9, Math.round((baseA11yPx * 10) / 16));
-
   const handleRefresh = () => {
     setLastUpdated('actualizado ahora');
     window.setTimeout(() => setLastUpdated('hace 3 min'), 2600);
   };
 
-  const handleExport = () => {
-    const headers = ['Ambiente', 'Métrica', 'Periodo', 'Promedio', 'Unidad'];
-    const rows = visibleEnvironments.map((environment) => [
-      environment.name,
-      metricInfo.label,
-      periodInfo.label,
-      getPeriodValue(environment, metric, period),
-      metricInfo.unit,
-    ]);
-    const csv = [headers, ...rows].map((row) => row.join(',')).join('\n');
-    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = `eduaircontrol-${metric}-${period}.csv`;
-    link.click();
-    URL.revokeObjectURL(url);
-  };
-
-  // Config reutilizable de las tarjetas KPI.
   const kpiDefinitions = [
     {
       key: 'average',
       className: 'primary-kpi',
       icon: <MetricIcon size={17} />,
-      label: `Promedio ${metricInfo.label}`,
+      label: `${t('dashboardAnalysis.kpi.averagePrefix')}${metricLabels[metric]}`,
       value: formatMetric(average, metric),
       note: (
         <>
-          <FaArrowDown size={13} /> 7.4% vs. periodo anterior
+          <FaArrowDown size={13} /> {t('dashboardAnalysis.kpi.vsPreviousPeriod')}
         </>
       ),
     },
     {
       key: 'normal',
       icon: <FaCheckCircle size={17} />,
-      label: 'Normal',
+      label: statusLabels.normal,
       value: statusCounts.normal,
       valueClassName: 'green-number',
-      note: 'ambientes en rango',
+      note: t('dashboardAnalysis.kpi.environmentsInRange'),
     },
     {
       key: 'warning',
       icon: <IoStatsChart size={17} />,
-      label: 'Advertencias',
+      label: statusLabels.warning,
       value: statusCounts.warning,
       valueClassName: 'amber-number',
-      note: 'requieren seguimiento',
+      note: t('dashboardAnalysis.kpi.requireFollowUp'),
     },
     {
       key: 'alert',
       className: 'alert-kpi',
       icon: <FaTachometerAlt size={17} />,
-      label: 'Alertas',
+      label: statusLabels.alert,
       value: statusCounts.alert,
       valueClassName: 'red-number',
-      note: 'requieren atención',
+      note: t('dashboardAnalysis.kpi.requireAttention'),
     },
   ];
 
-  // Ciclo forEach: recorre la config y arma cada tarjeta KPI con sus props.
   const kpiCards = [];
   kpiDefinitions.forEach((item) => {
     kpiCards.push(
@@ -417,16 +402,15 @@ function DashboardScreen() {
         <section className="analysis-hero">
           <div className="analysis-heading">
             <span className="analysis-eyebrow">
-              <span /> DASHBOARD DE ANÁLISIS
+              <span /> {t('dashboardAnalysis.title')}
             </span>
             <h1>
               La calidad ambiental
               <br />
-              <em>también cuenta una historia.</em>
+              <em>{t('dashboardAnalysis.subtitle')}</em>
             </h1>
             <p>
-              Compara la evolución de tus ambientes, identifica cambios y toma decisiones antes de
-              que una alerta interrumpa el aprendizaje.
+              {t('dashboardAnalysis.description')}
             </p>
           </div>
         </section>
@@ -438,8 +422,8 @@ function DashboardScreen() {
           <span />
         </div>
 
-        <section className="analysis-controls" aria-label="Controles del análisis">
-          <div className="analysis-period-tabs" role="tablist" aria-label="Seleccionar periodo">
+        <section className="analysis-controls" aria-label={t('dashboardAnalysis.ariaLabels.controls')}>
+          <div className="analysis-period-tabs" role="tablist" aria-label={t('dashboardAnalysis.ariaLabels.selectPeriod')}>
             {PERIODS.map((item) => (
               <button
                 key={item.id}
@@ -459,18 +443,18 @@ function DashboardScreen() {
 
           <FilterSelect
             icon={MetricIcon}
-            label="Seleccionar métrica"
+            label={t('dashboardAnalysis.ariaLabels.selectMetric')}
             value={metric}
             onChange={setMetric}
             isMetric
-            options={Object.entries(METRICS).map(([key, info]) => ({
+            options={Object.entries(METRICS).map(([key]) => ({
               value: key,
-              label: info.label,
+              label: metricLabels[key],
             }))}
           />
         </section>
 
-        <section className="analysis-kpi-grid" aria-label="Indicadores del periodo">
+        <section className="analysis-kpi-grid" aria-label={t('dashboardAnalysis.ariaLabels.periodIndicators')}>
           {kpiCards}
         </section>
 
@@ -480,12 +464,12 @@ function DashboardScreen() {
               <div className="analysis-panel-title">
                 <div>
                   <span className="analysis-section-label">CONTEXTO</span>
-                  <h2>Ambientes</h2>
+                  <h2>{t('dashboardAnalysis.context.environments')}</h2>
                 </div>
                 <span className="analysis-count-badge">{environments.length}</span>
               </div>
               <p className="analysis-panel-description">
-                Elige un espacio para revisar su evolución específica.
+                {t('dashboardAnalysis.context.selectEnvironment')}
               </p>
               <div className="analysis-environment-list">
                 <button
@@ -497,8 +481,8 @@ function DashboardScreen() {
                     <FaWind size={13} />
                   </span>
                   <span>
-                    <strong>Todos los ambientes</strong>
-                    <small>Vista consolidada</small>
+                    <strong>{t('dashboardAnalysis.context.allEnvironments')}</strong>
+                    <small>{t('dashboardAnalysis.context.consolidatedView')}</small>
                   </span>
                   <FaChevronDown size={13} />
                 </button>
@@ -523,12 +507,12 @@ function DashboardScreen() {
                       <span>
                         <strong>{environment.name}</strong>
                         <small>
-                          {environment.building} · Piso {environment.floor}
+                          {environment.building} · {t('dashboardAnalysis.context.floor')} {environment.floor}
                         </small>
                       </span>
                       <i
                         className={`analysis-status-dot ${status.className}`}
-                        title={status.label}
+                        title={statusLabels[normalizeStatus(environment.statusKey).className]}
                       />{' '}
                     </button>
                   );
@@ -538,26 +522,26 @@ function DashboardScreen() {
               <div className="analysis-updated">
                 <FaClock size={14} />
                 <span>
-                  Última lectura
+                  {t('dashboardAnalysis.context.lastReading')}
                   <br />
                   <strong>{lastUpdated}</strong>
                 </span>
-                <button type="button" aria-label="Actualizar datos" onClick={handleRefresh}>
+                <button type="button" aria-label={t('dashboardAnalysis.ariaLabels.refreshData')} onClick={handleRefresh}>
                   <FaSyncAlt size={13} />
                 </button>
               </div>
             </section>
             <section className="analysis-panel reading-panel">
-              <span className="analysis-section-label">LECTURA RÁPIDA</span>
+              <span className="analysis-section-label">{t('dashboardAnalysis.quickReading.title')}</span>
               <h3>
                 {statusCounts.alert > 0
-                  ? 'Hay un ambiente que pide atención.'
-                  : 'La red se mantiene estable.'}
+                  ? t('dashboardAnalysis.quickReading.alertMessage')
+                  : t('dashboardAnalysis.quickReading.normalMessage')}
               </h3>
               <p>
                 {statusCounts.alert > 0
-                  ? 'Revisa la tendencia del ambiente en alerta y compárala con sus horas de mayor ocupación.'
-                  : 'La mayoría de los espacios se encuentran dentro del rango recomendado.'}
+                  ? t('dashboardAnalysis.quickReading.alertDescription')
+                  : t('dashboardAnalysis.quickReading.normalDescription')}
               </p>
               <button
                 type="button"
@@ -574,7 +558,7 @@ function DashboardScreen() {
                   )
                 }
               >
-                Ver detalle <FaArrowUp size={14} />
+                {t('dashboardAnalysis.quickReading.viewDetail')} <FaArrowUp size={14} />
               </button>
             </section>
           </aside>
@@ -583,14 +567,14 @@ function DashboardScreen() {
             <article className="analysis-panel main-analysis-chart">
               <div className="analysis-chart-header">
                 <div>
-                  <span className="analysis-section-label">EVOLUCIÓN TEMPORAL</span>
-                  <h2>{metricInfo.label} a través del tiempo</h2>
+                  <span className="analysis-section-label">{t('dashboardAnalysis.title')}</span>
+                  <h2>{metricLabels[metric]} {t('dashboardAnalysis.chart.throughTime')}</h2>
                   <p>
                     {selectedLabel} · {periodInfo.context}
                   </p>
                 </div>
                 <span className="analysis-live-pill">
-                  <span /> Datos sincronizados
+                  <span /> {t('dashboardAnalysis.chart.syncedData')}
                 </span>
               </div>
               <div className="analysis-chart-legend">
@@ -603,7 +587,7 @@ function DashboardScreen() {
                   </span>
                 ))}
                 <span className="comfort-legend">
-                  <i /> umbral de confort
+                  <i /> {t('dashboardAnalysis.chart.comfortThreshold')}
                 </span>
               </div>
               <div className="analysis-main-chart-wrap">
@@ -675,9 +659,9 @@ function DashboardScreen() {
               </div>
               <div className="analysis-chart-caption">
                 <span>
-                  <i /> Promedio recomendado: {formatMetric(metricInfo.comfort, metric)}
+                  <i /> {t('dashboardAnalysis.chart.recommendedAverage')}{formatMetric(metricInfo.comfort, metric)}
                 </span>
-                <span>{metric === 'co2' ? 'Menor a 800 ppm' : 'Rango de referencia'}</span>
+                <span>{metric === 'co2' ? t('dashboardAnalysis.chart.co2Range') : t('dashboardAnalysis.chart.referenceRange')}</span>
               </div>
             </article>
 
@@ -685,9 +669,9 @@ function DashboardScreen() {
               <article className="analysis-panel comparison-chart">
                 <div className="analysis-chart-header compact">
                   <div>
-                    <span className="analysis-section-label">COMPARACIÓN</span>
-                    <h2>Por ambiente</h2>
-                    <p>Promedio de {metricInfo.label.toLowerCase()} en el periodo</p>
+                    <span className="analysis-section-label">{t('dashboardAnalysis.comparison.title')}</span>
+                    <h2>{t('dashboardAnalysis.comparison.byEnvironment')}</h2>
+                    <p>{t('dashboardAnalysis.comparison.descriptionPrefix')} {metricLabels[metric].toLowerCase()} {t('dashboardAnalysis.comparison.descriptionSuffix')}</p>
                   </div>
                   <FaChartBar size={18} />
                 </div>
@@ -731,11 +715,11 @@ function DashboardScreen() {
               <article className="analysis-panel network-status-chart">
                 <div className="analysis-chart-header compact">
                   <div>
-                    <span className="analysis-section-label">ESTADO ACTUAL</span>
-                    <h2>Salud de la red</h2>
+                    <span className="analysis-section-label">{t('dashboardAnalysis.network.title')}</span>
+                    <h2>{t('dashboardAnalysis.network.health')}</h2>
                   </div>
                   <span className="analysis-network-pill">
-                    <span /> Monitoreando
+                    <span /> {t('dashboardAnalysis.network.monitoring')}
                   </span>
                 </div>
                 <div className="analysis-network-body">
@@ -744,9 +728,9 @@ function DashboardScreen() {
                       <PieChart>
                         <Pie
                           data={[
-                            { name: 'Normal', value: statusCounts.normal },
-                            { name: 'Advertencia', value: statusCounts.warning },
-                            { name: 'Alerta', value: statusCounts.alert },
+                            { name: statusLabels.normal, value: statusCounts.normal },
+                            { name: statusLabels.warning, value: statusCounts.warning },
+                            { name: statusLabels.alert, value: statusCounts.alert },
                           ].filter((item) => item.value > 0)}
                           dataKey="value"
                           innerRadius={48}
@@ -770,27 +754,27 @@ function DashboardScreen() {
                           : 0}
                         %
                       </strong>
-                      <span>en rango</span>
+                      <span>{t('dashboardAnalysis.network.inRange')}</span>
                     </div>
                   </div>
                   <div className="analysis-network-legend">
                     <div>
                       <i className="normal" />
-                      <span>Normal</span>
+                      <span>{statusLabels.normal}</span>
                       <strong>{statusCounts.normal}</strong>
                     </div>
                     <div>
                       <i className="warning" />
-                      <span>Advertencia</span>
+                      <span>{statusLabels.warning}</span>
                       <strong>{statusCounts.warning}</strong>
                     </div>
                     <div>
                       <i className="alert" />
-                      <span>Alerta</span>
+                      <span>{statusLabels.alert}</span>
                       <strong>{statusCounts.alert}</strong>
                     </div>
                     <small>
-                      <FaCheckCircle size={13} /> Datos actualizados
+                      <FaCheckCircle size={13} /> {t('dashboardAnalysis.network.dataUpdated')}
                     </small>
                   </div>
                 </div>
@@ -800,8 +784,8 @@ function DashboardScreen() {
         </div>
 
         <footer className="analysis-footer">
-          <span>EduAirControl · Smart Air Monitoring</span>
-          <span>{environments.length} ambientes · Actualización automática cada 5 min</span>
+          <span>{t('dashboardAnalysis.footer.brand')}</span>
+          <span>{environments.length} {t('dashboardAnalysis.footer.autoUpdate')}</span>
         </footer>
       </main>
     </div>

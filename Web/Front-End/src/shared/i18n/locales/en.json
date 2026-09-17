@@ -852,6 +852,89 @@
     "favoriteAdd": "Mark this environment as a favorite to find it faster on your panel.",
     "favoriteRemove": "Remove this environment from your favorites.",
     "closeBtn": "Close this window."
+  },
+  "dashboardAnalysis": {
+    "title": "ANALYSIS DASHBOARD",
+    "subtitle": "also tells a story.",
+    "description": "Compare your environments' evolution, identify changes and make decisions before an alert interrupts learning.",
+    "periods": {
+      "day": "Day",
+      "dayContext": "Last 24 hours",
+      "week": "Week",
+      "weekContext": "Aug 18 — 24, 2026",
+      "month": "Month",
+      "monthContext": "August 2026",
+      "year": "Year",
+      "yearContext": "January — August 2026"
+    },
+    "labels": {
+      "temperature": "Temperature",
+      "humidity": "Humidity",
+      "noise": "Noise",
+      "normal": "Normal",
+      "warning": "Warning",
+      "alert": "Alert"
+    },
+    "chart": {
+      "weekdays": ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+      "months": ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug"],
+      "weeks": ["Wk 1", "Wk 2", "Wk 3", "Wk 4", "Current"],
+      "hours": ["00h", "03h", "06h", "09h", "12h", "15h", "18h", "21h"],
+      "comfortThreshold": "comfort threshold",
+      "recommendedAverage": "Recommended average: ",
+      "referenceRange": "Reference range",
+      "co2Range": "Below 800 ppm",
+      "throughTime": "over time",
+      "syncedData": "Synced data"
+    },
+    "kpi": {
+      "averagePrefix": "Average ",
+      "vsPreviousPeriod": "7.4% vs. previous period",
+      "environmentsInRange": "environments in range",
+      "requireFollowUp": "require follow-up",
+      "requireAttention": "require attention"
+    },
+    "context": {
+      "environments": "Environments",
+      "selectEnvironment": "Choose a space to review its specific evolution.",
+      "allEnvironments": "All environments",
+      "consolidatedView": "Consolidated view",
+      "floor": "Floor",
+      "lastReading": "Last reading",
+      "refreshData": "Refresh data"
+    },
+    "quickReading": {
+      "title": "QUICK READING",
+      "alertMessage": "There's an environment that needs attention.",
+      "normalMessage": "The network remains stable.",
+      "alertDescription": "Check the trending environment in alert and compare it with its peak occupancy hours.",
+      "normalDescription": "Most spaces are within the recommended range.",
+      "viewDetail": "View detail"
+    },
+    "comparison": {
+      "title": "COMPARISON",
+      "byEnvironment": "By environment",
+      "descriptionPrefix": "Average",
+      "descriptionSuffix": "in the period"
+    },
+    "network": {
+      "title": "CURRENT STATUS",
+      "health": "Network health",
+      "monitoring": "Monitoring",
+      "inRange": "in range",
+      "dataUpdated": "Data updated"
+    },
+    "footer": {
+      "brand": "EduAirControl · Smart Air Monitoring",
+      "autoUpdate": "environments · Auto-update every 5 min"
+    },
+    "ariaLabels": {
+      "controls": "Analysis controls",
+      "selectPeriod": "Select period",
+      "selectMetric": "Select metric",
+      "periodIndicators": "Period indicators",
+      "refreshData": "Refresh data"
+    }
   }
 }
 }
