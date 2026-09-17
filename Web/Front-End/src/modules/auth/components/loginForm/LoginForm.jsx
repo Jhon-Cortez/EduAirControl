@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { loginSchema } from '../../schemas/loginSchema';
+import authService from '../../services/authService';
 import { FaEnvelope, FaLock, FaBuilding } from 'react-icons/fa';
 import '../../pages/login/Login.css';
 
@@ -19,9 +20,16 @@ function LoginForm() {
     resolver: zodResolver(loginSchema),
   });
 
-  const onSubmit = () => {
-    // Aquí se incluiría la lógica para validar el companyCode junto con las credenciales
-    navigate('/dashboard');
+  const [apiError, setApiError] = useState('');
+
+  const onSubmit = async (data) => {
+    setApiError('');
+    try {
+      await authService.login(data.email, data.password);
+      navigate('/dashboard');
+    } catch (err) {
+      setApiError(err.message || t('login.error', 'Error al iniciar sesión'));
+    }
   };
 
   return (
@@ -86,6 +94,8 @@ function LoginForm() {
           {t('login.forgotPassword')}
         </button>
       </div>
+
+      {apiError && <p className="error-text">⚠ {apiError}</p>}
 
       <button type="submit" className="btn-login-premium" disabled={isSubmitting}>
         {isSubmitting ? '...' : t('login.title')}

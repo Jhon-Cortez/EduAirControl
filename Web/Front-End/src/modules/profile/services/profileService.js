@@ -1,24 +1,27 @@
+import apiClient from '../../../shared/services/apiClient';
 import { DEFAULT_PROFILE } from '../data/defaultProfile';
 
-const PROFILE_KEY = 'profile';
+const USE_API = false;
 
 const profileService = {
-  get() {
+  async get() {
+    if (USE_API) return apiClient.get('/api/user/profile');
     try {
-      const raw = localStorage.getItem(PROFILE_KEY);
+      const raw = localStorage.getItem('profile');
       return raw ? JSON.parse(raw) : DEFAULT_PROFILE;
     } catch {
       return DEFAULT_PROFILE;
     }
   },
 
-  save(profile) {
-    localStorage.setItem(PROFILE_KEY, JSON.stringify(profile));
+  async save(profile) {
+    if (USE_API) return apiClient.put('/api/user/profile', profile);
+    localStorage.setItem('profile', JSON.stringify(profile));
     window.dispatchEvent(new CustomEvent('profile-updated'));
   },
 
-  clear() {
-    localStorage.removeItem(PROFILE_KEY);
+  async clear() {
+    localStorage.removeItem('profile');
   },
 };
 
