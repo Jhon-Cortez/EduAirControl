@@ -4,14 +4,9 @@
  */
 
 import { STATUS, QUALITY } from '../constants/environments';
+import calculateEnvironmentScore from './calculateEnvironmentScore';
 
-export function calcScore(env) {
-  const tempScore = Math.max(0, 100 - Math.abs(env.temp - 21) * 8);
-  const humidityScore = Math.max(0, 100 - Math.abs(env.humidity - 50) * 3);
-  const co2Score = Math.max(0, 100 - Math.max(0, env.co2 - 600) * 0.08);
-  const noiseScore = Math.max(0, 100 - Math.max(0, env.noise - 30) * 2);
-  return Math.round((tempScore + humidityScore + co2Score + noiseScore) / 4);
-}
+export const calcScore = calculateEnvironmentScore;
 
 export function getStatusColor(statusKey) {
   switch (statusKey) {
