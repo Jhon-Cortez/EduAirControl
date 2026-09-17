@@ -9,7 +9,6 @@ import SensorInfo from '../SensorInfo/SensorInfo';
 import RecommendationBox from '../RecommendationBox/RecommendationBox';
 import EnvironmentExplanation from '../EnvironmentExplanation/EnvironmentExplanation';
 import InfoTooltip from '../InfoTooltip/InfoTooltip';
-import EnvironmentRating from '../EnvironmentRating/EnvironmentRating';
 
 import { getRecommendations } from '../../utils/getRecommendations';
 
@@ -99,17 +98,6 @@ function EnvironmentModal({ isOpen, onClose, environment, isFavorite, onToggleFa
         <div style={{ position: 'relative', paddingRight: 44 }}>
           <InfoTooltip text={t('tooltips.recommendations')} />
           <RecommendationBox recommendations={getRecommendations(environment, t)} />
-        </div>
-
-        <div style={{ position: 'relative', paddingRight: 44 }}>
-          <InfoTooltip text={t('tooltips.rating')} />
-          <EnvironmentRating
-            environmentId={environment.id}
-            initialRating={environment.userRating || 0}
-            onRate={() => {
-              // Conecta aquí con tu backend/context para persistir la calificación
-            }}
-          />
         </div>
 
         <EnvironmentExplanation />

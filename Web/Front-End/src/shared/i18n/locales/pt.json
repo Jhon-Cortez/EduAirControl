@@ -853,19 +853,7 @@
     "recommendations": "Sugestões automáticas geradas com base nas condições atuais, para ajudar a melhorar este ambiente.",
     "favoriteAdd": "Marque este ambiente como favorito para encontrá-lo mais rápido.",
     "favoriteRemove": "Remova este ambiente dos seus favoritos.",
-    "closeBtn": "Fecha esta janela.",
-    "rating": "Avalie este ambiente com base na sua experiência pessoal nele."
-  },
-  "environmentRating": {
-    "title": "Avalie este ambiente",
-    "description": "Como você avaliaria as condições deste ambiente?",
-    "yourRating": "Sua avaliação",
-    "thankYou": "Obrigado pelo seu feedback!",
-    "star1": "Muito ruim",
-    "star2": "Ruim",
-    "star3": "Regular",
-    "star4": "Bom",
-    "star5": "Excelente"
+    "closeBtn": "Fecha esta janela."
   }
 }
 }

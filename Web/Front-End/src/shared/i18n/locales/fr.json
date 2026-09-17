@@ -850,19 +850,7 @@
     "recommendations": "Suggestions automatiques générées selon les conditions actuelles, pour vous aider à améliorer cet environnement.",
     "favoriteAdd": "Marquez cet environnement comme favori pour le retrouver plus rapidement.",
     "favoriteRemove": "Retirez cet environnement de vos favoris.",
-    "closeBtn": "Ferme cette fenêtre.",
-    "rating": "Évaluez cet environnement selon votre expérience personnelle."
-  },
-  "environmentRating": {
-    "title": "Évaluez cet environnement",
-    "description": "Comment évalueriez-vous les conditions de cet environnement ?",
-    "yourRating": "Votre évaluation",
-    "thankYou": "Merci pour votre avis !",
-    "star1": "Très mauvais",
-    "star2": "Mauvais",
-    "star3": "Moyen",
-    "star4": "Bon",
-    "star5": "Excellent"
+    "closeBtn": "Ferme cette fenêtre."
   }
   }
 }

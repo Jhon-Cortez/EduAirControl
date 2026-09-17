@@ -754,18 +754,6 @@
     "recommendations": "Sugerencias automáticas generadas según las condiciones actuales, para ayudarte a mejorar este ambiente.",
     "favoriteAdd": "Marca este ambiente como favorito para encontrarlo más rápido en tu panel.",
     "favoriteRemove": "Quita este ambiente de tus favoritos.",
-    "closeBtn": "Cierra esta ventana.",
-    "rating": "Califica este ambiente según tu experiencia personal en él."
-  },
-  "environmentRating": {
-    "title": "Califica este ambiente",
-    "description": "¿Cómo calificarías las condiciones de este ambiente?",
-    "yourRating": "Tu calificación",
-    "thankYou": "¡Gracias por tu opinión!",
-    "star1": "Muy malo",
-    "star2": "Malo",
-    "star3": "Regular",
-    "star4": "Bueno",
-    "star5": "Excelente"
+    "closeBtn": "Cierra esta ventana."
   }
 }

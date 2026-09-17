@@ -851,19 +851,7 @@
     "recommendations": "Automatic suggestions generated based on the current conditions, to help you improve this environment.",
     "favoriteAdd": "Mark this environment as a favorite to find it faster on your panel.",
     "favoriteRemove": "Remove this environment from your favorites.",
-    "closeBtn": "Close this window.",
-    "rating": "Rate this environment based on your personal experience in it."
-  },
-  "environmentRating": {
-    "title": "Rate this environment",
-    "description": "How would you rate the conditions of this environment?",
-    "yourRating": "Your rating",
-    "thankYou": "Thanks for your feedback!",
-    "star1": "Very bad",
-    "star2": "Bad",
-    "star3": "Regular",
-    "star4": "Good",
-    "star5": "Excellent"
+    "closeBtn": "Close this window."
   }
 }
 }
