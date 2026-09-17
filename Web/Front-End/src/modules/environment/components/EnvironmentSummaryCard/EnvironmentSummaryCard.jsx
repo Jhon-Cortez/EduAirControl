@@ -48,7 +48,7 @@ function EnvironmentSummaryCard({ environment, onToggleFavorite }) {
 
   return (
     <>
-      <div className="summary-card" onClick={() => setShowModal(true)}>
+      <div className="ds-card ds-card--hoverable summary-card" onClick={() => setShowModal(true)}>
         <div
           className="summary-card-status-bar"
           style={{

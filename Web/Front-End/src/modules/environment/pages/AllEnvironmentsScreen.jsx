@@ -41,31 +41,31 @@ function AllEnvironmentsScreen() {
           </div>
 
           <div className="all-env-stats">
-            <div className="stat-card">
+            <div className="ds-card ds-card--stat">
               <span>{counts.total}</span>
 
               <small>{t('filters.all')}</small>
             </div>
 
-            <div className="stat-card normal">
+            <div className="ds-card ds-card--stat normal">
               <span>{counts.normal}</span>
 
               <small>{t('dashboard.statusNormal')}</small>
             </div>
 
-            <div className="stat-card warning">
+            <div className="ds-card ds-card--stat warning">
               <span>{counts.warning}</span>
 
               <small>{t('dashboard.statusWarning')}</small>
             </div>
 
-            <div className="stat-card danger">
+            <div className="ds-card ds-card--stat danger">
               <span>{counts.alert}</span>
 
               <small>{t('dashboard.statusAlert')}</small>
             </div>
 
-            <div className="stat-card favorite">
+            <div className="ds-card ds-card--stat favorite">
               <span>{counts.favorites}</span>
 
               <small>{t('favorites.title')}</small>

@@ -29,27 +29,6 @@
   gap: 16px;
 }
 
-.stat-card {
-  background: var(--lb-glass-bg);
-  -webkit-backdrop-filter: var(--lb-glass-blur);
-  backdrop-filter: var(--lb-glass-blur);
-  border: 1px solid var(--lb-glass-border);
-  border-radius: 18px;
-  padding: 20px;
-  text-align: center;
-  transition:
-    background 0.3s ease,
-    border-color 0.3s ease,
-    transform 0.25s ease,
-    box-shadow 0.25s ease;
-}
-
-.stat-card:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-md);
-  border-color: var(--lb-glass-border-hover);
-}
-
 .stat-card span {
   display: block;
   font-size: 28px;

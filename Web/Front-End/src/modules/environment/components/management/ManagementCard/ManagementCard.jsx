@@ -76,7 +76,7 @@ function ManagementCard({ environment, onEdit, onDelete }) {
   ];
 
   return (
-    <div className="mgmt-card" data-status={statusAttr}>
+    <div className="ds-card ds-card--hoverable mgmt-card" data-status={statusAttr}>
       {/* Header */}
       <div className="mgmt-card__header">
         <div className="mgmt-card__header-left">

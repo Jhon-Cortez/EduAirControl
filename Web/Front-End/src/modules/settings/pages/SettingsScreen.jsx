@@ -232,7 +232,7 @@ function SettingsScreen() {
         </h1>
 
         {/* APARIENCIA */}
-        <div className="settings-card">
+        <div className="ds-card--section">
           <h2>
             <FaPalette /> {t('settings.appearance')}
           </h2>
@@ -294,7 +294,7 @@ function SettingsScreen() {
         </div>
 
         {/* IDIOMA Y FECHAS */}
-        <div className="settings-card">
+        <div className="ds-card--section">
           <h2>
             <FaGlobe /> {t('settings.langAndDates')}
           </h2>
@@ -374,7 +374,7 @@ function SettingsScreen() {
         </div>
 
         {/* RECORDATORIOS */}
-        <div className="settings-card">
+        <div className="ds-card--section">
           <h2>
             <FaBell /> {t('settings.reminders')}
           </h2>
@@ -406,7 +406,7 @@ function SettingsScreen() {
         </div>
 
         {/* PRIVACIDAD */}
-        <div className="settings-card">
+        <div className="ds-card--section">
           <h2>
             <FaShieldAlt /> {t('settings.privacy')}
           </h2>
@@ -463,7 +463,7 @@ function SettingsScreen() {
         </div>
 
         {/* AYUDA */}
-        <div className="settings-card">
+        <div className="ds-card--section">
           <h2>
             <FaQuestionCircle /> {t('settings.help')}
           </h2>

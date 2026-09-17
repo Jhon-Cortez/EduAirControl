@@ -24,7 +24,7 @@
 }
 
 /* ── Settings Card header ── */
-.settings-card h2 {
+.ds-card--section h2 {
   font-size: calc(var(--a11y-font-size) * 1.0625);
   font-weight: 700;
   margin-bottom: 4px;
