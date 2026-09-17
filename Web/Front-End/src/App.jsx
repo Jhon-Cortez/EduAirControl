@@ -21,7 +21,7 @@ import GuideScreen from './modules/landing/pages/GuideScreen';
 // ======================
 // DASHBOARD DE ANÁLISIS
 // ======================
-import DashboardScreen from './pages/DashboardScreen';
+import DashboardScreen from './modules/dashboard/pages/DashboardScreen';
 
 // ======================
 // ENVIRONMENTS
