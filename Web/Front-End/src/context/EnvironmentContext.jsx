@@ -1,12 +1,21 @@
-import { createContext, useContext, useState } from 'react';
-import environmentData from '../modules/environment/data/environmentData';
+import { createContext, useContext, useState, useEffect } from 'react';
+import environmentService from '../modules/environment/services/environmentService';
 
 const EnvironmentContext = createContext();
 
 export function EnvironmentProvider({ children }) {
-  const [environments, setEnvironments] = useState(environmentData);
+  const [environments, setEnvironments] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    environmentService.getAll().then((data) => {
+      setEnvironments(data);
+      setLoading(false);
+    });
+  }, []);
 
   const toggleFavorite = (id, favorite) => {
+    environmentService.toggleFavorite(id);
     setEnvironments((prev) =>
       prev.map((env) =>
         env.id === id
@@ -20,30 +29,13 @@ export function EnvironmentProvider({ children }) {
   };
 
   const addEnvironment = (data) => {
-    setEnvironments((prev) => {
-      const nextId = prev.length ? Math.max(...prev.map((env) => Number(env.id) || 0)) + 1 : 1;
-
-      return [
-        ...prev,
-        {
-          id: nextId,
-          name: data.name || `Ambiente ${nextId}`,
-          building: data.building || 'Bloque A',
-          floor: Number(data.floor) || 1,
-          capacity: Number(data.capacity) || 0,
-          statusKey: data.statusKey || 'dashboard.statusNormal',
-          temp: Number(data.temp) || 22,
-          humidity: Number(data.humidity) || 50,
-          co2: Number(data.co2) || 600,
-          noise: Number(data.noise) || 40,
-          isFavorite: false,
-          lastUpdate: 'Ahora',
-        },
-      ];
+    environmentService.create(data).then((newEnv) => {
+      setEnvironments((prev) => [...prev, newEnv]);
     });
   };
 
   const editEnvironment = (id, data) => {
+    environmentService.update(id, data);
     setEnvironments((prev) =>
       prev.map((env) =>
         env.id === id
@@ -57,6 +49,7 @@ export function EnvironmentProvider({ children }) {
   };
 
   const deleteEnvironment = (id) => {
+    environmentService.delete(id);
     setEnvironments((prev) => prev.filter((env) => env.id !== id));
   };
 
@@ -64,6 +57,7 @@ export function EnvironmentProvider({ children }) {
     <EnvironmentContext.Provider
       value={{
         environments,
+        loading,
         toggleFavorite,
         addEnvironment,
         editEnvironment,

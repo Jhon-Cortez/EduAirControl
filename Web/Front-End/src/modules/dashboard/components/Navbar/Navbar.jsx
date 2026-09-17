@@ -72,7 +72,7 @@ function Navbar() {
       <nav className="dashboard-navbar">
         {/* IZQUIERDA */}
         <div className="dashboard-navbar-left">
-          <div className="dashboard-navbar-logo" onClick={() => go('/all-environments')}>
+          <div className="dashboard-navbar-logo" onClick={() => go('/dashboard')}>
             <img src={logo} alt="EduAirControl" />
             <div className="dashboard-navbar-logo-text">
               <h2>EduAirControl</h2>

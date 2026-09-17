@@ -5,6 +5,7 @@ import { FaUser, FaEnvelope, FaLock, FaBuilding } from 'react-icons/fa';
 import { HiOutlineDocumentText, HiCheckCircle } from 'react-icons/hi2';
 import { ChevronDown } from 'lucide-react';
 import SocialLogin from '../SocialLogin/SocialLogin';
+import authService from '../../services/authService';
 import { Divider } from '../../../../shared/components';
 import '../../pages/signUp/SignUp.css';
 
@@ -42,8 +43,11 @@ function SignUpForm() {
     setFormData((prev) => ({ ...prev, [name]: type === 'checkbox' ? checked : value }));
   };
 
-  const handleSubmit = (e) => {
+  const [apiError, setApiError] = useState('');
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setApiError('');
     if (!hasReadFullTerms) {
       setShowTerms(true);
       return;
@@ -56,8 +60,12 @@ function SignUpForm() {
       alert(t('signup.errorPassword', 'Las contraseñas no coinciden'));
       return;
     }
-    alert(`Registro exitoso para la empresa: ${formData.companyCode}`);
-    navigate('/dashboard');
+    try {
+      await authService.register(formData.name, formData.email, formData.password);
+      navigate('/dashboard');
+    } catch (err) {
+      setApiError(err.message || t('signup.error', 'Error al registrarse'));
+    }
   };
 
   return (
@@ -179,6 +187,7 @@ function SignUpForm() {
             <p className="terms-read-required">{t('signup.termsModal.readRequired')}</p>
           )}
         </div>
+        {apiError && <p className="error-text">⚠ {apiError}</p>}
         <button type="submit" className="btn-signup-premium">
           {t('signup.signUpBtn')}
         </button>
