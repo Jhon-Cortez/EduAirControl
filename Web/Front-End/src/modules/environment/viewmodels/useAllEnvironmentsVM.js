@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react';
-import environmentData from '../modules/environment/data/environmentData';
+import environmentData from '../data/environmentData';
 
 export function useAllEnvironmentsVM(sourceEnvironments = environmentData) {
   const environments = sourceEnvironments;

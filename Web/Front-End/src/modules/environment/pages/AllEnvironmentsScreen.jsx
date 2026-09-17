@@ -5,7 +5,7 @@ import EnvironmentFilters from '../components/EnvironmentFilters/EnvironmentFilt
 import EnvironmentSummaryCard from '../components/EnvironmentSummaryCard/EnvironmentSummaryCard';
 import EnvironmentModal from '../components/EnvironmentModal/EnvironmentModal';
 import calculateEnvironmentScore from '../utils/calculateEnvironmentScore';
-import { useAllEnvironmentsVM } from '../../../viewmodels/useAllEnvironmentsVM';
+import { useAllEnvironmentsVM } from '../viewmodels/useAllEnvironmentsVM';
 import { useEnvironment } from '../../../context/EnvironmentContext';
 import './AllEnvironments.css';
 

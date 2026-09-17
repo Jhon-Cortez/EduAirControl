@@ -14,7 +14,7 @@ import AddEnvironmentModal from '../components/management/AddEnvironmentModal/Ad
 import EditEnvironmentModal from '../components/management/EditEnvironmentModal/EditEnvironmentModal';
 import DeleteEnvironmentModal from '../components/management/DeleteEnvironmentModal/DeleteEnvironmentModal';
 import SensorVariablePanel from '../components/management/SensorVariablePanel/SensorVariablePanel';
-import { useManagementVM } from '../../../viewmodels/useManagementVM';
+import { useManagementVM } from '../viewmodels/useManagementVM';
 import './EnvironmentManagement.css';
 
 // Tarjeta reutilizable: recibe por props todo lo que antes estaba

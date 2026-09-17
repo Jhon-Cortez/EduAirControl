@@ -7,13 +7,11 @@
 import { useState, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { useEnvironments } from '../context/EnvironmentContext';
-
-import { useEnvironment } from '../context/EnvironmentContext';
+import { useEnvironments } from '../../../context/EnvironmentContext';
 
 export function useManagementVM() {
   const { t } = useTranslation();
-  const { environments, addEnvironment, editEnvironment, deleteEnvironment } = useEnvironment();
+  const { environments, addEnvironment, editEnvironment, deleteEnvironment } = useEnvironments();
 
   const [search, setSearch] = useState('');
   const [minCapacity, setMinCapacity] = useState('');

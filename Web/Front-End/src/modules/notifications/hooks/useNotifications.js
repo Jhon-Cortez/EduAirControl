@@ -1,5 +1,5 @@
 import { useMemo, useState, useEffect } from "react";
-import { useAllEnvironmentsVM } from "../../../viewmodels/useAllEnvironmentsVM";
+import { useAllEnvironmentsVM } from "../../environment/viewmodels/useAllEnvironmentsVM";
 
 export const useNotifications = () => {
   const { environments } = useAllEnvironmentsVM();

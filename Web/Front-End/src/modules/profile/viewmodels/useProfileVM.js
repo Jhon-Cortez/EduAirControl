@@ -1,6 +1,6 @@
 import { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import profileService from '../modules/profile/services/profileService';
+import profileService from '../services/profileService';
 
 const MAX_IMAGE_SIZE = 2 * 1024 * 1024;
 
