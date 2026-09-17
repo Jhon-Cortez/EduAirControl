@@ -15,7 +15,7 @@ function AllEnvironmentsScreen() {
 
   const { environments, toggleFavorite } = useEnvironment();
 
-  const { filtered, filters, setFilters, counts, suggestions } = useAllEnvironmentsVM(environments);
+  const { filtered, filters, setFilters, counts, suggestions } = useAllEnvironmentsVM();
 
   const selectedEnvironmentId = searchParams.get('environment');
   const selectedEnvironment = environments.find(

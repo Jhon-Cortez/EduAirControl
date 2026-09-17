@@ -18,12 +18,7 @@ export function EnvironmentProvider({ children }) {
     environmentService.toggleFavorite(id);
     setEnvironments((prev) =>
       prev.map((env) =>
-        env.id === id
-          ? {
-              ...env,
-              isFavorite: favorite,
-            }
-          : env
+        env.id === id ? { ...env, isFavorite: favorite } : env
       )
     );
   };
@@ -37,20 +32,17 @@ export function EnvironmentProvider({ children }) {
   const editEnvironment = (id, data) => {
     environmentService.update(id, data);
     setEnvironments((prev) =>
-      prev.map((env) =>
-        env.id === id
-          ? {
-              ...env,
-              ...data,
-            }
-          : env
-      )
+      prev.map((env) => (env.id === id ? { ...env, ...data } : env))
     );
   };
 
   const deleteEnvironment = (id) => {
     environmentService.delete(id);
     setEnvironments((prev) => prev.filter((env) => env.id !== id));
+  };
+
+  const refreshEnvironments = () => {
+    environmentService.getAll().then(setEnvironments);
   };
 
   return (
@@ -62,6 +54,7 @@ export function EnvironmentProvider({ children }) {
         addEnvironment,
         editEnvironment,
         deleteEnvironment,
+        refreshEnvironments,
       }}
     >
       {children}
