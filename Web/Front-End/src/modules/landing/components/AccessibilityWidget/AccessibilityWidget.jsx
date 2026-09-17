@@ -6,6 +6,7 @@ import {
   resetAccessibilitySettings,
   saveAccessibilitySettings,
 } from '../../../../shared/accessibility/accessibilitySettings';
+import { useTranslation } from 'react-i18next';
 
 /* ── Constantes ── */
 const FONT_SIZES = [
@@ -36,6 +37,7 @@ const COLOR_THEMES = ACCESSIBILITY_THEMES.map((key) => ({
 
 /* ── Componente ── */
 function AccessibilityWidget({ raised = false }) {
+  const { t } = useTranslation();
   const [open, setOpen] = useState(false);
   const widgetRef = useRef(null);
 
@@ -106,14 +108,14 @@ function AccessibilityWidget({ raised = false }) {
     <div className={`a11y-widget${raised ? ' a11y-widget--raised' : ''}`} ref={widgetRef}>
       {/* Panel (se abre sobre el botón) */}
       {open && (
-        <div className="a11y-panel" role="dialog" aria-label="Panel de accesibilidad">
+        <div className="a11y-panel" role="dialog" aria-label={t('landing.a11y.panelLabel')}>
           {/* Header */}
           <div className="a11y-panel__header">
-            <span className="a11y-panel__title">Accesibilidad</span>
+            <span className="a11y-panel__title">{t('landing.a11y.title')}</span>
             <button
               className="a11y-panel__close"
               onClick={() => setOpen(false)}
-              aria-label="Cerrar panel"
+              aria-label={t('landing.a11y.closeLabel')}
             >
               ✕
             </button>
@@ -121,7 +123,7 @@ function AccessibilityWidget({ raised = false }) {
 
           {/* ── Tamaño de texto ── */}
           <div className="a11y-section">
-            <p className="a11y-section__label">Tamaño de texto</p>
+            <p className="a11y-section__label">{t('landing.a11y.textSize')}</p>
             <div className="a11y-font-row">
               {FONT_SIZES.map((f) => (
                 <button
@@ -146,7 +148,7 @@ function AccessibilityWidget({ raised = false }) {
 
           {/* ── Modo claro / oscuro ── */}
           <div className="a11y-section">
-            <p className="a11y-section__label">Modo de color</p>
+            <p className="a11y-section__label">{t('landing.a11y.colorMode')}</p>
             <div className="a11y-mode-row">
               <button
                 className={`a11y-mode-btn${!darkMode ? ' a11y-mode-btn--active' : ''}`}
@@ -154,7 +156,7 @@ function AccessibilityWidget({ raised = false }) {
                 aria-pressed={!darkMode}
               >
                 <span className="a11y-mode-icon">☀️</span>
-                <span>Claro</span>
+                <span>{t('landing.a11y.light')}</span>
               </button>
               <button
                 className={`a11y-mode-btn${darkMode ? ' a11y-mode-btn--active' : ''}`}
@@ -162,26 +164,26 @@ function AccessibilityWidget({ raised = false }) {
                 aria-pressed={darkMode}
               >
                 <span className="a11y-mode-icon">🌙</span>
-                <span>Oscuro</span>
+                <span>{t('landing.a11y.dark')}</span>
               </button>
             </div>
           </div>
 
           {/* ── Daltonismo ── */}
           <div className="a11y-section">
-            <p className="a11y-section__label">Visión del color</p>
+            <p className="a11y-section__label">{t('landing.a11y.colorVision')}</p>
             <div className="a11y-theme-grid">
-              {COLOR_THEMES.map((t) => (
+              {COLOR_THEMES.map((theme) => (
                 <button
-                  key={t.key}
+                  key={theme.key}
                   type="button"
-                  className={`a11y-theme-btn${colorTheme === t.key ? ' a11y-theme-btn--active' : ''}`}
-                  onClick={() => handleColorTheme(t.key)}
-                  aria-pressed={colorTheme === t.key}
+                  className={`a11y-theme-btn${colorTheme === theme.key ? ' a11y-theme-btn--active' : ''}`}
+                  onClick={() => handleColorTheme(theme.key)}
+                  aria-pressed={colorTheme === theme.key}
                 >
-                  <span className="a11y-theme-dot" style={{ background: t.color }} />
-                  <span className="a11y-theme-name">{t.label}</span>
-                  {colorTheme === t.key && <span className="a11y-theme-check">✓</span>}
+                  <span className="a11y-theme-dot" style={{ background: theme.color }} />
+                  <span className="a11y-theme-name">{theme.label}</span>
+                  {colorTheme === theme.key && <span className="a11y-theme-check">✓</span>}
                 </button>
               ))}
             </div>
@@ -189,7 +191,7 @@ function AccessibilityWidget({ raised = false }) {
 
           {/* ── Restablecer ── */}
           <button className="a11y-reset-btn" onClick={handleReset}>
-            <span>↺</span> Restablecer todo
+            <span>↺</span> {t('landing.a11y.resetAll')}
           </button>
         </div>
       )}
@@ -198,9 +200,9 @@ function AccessibilityWidget({ raised = false }) {
       <button
         className={`a11y-trigger${open ? ' a11y-trigger--open' : ''}`}
         onClick={() => setOpen((v) => !v)}
-        aria-label="Opciones de accesibilidad"
+        aria-label={t('landing.a11y.triggerLabel')}
         aria-expanded={open}
-        title="Accesibilidad"
+        title={t('landing.a11y.triggerTitle')}
       >
         <svg
           viewBox="0 0 24 24"

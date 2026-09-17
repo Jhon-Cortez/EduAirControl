@@ -4,8 +4,6 @@ import { useTranslation } from 'react-i18next';
 
 import { ShieldCheck, Mail, Phone, MapPin } from 'lucide-react';
 
-import { FaGithub, FaLinkedin } from 'react-icons/fa';
-
 import ScrollLink from '../../../../shared/components/ScrollLink/ScrollLink';
 
 function Footer() {
@@ -23,16 +21,6 @@ function Footer() {
           </div>
 
           <p>{t('landing.footer.description')}</p>
-
-          <div className="footer-social">
-            <a href="#">
-              <FaGithub size={20} />
-            </a>
-
-            <a href="#">
-              <FaLinkedin size={20} />
-            </a>
-          </div>
         </div>
 
         {/* Navegación */}
@@ -43,11 +31,7 @@ function Footer() {
 
           <ScrollLink to="why">{t('landing.navbar.why')}</ScrollLink>
 
-          <ScrollLink to="modules">{t('landing.navbar.modules')}</ScrollLink>
-
           <ScrollLink to="how">{t('landing.navbar.howItWorks')}</ScrollLink>
-
-          <ScrollLink to="technologies">{t('landing.navbar.technologies')}</ScrollLink>
 
           <ScrollLink to="designed">{t('landing.navbar.designedFor')}</ScrollLink>
 

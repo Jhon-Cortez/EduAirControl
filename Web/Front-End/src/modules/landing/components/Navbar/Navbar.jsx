@@ -46,6 +46,15 @@ function Navbar() {
     return () => window.removeEventListener('keydown', closeOnEscape);
   }, [menuOpen]);
 
+  useEffect(() => {
+    if (menuOpen) {
+      document.body.classList.add('landing-menu-open');
+    } else {
+      document.body.classList.remove('landing-menu-open');
+    }
+    return () => document.body.classList.remove('landing-menu-open');
+  }, [menuOpen]);
+
   const closeMenu = () => setMenuOpen(false);
 
   return (
@@ -102,7 +111,7 @@ function Navbar() {
           type="button"
           className="landing-navbar__toggle"
           onClick={() => setMenuOpen(!menuOpen)}
-          aria-label={menuOpen ? 'Cerrar menú de navegación' : 'Abrir menú de navegación'}
+          aria-label={menuOpen ? t('landing.navbar.menuClose') : t('landing.navbar.menuOpen')}
           aria-expanded={menuOpen}
           aria-controls="landing-navigation"
         >
@@ -122,7 +131,7 @@ function Navbar() {
 
       <nav
         id="landing-navigation"
-        aria-label="Navegación principal"
+        aria-label={t('landing.navbar.mainNav')}
         aria-hidden={!menuOpen}
         className={`landing-navbar__menu ${menuOpen ? 'landing-navbar__menu--active' : ''}`}
       >
@@ -136,7 +145,7 @@ function Navbar() {
             type="button"
             className="landing-navbar__menu-close"
             onClick={closeMenu}
-            aria-label="Cerrar menú de navegación"
+            aria-label={t('landing.navbar.closeMenu')}
           >
             <X size={22} />
           </button>

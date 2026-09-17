@@ -19,6 +19,14 @@
   bottom: 96px;
 }
 
+/* ── Ocultar widget cuando el menú mobile del landing está abierto ── */
+body.landing-menu-open .a11y-widget {
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s ease, visibility 0.2s ease;
+}
+
 /* ── Botón flotante ── */
 .a11y-trigger {
   width: 52px;

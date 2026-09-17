@@ -682,7 +682,11 @@
       "technologies": "Technologies",
       "designedFor": "Conçu pour",
       "cta": "Commencer",
-      "login": "Se connecter"
+      "login": "Se connecter",
+      "menuOpen": "Ouvrir le menu de navigation",
+      "menuClose": "Fermer le menu de navigation",
+      "closeMenu": "Fermer le menu de navigation",
+      "mainNav": "Navigation principale"
     },
     "hero": {
       "badge": "Plateforme leader en surveillance environnementale éducative",
@@ -837,6 +841,22 @@
       "signupLink": "Créer un compte",
       "termsLink": "Conditions générales",
       "copyright": "© 2026 EduAirControl. Tous droits réservés."
+    },
+    "a11y": {
+      "title": "Accessibilité",
+      "panelLabel": "Panneau d'accessibilité",
+      "closeLabel": "Fermer le panneau",
+      "textSize": "Taille du texte",
+      "colorMode": "Mode de couleur",
+      "light": "Clair",
+      "dark": "Sombre",
+      "colorVision": "Vision des couleurs",
+      "resetAll": "Tout réinitialiser",
+      "triggerLabel": "Options d'accessibilité",
+      "triggerTitle": "Accessibilité"
+    },
+    "scroll": {
+      "backToTop": "Retour en haut"
     }
   },
   "tooltips": {

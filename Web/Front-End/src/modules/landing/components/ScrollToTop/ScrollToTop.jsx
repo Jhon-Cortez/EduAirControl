@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react";
 import "./ScrollToTop.css";
+import { useTranslation } from 'react-i18next';
 
 function ScrollToTop() {
+    const { t } = useTranslation();
     const [visible, setVisible] = useState(false);
 
     useEffect(() => {
@@ -25,8 +27,8 @@ function ScrollToTop() {
         <button
             className={`scroll-to-top ${visible ? "show" : ""}`}
             onClick={scrollToTop}
-            aria-label="Volver arriba"
-            title="Volver arriba"
+            aria-label={t('landing.scroll.backToTop')}
+            title={t('landing.scroll.backToTop')}
         >
             <svg
                 viewBox="0 0 24 24"
