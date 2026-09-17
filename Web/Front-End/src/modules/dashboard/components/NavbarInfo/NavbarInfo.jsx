@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { formatDate, getDateFormat } from '../../../../shared/hooks/useDateFormat';
+import authService from '../../../auth/services/authService';
 
 function getActiveTimezone() {
   const auto = JSON.parse(localStorage.getItem('autoTimezone')) ?? true;
@@ -15,6 +16,7 @@ function getActiveTimezone() {
 
 function NavbarInfo({ role }) {
   const { t } = useTranslation();
+  const user = authService.getUser();
 
   const [time, setTime] = useState(new Date());
 
@@ -74,7 +76,7 @@ function NavbarInfo({ role }) {
   return (
     <div className="dashboard-navbar-info">
       <span className="dashboard-navbar-info-greeting">
-        {t('nav.greeting')} {role === 'admin' ? t('nav.admin') : t('nav.user')}
+        {t('nav.greeting')} {user?.name || (role === 'admin' ? t('nav.admin') : t('nav.user'))}
       </span>
 
       <span className="dashboard-navbar-info-time">
