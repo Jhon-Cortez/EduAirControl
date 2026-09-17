@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import profileService from '../services/profileService';
 
@@ -8,13 +8,21 @@ export function useProfileVM() {
   const navigate = useNavigate();
   const fileInputRef = useRef(null);
 
-  const [profile, setProfile] = useState(profileService.get);
-  const [form, setForm] = useState(() => profileService.get());
-  const [avatar, setAvatar] = useState(() => profileService.get().avatar || null);
+  const [profile, setProfile] = useState({ fullName: '', email: '', title: '', phone: '', location: '', avatar: null });
+  const [form, setForm] = useState({ fullName: '', email: '', title: '', phone: '', location: '', avatar: null });
+  const [avatar, setAvatar] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
   const [logoutModal, setLogoutModal] = useState(false);
   const [avatarLoading, setAvatarLoading] = useState(false);
   const [avatarError, setAvatarError] = useState(null);
+
+  useEffect(() => {
+    profileService.get().then((data) => {
+      setProfile(data);
+      setForm(data);
+      setAvatar(data.avatar || null);
+    });
+  }, []);
 
   const handleChange = (field, value) => {
     setForm((prev) => ({ ...prev, [field]: value }));
