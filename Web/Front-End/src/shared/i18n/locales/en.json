@@ -55,7 +55,8 @@
       "notice": "This summary does not replace the complete document. Use of EduAirControl is subject to the complete Terms and Conditions, the Personal Data Processing Policy, and applicable legislation."
       ,"fullDocumentPrefix": "Would you like to review all the information?",
       "fullDocumentLink": "Read the complete document",
-      "readRequired": "You must read and accept the complete document before signing up.",
+      "readRequired": "You must read and accept the complete document before signing up."
+    },
     "passwordStrength": {
       "weak": "Weak password",
       "medium": "Medium password",
@@ -956,5 +957,4 @@
       "refreshData": "Refresh data"
     }
   }
-}
 }

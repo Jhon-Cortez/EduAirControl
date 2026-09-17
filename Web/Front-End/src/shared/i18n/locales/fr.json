@@ -55,7 +55,8 @@
       "notice": "Ce résumé ne remplace pas le document complet. L'utilisation d'EduAirControl est soumise aux Conditions générales complètes, à la Politique de traitement des données personnelles et à la législation applicable."
       ,"fullDocumentPrefix": "Souhaitez-vous consulter toutes les informations ?",
       "fullDocumentLink": "Lire le document complet",
-      "readRequired": "Vous devez lire et accepter le document complet avant de vous inscrire.",
+      "readRequired": "Vous devez lire et accepter le document complet avant de vous inscrire."
+    },
     "passwordStrength": {
       "weak": "Mot de passe faible",
       "medium": "Mot de passe moyen",
@@ -954,6 +955,5 @@
       "periodIndicators": "Indicateurs de période",
       "refreshData": "Actualiser les données"
     }
-  }
   }
 }
