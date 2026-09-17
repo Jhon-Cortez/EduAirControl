@@ -1,59 +1,42 @@
 import apiClient from '../../../shared/services/apiClient';
-import environmentsData from '../data/environmentData';
-
-const USE_API = false;
 
 const environmentService = {
   async getAll() {
-    if (USE_API) return apiClient.get('/api/environments');
-    return [...environmentsData];
+    return apiClient.get('/environments');
   },
 
   async getById(id) {
-    if (USE_API) return apiClient.get(`/api/environments/${id}`);
-    return environmentsData.find((e) => e.id === Number(id)) || null;
+    return apiClient.get(`/environments/${id}`);
   },
 
   async getFavorites() {
-    if (USE_API) return apiClient.get('/api/environments/favorites');
-    return environmentsData.filter((e) => e.isFavorite);
+    const all = await apiClient.get('/environments?isFavorite=true');
+    return all;
   },
 
   async create(environment) {
-    if (USE_API) return apiClient.post('/api/environments', environment);
-    const newEnv = {
+    return apiClient.post('/environments', {
       ...environment,
-      id: Math.max(...environmentsData.map((e) => e.id), 0) + 1,
       temp: 22,
       humidity: 50,
       co2: 600,
       noise: 40,
+      isFavorite: false,
       lastUpdate: 'Ahora',
-    };
-    environmentsData.push(newEnv);
-    return newEnv;
+    });
   },
 
   async update(id, updates) {
-    if (USE_API) return apiClient.put(`/api/environments/${id}`, updates);
-    const index = environmentsData.findIndex((e) => e.id === Number(id));
-    if (index !== -1) {
-      environmentsData[index] = { ...environmentsData[index], ...updates };
-      return environmentsData[index];
-    }
-    return null;
+    return apiClient.patch(`/environments/${id}`, updates);
   },
 
   async delete(id) {
-    if (USE_API) return apiClient.delete(`/api/environments/${id}`);
-    const index = environmentsData.findIndex((e) => e.id === Number(id));
-    if (index !== -1) environmentsData.splice(index, 1);
+    return apiClient.delete(`/environments/${id}`);
   },
 
   async toggleFavorite(id) {
-    const env = environmentsData.find((e) => e.id === Number(id));
-    if (env) env.isFavorite = !env.isFavorite;
-    return env;
+    const env = await apiClient.get(`/environments/${id}`);
+    return apiClient.patch(`/environments/${id}`, { isFavorite: !env.isFavorite });
   },
 };
 
