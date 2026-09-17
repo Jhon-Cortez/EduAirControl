@@ -86,7 +86,7 @@ function SignUpScreen() {
 
         <form className="signup-form-modern" onSubmit={handleSubmit}>
           <div className="input-group-modern">
-            <label>{t('signup.companyCode', 'Código de Empresa')}</label>
+            <label htmlFor="companyCode">{t('signup.companyCode', 'Código de Empresa')}</label>
 
             <div className="input-wrapper">
               <FaBuilding className="input-icon" />
@@ -94,6 +94,7 @@ function SignUpScreen() {
               <input
                 type="text"
                 name="companyCode"
+                id="companyCode"
                 placeholder={t('signup.placeholderCompany', 'Ej: EDU-2024')}
                 value={formData.companyCode}
                 onChange={handleChange}
@@ -103,7 +104,7 @@ function SignUpScreen() {
           </div>
 
           <div className="input-group-modern">
-            <label>{t('signup.fullName', 'Nombre completo')}</label>
+            <label htmlFor="name">{t('signup.fullName', 'Nombre completo')}</label>
 
             <div className="input-wrapper">
               <FaUser className="input-icon" />
@@ -111,6 +112,7 @@ function SignUpScreen() {
               <input
                 type="text"
                 name="name"
+                id="name"
                 placeholder={t('signup.placeholderName')}
                 value={formData.name}
                 onChange={handleChange}
@@ -120,7 +122,7 @@ function SignUpScreen() {
           </div>
 
           <div className="input-group-modern">
-            <label>{t('signup.email')}</label>
+            <label htmlFor="email">{t('signup.email')}</label>
 
             <div className="input-wrapper">
               <FaEnvelope className="input-icon" />
@@ -128,6 +130,7 @@ function SignUpScreen() {
               <input
                 type="email"
                 name="email"
+                id="email"
                 placeholder={t('signup.placeholderEmail')}
                 value={formData.email}
                 onChange={handleChange}
@@ -138,7 +141,7 @@ function SignUpScreen() {
 
           <div className="form-row-modern">
             <div className="input-group-modern">
-              <label>{t('signup.password')}</label>
+              <label htmlFor="password">{t('signup.password')}</label>
 
               <div className="input-wrapper">
                 <FaLock className="input-icon" />
@@ -146,6 +149,7 @@ function SignUpScreen() {
                 <input
                   type="password"
                   name="password"
+                  id="password"
                   placeholder="••••••••"
                   value={formData.password}
                   onChange={handleChange}
@@ -167,7 +171,7 @@ function SignUpScreen() {
               )}
             </div>
             <div className="input-group-modern">
-              <label>{t('signup.confirmPassword', 'Confirmar contraseña')}</label>
+              <label htmlFor="confirmPassword">{t('signup.confirmPassword', 'Confirmar contraseña')}</label>
 
               <div className="input-wrapper">
                 <FaLock className="input-icon" />
@@ -175,6 +179,7 @@ function SignUpScreen() {
                 <input
                   type="password"
                   name="confirmPassword"
+                  id="confirmPassword"
                   placeholder="••••••••"
                   value={formData.confirmPassword}
                   onChange={handleChange}

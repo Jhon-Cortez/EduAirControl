@@ -34,7 +34,7 @@ function EditModal({ field, value, onSave, onClose }) {
   return (
     <div className="modal-overlay" onClick={onClose}>
       <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-        <button className="modal-close" onClick={onClose}>
+        <button className="modal-close" onClick={onClose} aria-label="Cerrar">
           <IoClose />
         </button>
 
@@ -67,6 +67,7 @@ function EditModal({ field, value, onSave, onClose }) {
         ) : (
           <input
             type="text"
+            aria-label={field || 'Valor'}
             value={newValue}
             onChange={(e) => setNewValue(e.target.value)}
             className="modal-input"

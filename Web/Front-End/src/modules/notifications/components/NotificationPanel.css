@@ -96,6 +96,11 @@ HEADER
   transition: 0.2s;
 
   width: fit-content;
+
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
 }
 
 .mark-read-link:hover {

@@ -141,6 +141,16 @@
 .sensor-panel__search:focus-within {
   border-color: var(--accent);
 }
+
+.sensor-panel__toolbar select:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.sensor-panel__search input:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
 .sensor-panel__table-wrap {
   overflow-x: auto;
   border: 1px solid var(--border-card);
@@ -396,6 +406,12 @@
 .sensor-panel__modal input:focus,
 .sensor-panel__modal select:focus {
   border-color: var(--accent);
+}
+
+.sensor-panel__modal input:focus-visible,
+.sensor-panel__modal select:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
 }
 .sensor-panel__range-row {
   display: grid;

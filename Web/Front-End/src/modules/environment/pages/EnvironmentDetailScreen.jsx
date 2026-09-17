@@ -41,12 +41,12 @@ function EnvironmentDetailScreen() {
     return (
       <div className="detail-page">
         <Navbar />
-        <div className="detail-container">
+        <main id="main-content" className="detail-container">
           <BackButton onClick={() => navigate('/all-environments')} />
           <div className="detail-not-found">
             <p>{t('detail.notFound') || 'Ambiente no encontrado'}</p>
           </div>
-        </div>
+        </main>
       </div>
     );
   }
@@ -106,9 +106,9 @@ function EnvironmentDetailScreen() {
   ];
 
   return (
-    <div className="detail-page">
+      <div className="detail-page">
       <Navbar />
-      <div className="detail-container">
+      <main id="main-content" className="detail-container">
         <BackButton onClick={() => navigate('/all-environments')} />
 
         {/* Hero */}
@@ -217,7 +217,7 @@ function EnvironmentDetailScreen() {
         </div>
 
         <br />
-      </div>
+      </main>
     </div>
   );
 }

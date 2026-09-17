@@ -126,6 +126,7 @@ function EnvironmentManagement() {
   return (
     <div className="env-management-page">
       <Navbar />
+      <main id="main-content">
       <div className="env-management">
         {/* ── Top bar ── */}
         <div className="env-management-topbar">
@@ -286,6 +287,7 @@ function EnvironmentManagement() {
           </>
         )}
       </div>
+      </main>
 
       {showAdd && <AddEnvironmentModal onClose={() => setShowAdd(false)} onAdd={handleAdd} />}
       {editEnv && (

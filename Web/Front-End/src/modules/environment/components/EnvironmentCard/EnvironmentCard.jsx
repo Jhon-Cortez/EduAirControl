@@ -93,7 +93,12 @@ function EnvironmentCard({ environment, onToggleFavorite }) {
             <span className={`status-badge ${status.class}`}>{t(status.label)}</span>
           </div>
 
-          <button className="card-favorite-btn" onClick={handleFavorite}>
+          <button 
+            className="card-favorite-btn" 
+            onClick={handleFavorite}
+            aria-label={favorite ? t('allEnvironments.removeFavorite') : t('allEnvironments.favorite')}
+            aria-pressed={favorite}
+          >
             {favorite ? <FaHeart /> : <FaRegHeart />}
           </button>
         </div>

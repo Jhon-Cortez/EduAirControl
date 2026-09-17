@@ -398,7 +398,7 @@ function DashboardScreen() {
     <div className="dashboard-analysis-screen">
       <Navbar />
 
-      <main className="analysis-page-content">
+      <main id="main-content" className="analysis-page-content">
         <section className="analysis-hero">
           <div className="analysis-heading">
             <span className="analysis-eyebrow">

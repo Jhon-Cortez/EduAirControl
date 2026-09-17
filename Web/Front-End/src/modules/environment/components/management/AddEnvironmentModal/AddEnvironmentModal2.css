@@ -77,6 +77,11 @@
   border-color: var(--accent);
 }
 
+.env-modal__input:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
 .env-modal__input::placeholder {
   color: var(--text-muted);
 }

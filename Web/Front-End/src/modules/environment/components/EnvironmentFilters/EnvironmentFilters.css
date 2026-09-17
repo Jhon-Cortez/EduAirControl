@@ -38,6 +38,12 @@
     box-shadow:0 0 0 3px rgba(34,197,94,.15);
 }
 
+.filter-group input:focus-visible,
+.filter-group select:focus-visible{
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+}
+
 .filter-group input[type="checkbox"]{
     width:22px;
     height:22px;

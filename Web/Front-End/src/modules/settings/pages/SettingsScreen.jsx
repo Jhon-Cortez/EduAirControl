@@ -226,7 +226,7 @@ function SettingsScreen() {
   return (
     <div className={`settings-page ${darkMode ? 'dark' : ''}`}>
       <Navbar />
-      <div className="settings-content">
+      <main id="main-content" className="settings-content">
         <h1>
           <IoSettings /> {t('settings.title')}
         </h1>
@@ -456,7 +456,7 @@ function SettingsScreen() {
               </span>
               <span className="field-value">{t('settings.deleteAccountSub')}</span>
             </div>
-            <button className="btn-delete-icon" onClick={handleOpenDeleteModal}>
+            <button className="btn-delete-icon" onClick={handleOpenDeleteModal} aria-label="Eliminar cuenta">
               <FaTrash />
             </button>
           </div>
@@ -494,7 +494,7 @@ function SettingsScreen() {
             </div>
           ))}
         </div>
-      </div>
+      </main>
 
       {/* ── MODAL CAMBIAR CONTRASEÑA ── */}
       <Modal isOpen={showPasswordModal} onClose={handleClosePasswordModal} size="sm">
@@ -508,6 +508,7 @@ function SettingsScreen() {
           <div className="password-form">
             <input
               type="password"
+              aria-label="Contraseña actual"
               placeholder={t('settings.passwordModal.current')}
               value={passwordData.current}
               onChange={(e) => handlePasswordChange('current', e.target.value)}
@@ -515,6 +516,7 @@ function SettingsScreen() {
             <div className="input-password">
               <input
                 type={showPassword.new ? 'text' : 'password'}
+                aria-label="Nueva contraseña"
                 placeholder={t('settings.passwordModal.new')}
                 value={passwordData.new}
                 onChange={(e) => handlePasswordChange('new', e.target.value)}
@@ -523,6 +525,8 @@ function SettingsScreen() {
                 type="button"
                 className="toggle-password"
                 onClick={() => setShowPassword((prev) => ({ ...prev, new: !prev.new }))}
+                aria-label={showPassword.new ? 'Ocultar contraseña' : 'Mostrar contraseña'}
+                aria-pressed={showPassword.new}
               >
                 {showPassword.new ? <FaEye /> : <FaEyeSlash />}
               </button>
@@ -530,6 +534,7 @@ function SettingsScreen() {
             <div className="input-password">
               <input
                 type={showPassword.confirm ? 'text' : 'password'}
+                aria-label="Confirmar contraseña"
                 placeholder={t('settings.passwordModal.confirm')}
                 value={passwordData.confirm}
                 onChange={(e) => handlePasswordChange('confirm', e.target.value)}
@@ -538,6 +543,8 @@ function SettingsScreen() {
                 type="button"
                 className="toggle-password"
                 onClick={() => setShowPassword((prev) => ({ ...prev, confirm: !prev.confirm }))}
+                aria-label={showPassword.confirm ? 'Ocultar contraseña' : 'Mostrar contraseña'}
+                aria-pressed={showPassword.confirm}
               >
                 {showPassword.confirm ? <FaEye /> : <FaEyeSlash />}
               </button>

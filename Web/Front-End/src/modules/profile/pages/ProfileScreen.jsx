@@ -43,6 +43,7 @@ function ProfileScreen() {
     <div className="profile-page-final">
       <Navbar />
 
+      <main id="main-content">
       <div className="profile-container-final">
         {/* HERO */}
         <div className={`profile-hero-final ${isEditing ? 'editing' : ''}`}>
@@ -153,6 +154,7 @@ function ProfileScreen() {
           </Button>
         </div>
       </div>
+      </main>
 
       {/* MODAL LOGOUT */}
       <Modal isOpen={logoutModal} onClose={() => setLogoutModal(false)} size="sm">

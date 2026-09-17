@@ -89,6 +89,7 @@ function FavoritesScreen() {
     <div className="favorites-page">
       <Navbar />
 
+      <main id="main-content">
       <div className="app-page-container">
         {/* HEADER */}
         <div className="favorites-header">
@@ -175,6 +176,7 @@ function FavoritesScreen() {
           </div>
         )}
       </div>
+      </main>
 
       {/* MODAL */}
       <Modal isOpen={showConfirmModal && !!selectedFav} onClose={handleCancelRemove} size="sm">

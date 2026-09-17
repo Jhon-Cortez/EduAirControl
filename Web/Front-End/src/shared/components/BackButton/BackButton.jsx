@@ -3,7 +3,7 @@ import './BackButton.css'
 
 function BackButton({ onClick }) {
   return (
-    <button className="back-button" onClick={onClick}>
+    <button className="back-button" onClick={onClick} aria-label="Volver">
       <IoArrowBack />
     </button>
   )

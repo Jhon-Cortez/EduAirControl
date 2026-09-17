@@ -55,6 +55,11 @@
   color: var(--text-muted);
 }
 
+.ds-field__input:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
 .ds-field__input:disabled {
   opacity: 0.5;
   cursor: not-allowed;

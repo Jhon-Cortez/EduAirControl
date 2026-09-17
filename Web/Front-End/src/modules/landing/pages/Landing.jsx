@@ -28,13 +28,15 @@ function Landing() {
     return (
         <div className="landing">
             <Navbar />
-            <Hero />
-            <WhyChoose />
-            <DesignedFor />
-            <CTA />
-            <Footer />
+            <main id="main-content">
+                <Hero />
+                <WhyChoose />
+                <DesignedFor />
+                <CTA />
+                <Footer />
 
-            <ScrollToTop />
+                <ScrollToTop />
+            </main>
         </div>
     );
 }

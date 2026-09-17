@@ -71,7 +71,12 @@ function EnvironmentSummaryCard({ environment, onToggleFavorite }) {
             </span>
           </div>
 
-          <button className={`btn-favorite ${isFavorite ? 'active' : ''}`} onClick={handleFavorite}>
+          <button 
+            className={`btn-favorite ${isFavorite ? 'active' : ''}`} 
+            onClick={handleFavorite}
+            aria-label={isFavorite ? t('allEnvironments.removeFavorite') : t('allEnvironments.favorite')}
+            aria-pressed={isFavorite}
+          >
             {isFavorite ? <FaHeart /> : <FaRegHeart />}
           </button>
         </div>

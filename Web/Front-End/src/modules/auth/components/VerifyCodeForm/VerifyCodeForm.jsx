@@ -30,6 +30,7 @@ function VerifyCodeForm() {
             id={`code-${index}`}
             type="text"
             maxLength="1"
+            aria-label={`Código de verificación dígito ${index + 1}`}
             value={digit}
             onChange={(e) => handleChange(index, e.target.value)}
             className="code-input"

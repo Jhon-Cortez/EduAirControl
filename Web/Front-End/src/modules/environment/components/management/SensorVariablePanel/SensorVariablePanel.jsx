@@ -222,6 +222,7 @@ function SensorVariablePanel({ environments }) {
         <label className="sensor-panel__search">
           <IoSearchOutline size={16} />
           <input
+            aria-label="Buscar sensores"
             value={search}
             onChange={(event) => setSearch(event.target.value)}
             placeholder="Buscar ID, ambiente o variable…"

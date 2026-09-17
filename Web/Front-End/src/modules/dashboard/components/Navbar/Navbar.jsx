@@ -147,6 +147,8 @@ function Navbar() {
           <button
             className="dashboard-mobile-button"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            aria-label={mobileMenuOpen ? 'Cerrar menú' : 'Abrir menú'}
+            aria-expanded={mobileMenuOpen}
           >
             {mobileMenuOpen ? <MdClose /> : <MdMenu />}
           </button>

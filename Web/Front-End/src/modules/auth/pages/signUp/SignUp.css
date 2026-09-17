@@ -124,6 +124,11 @@
   box-shadow: 0 0 15px rgba(93, 230, 200, 0.2);
 }
 
+.input-wrapper input:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
 .form-row-modern {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -610,6 +615,11 @@ body:not(.dark-mode) .modal-content-modern {
 .term-module-trigger:focus-visible {
   color: var(--accent);
   outline: none;
+}
+
+.term-module-trigger:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
 }
 
 .term-module-content {

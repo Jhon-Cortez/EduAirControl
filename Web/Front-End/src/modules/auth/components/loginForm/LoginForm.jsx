@@ -28,12 +28,13 @@ function LoginForm() {
     <form className="login-form-modern" onSubmit={handleSubmit(onSubmit)}>
       {/* Campo de Empresa*/}
       <div className="input-group-modern">
-        <label>{t('login.companyCode', 'Código de Empresa')}</label>
+        <label htmlFor="companyCode">{t('login.companyCode', 'Código de Empresa')}</label>
         <div className="input-wrapper">
           <FaBuilding className="input-icon" />
           <input
             {...register('companyCode')}
             type="text"
+            id="companyCode"
             placeholder={t('login.placeholderCompany', 'Ej: EDU-2024')}
             className={errors.companyCode ? 'input-error shake' : ''}
           />
@@ -42,12 +43,13 @@ function LoginForm() {
       </div>
 
       <div className="input-group-modern">
-        <label>{t('login.email')}</label>
+        <label htmlFor="email">{t('login.email')}</label>
         <div className="input-wrapper">
           <FaEnvelope className="input-icon" />
           <input
             {...register('email')}
             type="email"
+            id="email"
             placeholder={t('login.placeholderEmail')}
             className={errors.email ? 'input-error shake' : ''}
           />
@@ -56,12 +58,13 @@ function LoginForm() {
       </div>
 
       <div className="input-group-modern">
-        <label>{t('login.password')}</label>
+        <label htmlFor="password">{t('login.password')}</label>
         <div className="input-wrapper">
           <FaLock className="input-icon" />
           <input
             {...register('password')}
             type="password"
+            id="password"
             placeholder={t('login.placeholderPassword')}
             className={errors.password ? 'input-error shake' : ''}
           />

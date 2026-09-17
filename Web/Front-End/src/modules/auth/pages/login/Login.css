@@ -125,6 +125,11 @@
   box-shadow: 0 0 15px rgba(93, 230, 200, 0.2);
 }
 
+.input-wrapper input:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
 /* Opciones de Login */
 .login-options-modern {
   display: flex;

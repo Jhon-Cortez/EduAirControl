@@ -578,6 +578,11 @@ body.dark-mode .ds-btn--primary:hover {
   box-shadow: 0 0 0 3px var(--lb-surface);
 }
 
+.ds-input:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
 .ds-input--error {
   border-color: #f44336;
 }

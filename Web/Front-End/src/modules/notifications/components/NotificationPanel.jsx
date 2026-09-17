@@ -47,13 +47,13 @@ function NotificationPanel({ isOpen, onClose }) {
             </div>
 
             {unreadCount > 0 && (
-              <span className="mark-read-link" onClick={markAllRead}>
+              <button className="mark-read-link" onClick={markAllRead} aria-label="Marcar todas como leídas">
                 ✓ {t('notifications.markAllRead')}
-              </span>
+              </button>
             )}
           </div>
 
-          <button className="close-btn" onClick={onClose}>
+          <button className="close-btn" onClick={onClose} aria-label="Cerrar notificaciones">
             ✕
           </button>
         </div>

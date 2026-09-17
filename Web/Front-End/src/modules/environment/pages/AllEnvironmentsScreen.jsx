@@ -32,6 +32,7 @@ function AllEnvironmentsScreen() {
     <div className="all-env-page">
       <Navbar />
 
+      <main id="main-content">
       <div className="app-page-container">
         <header className="all-env-header">
           <div>
@@ -91,6 +92,7 @@ function AllEnvironmentsScreen() {
           </div>
         )}
       </div>
+      </main>
 
       <EnvironmentModal
         isOpen={Boolean(selectedEnvironment)}
