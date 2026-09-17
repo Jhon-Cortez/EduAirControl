@@ -54,7 +54,7 @@ const THEME_COLORS = {
   '': { light: '#28F4D6', dark: '#28F4D6' },
   'theme-protanopia': { light: '#0072b2', dark: '#4aa8d8' },
   'theme-deuteranopia': { light: '#8a5f00', dark: '#c8880a' },
-  'theme-tritanopia': { light: '#a34600', dark: '#e8743a' },
+  'theme-tritanopia': { light: '#5b4b8a', dark: '#8a7ae6' },
 };
 
 const THEMES = ACCESSIBILITY_THEMES.map((key) => ({ key, dot: THEME_COLORS[key] }));
