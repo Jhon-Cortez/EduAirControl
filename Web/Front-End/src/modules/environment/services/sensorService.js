@@ -1,29 +1,29 @@
-import apiClient from '../../../shared/services/apiClient';
+import { dbClient } from '../../../shared/services/apiClient';
 
 const sensorService = {
   async getAll() {
-    return apiClient.get('/sensors');
+    return dbClient.get('/sensors');
   },
 
   async getByEnvironment(environmentId) {
-    return apiClient.get(`/sensors?environmentId=${environmentId}`);
+    return dbClient.get(`/sensors?environmentId=${environmentId}`);
   },
 
   async create(sensor) {
-    return apiClient.post('/sensors', sensor);
+    return dbClient.post('/sensors', sensor);
   },
 
   async update(id, updates) {
-    return apiClient.patch(`/sensors/${id}`, updates);
+    return dbClient.patch(`/sensors/${id}`, updates);
   },
 
   async delete(id) {
-    return apiClient.delete(`/sensors/${id}`);
+    return dbClient.delete(`/sensors/${id}`);
   },
 
   async toggleActive(id) {
-    const sensor = await apiClient.get(`/sensors/${id}`);
-    return apiClient.patch(`/sensors/${id}`, { active: !sensor.active });
+    const sensor = await dbClient.get(`/sensors/${id}`);
+    return dbClient.patch(`/sensors/${id}`, { active: !sensor.active });
   },
 };
 

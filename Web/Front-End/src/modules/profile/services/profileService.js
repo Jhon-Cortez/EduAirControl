@@ -1,4 +1,4 @@
-import apiClient from '../../../shared/services/apiClient';
+import { dbClient } from '../../../shared/services/apiClient';
 import authService from '../../auth/services/authService';
 
 const profileService = {
@@ -6,7 +6,7 @@ const profileService = {
     const jwtUser = authService.getUser();
     if (!jwtUser) return { fullName: '', email: '', title: '', phone: '', location: '', avatar: null };
     try {
-      const remote = await apiClient.get('/profile/1');
+      const remote = await dbClient.get('/profile/1');
       return { ...remote, email: jwtUser.email, fullName: jwtUser.name || remote.fullName };
     } catch {
       return {
@@ -21,11 +21,11 @@ const profileService = {
   },
 
   async save(profile) {
-    return apiClient.put('/profile/1', profile);
+    return dbClient.put('/profile/1', profile);
   },
 
   async clear() {
-    return apiClient.delete('/profile/1');
+    return dbClient.delete('/profile/1');
   },
 };
 
