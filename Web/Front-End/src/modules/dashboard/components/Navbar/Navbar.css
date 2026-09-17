@@ -235,14 +235,12 @@ body.dark-mode .dashboard-navbar-item{
 
   width: 240px;
 
-  background: var(--bg-card);
-
+  background: var(--lb-glass-bg);
+  -webkit-backdrop-filter: var(--lb-glass-blur);
+  backdrop-filter: var(--lb-glass-blur);
   border: 1px solid var(--lb-glass-border);
-
   border-radius: 18px;
-
   overflow: hidden;
-
   box-shadow: var(--shadow-lg);
 
   animation: dashboardDropdown 0.25s ease;

@@ -135,9 +135,9 @@ body:not(.dark-mode) .auth-overlay {
   top: calc(100% + 8px);
   right: 0;
   min-width: 180px;
-  background: var(--bg-card);
-  -webkit-backdrop-filter: blur(12px);
-  backdrop-filter: blur(12px);
+  background: var(--lb-glass-bg);
+  -webkit-backdrop-filter: var(--lb-glass-blur);
+  backdrop-filter: var(--lb-glass-blur);
   border-radius: 12px;
   overflow: hidden;
   border: 1px solid var(--lb-glass-border);
