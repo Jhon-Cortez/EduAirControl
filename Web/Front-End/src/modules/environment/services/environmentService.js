@@ -1,21 +1,20 @@
-import apiClient from '../../../shared/services/apiClient';
+import { dbClient } from '../../../shared/services/apiClient';
 
 const environmentService = {
   async getAll() {
-    return apiClient.get('/environments');
+    return dbClient.get('/environments');
   },
 
   async getById(id) {
-    return apiClient.get(`/environments/${id}`);
+    return dbClient.get(`/environments/${id}`);
   },
 
   async getFavorites() {
-    const all = await apiClient.get('/environments?isFavorite=true');
-    return all;
+    return dbClient.get('/environments?isFavorite=true');
   },
 
   async create(environment) {
-    return apiClient.post('/environments', {
+    return dbClient.post('/environments', {
       ...environment,
       temp: 22,
       humidity: 50,
@@ -27,16 +26,16 @@ const environmentService = {
   },
 
   async update(id, updates) {
-    return apiClient.patch(`/environments/${id}`, updates);
+    return dbClient.patch(`/environments/${id}`, updates);
   },
 
   async delete(id) {
-    return apiClient.delete(`/environments/${id}`);
+    return dbClient.delete(`/environments/${id}`);
   },
 
   async toggleFavorite(id) {
-    const env = await apiClient.get(`/environments/${id}`);
-    return apiClient.patch(`/environments/${id}`, { isFavorite: !env.isFavorite });
+    const env = await dbClient.get(`/environments/${id}`);
+    return dbClient.patch(`/environments/${id}`, { isFavorite: !env.isFavorite });
   },
 };
 
