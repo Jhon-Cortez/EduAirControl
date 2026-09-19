@@ -467,6 +467,20 @@ body:not(.dark-mode) .landing-navbar__toggle:hover {
   .landing-navbar__language .lang-btn-premium {
     justify-content: space-between;
     padding: 10px 12px;
+    color: var(--text-primary);
+  }
+
+  .landing-navbar__language .lang-label-text,
+  .landing-navbar__language .lang-arrow {
+    display: inline-flex;
+    color: var(--text-primary);
+    opacity: 1;
+  }
+
+  body:not(.dark-mode) .landing-navbar__language .lang-btn-premium,
+  body:not(.dark-mode) .landing-navbar__language .lang-label-text,
+  body:not(.dark-mode) .landing-navbar__language .lang-arrow {
+    color: #0f172a;
   }
 
   .landing-navbar__menu .lang-dropdown-premium--up {
