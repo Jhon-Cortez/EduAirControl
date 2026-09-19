@@ -14,7 +14,6 @@ const FIELDS = [
   { key: 'email', label: 'profile.email', icon: FaEnvelope, type: 'email' },
   { key: 'title', label: 'profile.titleLabel', icon: FaBriefcase, type: 'text' },
   { key: 'phone', label: 'profile.phone', icon: FaPhone, type: 'text' },
-  { key: 'location', label: 'profile.location', icon: FaMapMarkerAlt, type: 'text' },
 ];
 
 function ProfileScreen() {
@@ -99,10 +98,6 @@ function ProfileScreen() {
               <FaEnvelope />
               {profile.email}
             </p>
-            <span className="hero-location-final">
-              <FaMapMarkerAlt />
-              {profile.location}
-            </span>
           </div>
 
           {!isEditing ? (

@@ -248,18 +248,6 @@
   letter-spacing: 0.08em;
 }
 
-.hero-location-final {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-
-  margin-top: 4px;
-
-  color: var(--text-muted);
-
-  font-size: calc(var(--a11y-font-size) * 0.875);
-}
-
 .hero-email-final {
   display: flex;
   align-items: center;
