@@ -100,6 +100,91 @@ body:not(.dark-mode) .auth-overlay {
   pointer-events: none;
 }
 
+/* ── Acceso social ── */
+.social-text {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 24px 0 16px;
+  background: transparent;
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+.social-text::before,
+.social-text::after {
+  flex: 1;
+  height: 1px;
+  background: transparent;
+  border-top: 1px solid var(--lb-glass-border);
+  content: '';
+}
+
+.social-buttons {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.social-buttons button.btn-facebook,
+.social-buttons button.btn-google {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  min-height: 48px;
+  margin: 0;
+  padding: 12px 16px;
+  border: 1px solid var(--lb-glass-border);
+  border-radius: 12px;
+  font: inherit;
+  font-weight: 700;
+  line-height: 1;
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.social-buttons button.btn-facebook {
+  background: #1877f2;
+  border-color: #1877f2;
+  color: #ffffff;
+}
+
+.social-buttons button.btn-google {
+  background: var(--lb-surface);
+  color: var(--text-primary);
+}
+
+.social-buttons button.btn-facebook:hover,
+.social-buttons button.btn-google:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 22px rgb(0 0 0 / 0.16);
+}
+
+.social-buttons button.btn-facebook:hover {
+  background: #145dbf;
+  border-color: #145dbf;
+}
+
+.social-buttons button.btn-google:hover {
+  background: var(--lb-glass-bg-hover);
+  border-color: var(--lb-glass-border-hover);
+}
+
+@media (max-width: 480px) {
+  .social-buttons {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* ── Selector de idioma (fijo) ── */
 .language-selector-fixed {
   position: fixed;

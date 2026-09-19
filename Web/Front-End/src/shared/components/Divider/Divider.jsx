@@ -1,6 +1,6 @@
-function Divider({ text }) {
+function Divider({ text, className = '' }) {
   return (
-    <div className="divider">
+    <div className={`divider ${className}`.trim()}>
       <span>{text}</span>
     </div>
   )
