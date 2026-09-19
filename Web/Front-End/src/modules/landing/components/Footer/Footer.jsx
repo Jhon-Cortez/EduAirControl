@@ -1,4 +1,5 @@
 import './Footer.css';
+import logo from '../../../../shared/assets/EduAirControlLogo.png';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
@@ -13,12 +14,20 @@ function Footer() {
     <footer id="footer" className="footer">
       <div className="footer-container">
         {/* Logo */}
-        <div className="footer-brand">
-          <div className="footer-logo">
-            <ShieldCheck size={28} />
+        <div className="footer-brand"
+          onClick={() => {
+            window.scrollTo({
+              top: 0,
+              behavior: 'smooth',
+            });
+          }}
+        >
 
+          <div className="footer-logo">
+            <img src={logo} alt="EduAirControl" />
             <span>EduAirControl</span>
           </div>
+          
 
           <p>{t('landing.footer.description')}</p>
         </div>

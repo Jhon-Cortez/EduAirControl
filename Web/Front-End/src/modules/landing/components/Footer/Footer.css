@@ -40,14 +40,44 @@ body:not(.dark-mode) .footer-contact div {
   gap: 60px;
 }
 
+.footer-brand {
+  min-width: 0;
+  height: 100%;
+  cursor: pointer;
+}
+
 .footer-logo {
   display: flex;
   align-items: center;
-  gap: 12px;
-  color: var(--accent);
-  font-size: 1.8rem;
+  gap: clamp(8px, 0.65vw, 12px);
+  width: fit-content;
+}
+
+.footer-logo img {
+  flex: 0 0 auto;
+  width: clamp(44px, 2.7vw, 52px);
+  height: calc(var(--navbar-height) - 10px);
+  object-fit: contain;
+  transition: transform 0.25s ease;
+}
+
+.footer-logo span {
+  display: flex;
+  align-items: center;
+  color: var(--text-primary);
+  font-size: clamp(1.6rem, 1.95vw, 2.25rem);
   font-weight: 700;
-  margin-bottom: 20px;
+  line-height: 1.05;
+  white-space: nowrap;
+  transition: color 0.25s ease;
+}
+
+.footer-brand:hover .footer-logo img {
+  transform: scale(1.04);
+}
+
+.footer-brand:hover .footer-logo span {
+  color: var(--accent);
 }
 
 .footer-brand p {
@@ -135,7 +165,7 @@ body:not(.dark-mode) .footer-contact div {
     padding: 70px 0 45px;
   }
 
-  .footer-logo {
+  .footer-logo span {
     font-size: 1.6rem;
   }
 }
@@ -155,7 +185,7 @@ body:not(.dark-mode) .footer-contact div {
     padding: 60px 0 40px;
   }
 
-  .footer-logo {
+  .footer-logo span {
     font-size: 1.5rem;
   }
 
@@ -179,7 +209,7 @@ body:not(.dark-mode) .footer-contact div {
     gap: 35px;
   }
 
-  .footer-logo {
+  .footer-logo span {
     justify-content: center;
 
     font-size: 1.4rem;
@@ -222,9 +252,11 @@ body:not(.dark-mode) .footer-contact div {
   }
 
   .footer-logo {
-    font-size: 1.25rem;
+    justify-content: center;
+  }
 
-    gap: 10px;
+  .footer-logo span {
+    font-size: 1.25rem;
   }
 
   .footer-brand p {
