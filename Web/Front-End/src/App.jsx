@@ -1,5 +1,8 @@
 import { Navigate, Routes, Route } from 'react-router-dom';
 
+import ProtectedRoute from './shared/components/routes/ProtectedRoute';
+import GuestRoute from './shared/components/routes/GuestRoute';
+
 // ======================
 // AUTH
 // ======================
@@ -54,7 +57,14 @@ function App() {
 
       {/* ---------- Authentication ---------- */}
       <Route path="/" element={<Navigate to="/landing" replace />} />
-      <Route path="/login" element={<LoginScreen />} />
+      <Route
+        path="/login"
+        element={
+          <GuestRoute>
+            <LoginScreen />
+          </GuestRoute>
+        }
+      />
       <Route path="/forgot-password" element={<ForgotPasswordScreen />} />
       <Route path="/verify-code" element={<VerifyCodeScreen />} />
       <Route path="/change-password" element={<ChangePasswordScreen />} />
@@ -64,18 +74,67 @@ function App() {
       <Route path="/oauth2/success" element={<OAuth2SuccessScreen />} />
 
       {/* ---------- Dashboard de análisis ---------- */}
-      <Route path="/dashboard" element={<DashboardScreen />} />
+      <Route
+        path="/dashboard"
+        element={
+          <ProtectedRoute>
+            <DashboardScreen />
+          </ProtectedRoute>
+        }
+      />
       <Route path="/ranking" element={<Navigate to="/dashboard" replace />} />
 
       {/* ---------- Environments ---------- */}
-      <Route path="/all-environments" element={<AllEnvironmentsScreen />} />
-      <Route path="/environment/:id" element={<EnvironmentDetailScreen />} />
-      <Route path="/management" element={<EnvironmentManagement />} />
+      <Route
+        path="/all-environments"
+        element={
+          <ProtectedRoute>
+            <AllEnvironmentsScreen />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/environment/:id"
+        element={
+          <ProtectedRoute>
+            <EnvironmentDetailScreen />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/management"
+        element={
+          <ProtectedRoute>
+            <EnvironmentManagement />
+          </ProtectedRoute>
+        }
+      />
 
       {/* ---------- User ---------- */}
-      <Route path="/favorites" element={<FavoritesScreen />} />
-      <Route path="/profile" element={<ProfileScreen />} />
-      <Route path="/settings" element={<SettingsScreen />} />
+      <Route
+        path="/favorites"
+        element={
+          <ProtectedRoute>
+            <FavoritesScreen />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/profile"
+        element={
+          <ProtectedRoute>
+            <ProfileScreen />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/settings"
+        element={
+          <ProtectedRoute>
+            <SettingsScreen />
+          </ProtectedRoute>
+        }
+      />
     </Routes>
   );
 }

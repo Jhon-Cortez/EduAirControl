@@ -10,6 +10,7 @@ import { IoStatsChart, IoSettings, IoLogOut } from 'react-icons/io5';
 
 import NavbarInfo from '../../components/NavbarInfo/NavbarInfo';
 import NotificationPanel from '../../../notifications/components/NotificationPanel';
+import authService from '../../../auth/services/authService';
 
 import logo from '../../../../shared/assets/EduAirControlLogo.png';
 
@@ -67,6 +68,13 @@ function Navbar() {
     setMobileMenuOpen(false);
   };
 
+  const handleLogout = () => {
+    authService.logout();
+    go('/landing');
+  };
+
+  const userRole = (authService.getUser()?.role || 'USER').toLowerCase();
+
   return (
     <>
       <nav className="dashboard-navbar">
@@ -79,7 +87,7 @@ function Navbar() {
               <span>Smart Air Monitoring</span>
             </div>
           </div>
-          <NavbarInfo role="admin" />
+          <NavbarInfo role={userRole} />
         </div>
 
         {/* MENÚ DESKTOP */}
@@ -134,7 +142,7 @@ function Navbar() {
 
                 <div
                   className="dashboard-profile-dropdown-item logout"
-                  onClick={() => go('/landing')}
+                  onClick={handleLogout}
                 >
                   <IoLogOut />
                   <span>{t('nav.logout')}</span>
@@ -178,7 +186,7 @@ function Navbar() {
           <span>{t('nav.settings')}</span>
         </div>
 
-        <div className="dashboard-mobile-item logout" onClick={() => go('/landing')}>
+        <div className="dashboard-mobile-item logout" onClick={handleLogout}>
           <IoLogOut />
           <span>{t('nav.logout')}</span>
         </div>

@@ -1,10 +1,13 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { useForm, useWatch } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { FaUser, FaEnvelope, FaLock, FaBuilding } from 'react-icons/fa';
 import { HiOutlineDocumentText, HiCheckCircle } from 'react-icons/hi2';
 import { ChevronDown } from 'lucide-react';
 import authService from '../../services/authService';
+import { registerSchema } from '../../schemas/registerSchema';
 import '../../pages/signUp/SignUp.css';
 
 function SignUpForm() {
@@ -17,49 +20,46 @@ function SignUpForm() {
   const [hasReadFullTerms] = useState(
     () => sessionStorage.getItem('eduaircontrol-terms-read') === 'true'
   );
-  const [formData, setFormData] = useState({
-    companyCode: '',
-    name: '',
-    email: '',
-    password: '',
-    confirmPassword: '',
-    acceptTerms: false,
+
+  const {
+    register,
+    handleSubmit,
+    control,
+    formState: { errors, isSubmitting },
+  } = useForm({
+    resolver: zodResolver(registerSchema),
+    defaultValues: {
+      companyCode: '',
+      name: '',
+      email: '',
+      password: '',
+      confirmPassword: '',
+      acceptTerms: false,
+    },
   });
+
   const [showTerms, setShowTerms] = useState(false);
   const [openTerm, setOpenTerm] = useState(-1);
+  const [apiError, setApiError] = useState('');
+
+  const password = useWatch({ control, name: 'password' }) || '';
   const passwordRequirements = {
-    minLength: formData.password.length >= 8,
-    hasUppercase: /[A-Z]/.test(formData.password),
-    hasLowercase: /[a-z]/.test(formData.password),
-    hasNumber: /[0-9]/.test(formData.password),
-    hasSpecialChar: /[^A-Za-z0-9]/.test(formData.password),
+    minLength: password.length >= 8,
+    hasUppercase: /[A-Z]/.test(password),
+    hasLowercase: /[a-z]/.test(password),
+    hasNumber: /[0-9]/.test(password),
+    hasSpecialChar: /[^A-Za-z0-9]/.test(password),
   };
   const passwordStrength = Object.values(passwordRequirements).filter(Boolean).length;
 
-  const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: type === 'checkbox' ? checked : value }));
-  };
-
-  const [apiError, setApiError] = useState('');
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const onSubmit = async (data) => {
     setApiError('');
     if (!hasReadFullTerms) {
       setShowTerms(true);
       return;
     }
-    if (!formData.acceptTerms) {
-      alert(t('signup.errorTerms', 'Debes aceptar los términos'));
-      return;
-    }
-    if (formData.password !== formData.confirmPassword) {
-      alert(t('signup.errorPassword', 'Las contraseñas no coinciden'));
-      return;
-    }
     try {
-      await authService.register(formData.name, formData.email, formData.password);
+      await authService.register(data.name, data.email, data.password, data.companyCode);
       navigate('/dashboard');
     } catch (err) {
       setApiError(err.message || t('signup.error', 'Error al registrarse'));
@@ -68,7 +68,7 @@ function SignUpForm() {
 
   return (
     <>
-      <form className="signup-form-modern" onSubmit={handleSubmit}>
+      <form className="signup-form-modern" onSubmit={handleSubmit(onSubmit)} noValidate>
         <div className="input-group-modern">
           <label htmlFor="signup-company-code">
             {t('signup.companyCode', 'Código de Empresa')}
@@ -78,13 +78,14 @@ function SignUpForm() {
             <input
               id="signup-company-code"
               type="text"
-              name="companyCode"
               placeholder={t('signup.placeholderCompany', 'Ej: EDU-2024')}
-              value={formData.companyCode}
-              onChange={handleChange}
-              required
+              className={errors.companyCode ? 'input-error shake' : ''}
+              {...register('companyCode')}
             />
           </div>
+          {errors.companyCode && (
+            <p className="error-text">⚠ {t(errors.companyCode.message)}</p>
+          )}
         </div>
         <div className="input-group-modern">
           <label htmlFor="signup-name">{t('signup.fullName', 'Nombre completo')}</label>
@@ -93,13 +94,12 @@ function SignUpForm() {
             <input
               id="signup-name"
               type="text"
-              name="name"
               placeholder={t('signup.placeholderName')}
-              value={formData.name}
-              onChange={handleChange}
-              required
+              className={errors.name ? 'input-error shake' : ''}
+              {...register('name')}
             />
           </div>
+          {errors.name && <p className="error-text">⚠ {t(errors.name.message)}</p>}
         </div>
         <div className="input-group-modern">
           <label htmlFor="signup-email">{t('signup.email')}</label>
@@ -108,13 +108,12 @@ function SignUpForm() {
             <input
               id="signup-email"
               type="email"
-              name="email"
               placeholder={t('signup.placeholderEmail')}
-              value={formData.email}
-              onChange={handleChange}
-              required
+              className={errors.email ? 'input-error shake' : ''}
+              {...register('email')}
             />
           </div>
+          {errors.email && <p className="error-text">⚠ {t(errors.email.message)}</p>}
         </div>
         <div className="form-row-modern">
           <div className="input-group-modern">
@@ -124,14 +123,13 @@ function SignUpForm() {
               <input
                 id="signup-password"
                 type="password"
-                name="password"
                 placeholder="••••••••"
-                value={formData.password}
-                onChange={handleChange}
-                required
+                className={errors.password ? 'input-error shake' : ''}
+                {...register('password')}
               />
             </div>
-            {formData.password && (
+            {errors.password && <p className="error-text">⚠ {t(errors.password.message)}</p>}
+            {password && (
               <div className="password-strength" aria-live="polite">
                 <div className="password-strength-bar" aria-hidden="true">
                   <div className={`password-strength-fill strength-${passwordStrength}`} />
@@ -154,13 +152,14 @@ function SignUpForm() {
               <input
                 id="signup-confirm-password"
                 type="password"
-                name="confirmPassword"
                 placeholder="••••••••"
-                value={formData.confirmPassword}
-                onChange={handleChange}
-                required
+                className={errors.confirmPassword ? 'input-error shake' : ''}
+                {...register('confirmPassword')}
               />
             </div>
+            {errors.confirmPassword && (
+              <p className="error-text">⚠ {t(errors.confirmPassword.message)}</p>
+            )}
           </div>
         </div>
         <div className="terms-container-modern">
@@ -168,10 +167,8 @@ function SignUpForm() {
             <input
               id="signup-accept-terms"
               type="checkbox"
-              name="acceptTerms"
-              checked={formData.acceptTerms}
-              onChange={handleChange}
               disabled={!hasReadFullTerms}
+              {...register('acceptTerms')}
             />
             <span className="slider-modern"></span>
           </label>
@@ -184,10 +181,13 @@ function SignUpForm() {
           {!hasReadFullTerms && (
             <p className="terms-read-required">{t('signup.termsModal.readRequired')}</p>
           )}
+          {errors.acceptTerms && (
+            <p className="error-text">⚠ {t(errors.acceptTerms.message)}</p>
+          )}
         </div>
         {apiError && <p className="error-text">⚠ {apiError}</p>}
-        <button type="submit" className="btn-signup-premium">
-          {t('signup.signUpBtn')}
+        <button type="submit" className="btn-signup-premium" disabled={isSubmitting}>
+          {isSubmitting ? '...' : t('signup.signUpBtn')}
         </button>
       </form>
 

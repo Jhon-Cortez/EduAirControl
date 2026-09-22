@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import profileService from '../services/profileService';
+import authService from '../../auth/services/authService';
 
 const MAX_IMAGE_SIZE = 2 * 1024 * 1024;
 
@@ -74,6 +75,7 @@ export function useProfileVM() {
   };
 
   const handleLogout = () => {
+    authService.logout();
     setLogoutModal(false);
     navigate('/landing');
   };

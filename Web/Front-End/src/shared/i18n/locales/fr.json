@@ -591,7 +591,8 @@
     "name_short": "Le nom est trop court",
     "required_company_code": "Le code de l'entreprise est obligatoire",
     "invalid_company_code": "Le code de l'entreprise doit respecter le format ABC-1234",
-    "uppercaseRequired:_password" : "Il doit contenir au moins une lettre majuscule"
+    "uppercaseRequired:_password" : "Il doit contenir au moins une lettre majuscule",
+    "password_min_8": "Le mot de passe doit contenir au moins 8 caractères"
   },
   "notifications": {
     "title": "Notifications",

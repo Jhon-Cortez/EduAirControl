@@ -5,6 +5,39 @@ function getToken() {
   return localStorage.getItem('token');
 }
 
+function isAuthEndpoint(endpoint) {
+  return endpoint.startsWith('/auth/');
+}
+
+function handleUnauthorized() {
+  localStorage.removeItem('token');
+  localStorage.removeItem('user');
+  const path = window.location.pathname;
+  if (!path.startsWith('/login') && !path.startsWith('/oauth2')) {
+    window.location.assign('/login');
+  }
+}
+
+function messageFor(status, body) {
+  if (body?.message) return body.message;
+  switch (status) {
+    case 400:
+      return 'Datos inválidos';
+    case 401:
+      return 'Sesión expirada o credenciales inválidas';
+    case 403:
+      return 'No tienes permiso para esta acción';
+    case 404:
+      return 'Recurso no encontrado';
+    case 409:
+      return 'El correo ya está registrado';
+    case 500:
+      return 'Error del servidor';
+    default:
+      return `Error ${status}`;
+  }
+}
+
 async function request(endpoint, options = {}, baseUrl = API_BASE) {
   const token = getToken();
   const headers = {
@@ -19,8 +52,11 @@ async function request(endpoint, options = {}, baseUrl = API_BASE) {
   });
 
   if (!response.ok) {
-    const error = await response.json().catch(() => ({}));
-    throw new Error(error.message || `Error ${response.status}`);
+    const body = await response.json().catch(() => ({}));
+    if (response.status === 401 && !isAuthEndpoint(endpoint)) {
+      handleUnauthorized();
+    }
+    throw new Error(messageFor(response.status, body));
   }
 
   if (response.status === 204) return null;

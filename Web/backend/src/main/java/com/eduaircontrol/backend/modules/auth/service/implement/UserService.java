@@ -20,29 +20,35 @@ public class UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
-    
+
     public Users register(RegisterRequest request){
         if (userRepository.findByEmail(request.getEmail()).isPresent()) {
-            throw new RuntimeException("El correo ya esta registrado");
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "El correo ya está registrado");
         }
         Users user = Users.builder()
                 .name(request.getName())
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
+                .companyCode(request.getCompanyCode())
                 .role(Role.USER)
                 .build();
         return userRepository.save(user);
     }
+
     public String login(LoginRequest request){
         Users user = userRepository.findByEmail(request.getEmail())
-            .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuario no encontrado"));
+            .orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Credenciales inválidas"));
 
-    if (user.getPassword() == null || !passwordEncoder.matches(request.getPassword(), user.getPassword())) {
-        throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Contraseña incorrecta");
+        if (user.getPassword() == null || !passwordEncoder.matches(request.getPassword(), user.getPassword())) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Credenciales inválidas");
+        }
+
+        if (user.getCompanyCode() != null && !user.getCompanyCode().equals(request.getCompanyCode())) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Credenciales inválidas");
+        }
+
+        return jwtService.generateToken(user);
     }
-
-    return jwtService.generateToken(user);
-}
 
     public String loginWithGoogle(OAuth2User oAuth2User) {
         String googleId = oAuth2User.getAttribute("sub");

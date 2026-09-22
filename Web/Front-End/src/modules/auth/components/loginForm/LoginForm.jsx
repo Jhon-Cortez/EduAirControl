@@ -25,7 +25,7 @@ function LoginForm() {
   const onSubmit = async (data) => {
     setApiError('');
     try {
-      await authService.login(data.email, data.password);
+      await authService.login(data.email, data.password, data.companyCode);
       navigate('/dashboard');
     } catch (err) {
       setApiError(err.message || t('login.error', 'Error al iniciar sesión'));
