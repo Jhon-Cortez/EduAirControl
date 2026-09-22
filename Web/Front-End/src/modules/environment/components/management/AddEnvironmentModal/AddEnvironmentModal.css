@@ -2,7 +2,9 @@
 .add-env-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.65);
+  background: rgba(0, 0, 0, 0.55);
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -22,9 +24,11 @@
 
 /* ─── Modal box ─────────────────────────────────────────────── */
 .add-env-modal {
-  background: var(--bg-card);
-  border: 1px solid var(--border-color);
-  border-radius: 14px;
+  background: var(--lb-glass-bg);
+  -webkit-backdrop-filter: var(--lb-glass-blur);
+  backdrop-filter: var(--lb-glass-blur);
+  border: 1px solid var(--lb-glass-border);
+  border-radius: 24px;
   padding: 28px;
   width: 100%;
   max-width: 440px;
@@ -34,6 +38,7 @@
   animation: modal-in 0.18s ease;
   max-height: 90vh;
   overflow-y: auto;
+  box-shadow: var(--shadow-xl);
 }
 
 .add-env-modal--wide {
@@ -93,7 +98,7 @@
 }
 
 .add-env-modal__required {
-  color: #ff4d5b;
+  color: var(--color-danger);
   margin-left: 2px;
 }
 
@@ -130,7 +135,7 @@
 .add-env-modal__select {
   appearance: none;
   cursor: pointer;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%238b949e' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%234b5563' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right 12px center;
   padding-right: 32px;
@@ -141,8 +146,8 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid var(--border-color);
+  background: var(--lb-surface);
+  border: 1px solid var(--lb-glass-border);
   border-radius: 10px;
   padding: 14px;
 }
@@ -172,7 +177,7 @@
 }
 
 .add-env-modal__profile-btn.active {
-  background: rgba(63, 185, 80, 0.12);
+  background: var(--accent-light);
   border-color: var(--accent);
   color: var(--accent);
   font-weight: 600;
@@ -201,13 +206,13 @@
 }
 
 .add-env-modal__btn-cancel:hover {
-  border-color: #8b949e;
+  border-color: var(--accent);
   color: var(--text-primary);
 }
 
 .add-env-modal__btn-save {
-  background: #25e77c;
-  border: 1px solid #25e77c;
+  background: var(--accent);
+  border: 1px solid var(--accent);
   border-radius: 8px;
   color: #fff;
   font-size: calc(var(--a11y-font-size) * 0.875);
@@ -218,7 +223,8 @@
 }
 
 .add-env-modal__btn-save:hover:not(:disabled) {
-  background: #25e77c;
+  background: var(--accent-hover);
+  border-color: var(--accent-hover);
 }
 .add-env-modal__btn-save:disabled {
   opacity: 0.4;
@@ -237,9 +243,9 @@
   justify-content: center;
   width: 52px;
   height: 52px;
-  background: rgba(255, 77, 91, 0.12);
+  background: color-mix(in srgb, var(--color-danger) 12%, transparent);
   border-radius: 50%;
-  color: #ff4d5b;
+  color: var(--color-danger);
   margin: 0 auto 4px;
 }
 
@@ -254,8 +260,8 @@
   display: flex;
   align-items: center;
   gap: 6px;
-  background: #ff4d5b;
-  border: 1px solid #ff4d5b;
+  background: var(--color-danger);
+  border: 1px solid var(--color-danger);
   border-radius: 8px;
   color: #fff;
   font-size: calc(var(--a11y-font-size) * 0.875);
@@ -266,5 +272,6 @@
 }
 
 .add-env-modal__btn-delete:hover {
-  background: #ff4d5b;
+  background: color-mix(in srgb, var(--color-danger) 85%, #000);
+  border-color: color-mix(in srgb, var(--color-danger) 85%, #000);
 }

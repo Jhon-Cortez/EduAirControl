@@ -1,25 +1,30 @@
-.modal-overlay {
+.edit-modal-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.55);
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 1000;
 }
 
-.modal-content {
-  background: var(--bg-card, white);
-  color: var(--text-primary, #333);
-  border-radius: 15px;
+.edit-modal-content {
+  background: var(--lb-glass-bg);
+  -webkit-backdrop-filter: var(--lb-glass-blur);
+  backdrop-filter: var(--lb-glass-blur);
+  color: var(--text-primary);
+  border: 1px solid var(--lb-glass-border);
+  border-radius: 24px;
   padding: 30px;
   width: 420px;
   position: relative;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+  box-shadow: var(--shadow-xl);
   transition: background 0.3s;
 }
 
-.modal-close {
+.edit-modal-close {
   position: absolute;
   top: 15px;
   right: 15px;
@@ -27,24 +32,24 @@
   border: none;
   font-size: 22px;
   cursor: pointer;
-  color: var(--text-muted, #999);
+  color: var(--text-muted);
   transition: color 0.2s;
   padding: 0;
 }
 
-.modal-close:hover {
-  color: var(--text-primary, #333);
+.edit-modal-close:hover {
+  color: var(--text-primary);
 }
 
-.modal-content h2 {
+.edit-modal-content h2 {
   margin-bottom: 6px;
   font-size: 20px;
-  color: var(--text-primary, #333);
+  color: var(--text-primary);
 }
 
 .modal-subtitle {
   font-size: 13px;
-  color: var(--text-muted, #999);
+  color: var(--text-muted);
   margin-bottom: 20px;
 }
 
@@ -62,44 +67,44 @@
   align-items: flex-start;
   gap: 4px;
   padding: 12px 14px;
-  border: 2px solid var(--border-card, #eee);
+  border: 2px solid var(--border-card);
   border-radius: 10px;
-  background: var(--bg-subtle, #f9f9f9);
+  background: var(--bg-subtle);
   cursor: pointer;
   transition: all 0.2s;
   text-align: left;
 }
 
 .format-chip:hover {
-  border-color: var(--accent, var(--accent));
-  background: var(--accent-light, #e8faf5);
+  border-color: var(--accent);
+  background: var(--accent-light);
   transform: translateY(-1px);
 }
 
 .format-chip--active {
-  border-color: var(--accent, var(--accent));
-  background: var(--accent-light, #e8faf5);
-  box-shadow: 0 2px 10px rgba(93, 230, 200, 0.2);
+  border-color: var(--accent);
+  background: var(--accent-light);
+  box-shadow: 0 2px 10px rgb(var(--accent-rgb) / 0.2);
 }
 
 .chip-label {
   font-size: 14px;
   font-weight: 700;
-  color: var(--text-primary, #333);
+  color: var(--text-primary);
   font-family: monospace;
   letter-spacing: 0.03em;
 }
 
 .chip-example {
   font-size: 12px;
-  color: var(--text-muted, #999);
+  color: var(--text-muted);
 }
 
 .format-chip--active .chip-label {
-  color: var(--accent, var(--accent));
+  color: var(--accent);
 }
 .format-chip--active .chip-example {
-  color: var(--text-secondary, #666);
+  color: var(--text-secondary);
 }
 
 /* ── Live preview ── */
@@ -109,14 +114,14 @@
   justify-content: space-between;
   padding: 12px 16px;
   border-radius: 10px;
-  background: var(--bg-subtle, #f5f5f5);
-  border: 1px solid var(--border-card, #eee);
+  background: var(--bg-subtle);
+  border: 1px solid var(--border-card);
   margin-bottom: 24px;
 }
 
 .preview-label {
   font-size: 12px;
-  color: var(--text-muted, #999);
+  color: var(--text-muted);
   text-transform: uppercase;
   letter-spacing: 0.08em;
   font-weight: 600;
@@ -125,7 +130,7 @@
 .preview-value {
   font-size: 18px;
   font-weight: 700;
-  color: var(--accent, var(--accent));
+  color: var(--accent);
   font-family: monospace;
   letter-spacing: 0.05em;
 }
@@ -134,19 +139,19 @@
 .modal-input {
   width: 100%;
   padding: 12px;
-  border: 2px solid var(--border-color, #ddd);
+  border: 2px solid var(--border-color);
   border-radius: 8px;
   font-size: 16px;
   margin-bottom: 20px;
   box-sizing: border-box;
-  background: var(--bg-input, white);
-  color: var(--text-primary, #333);
+  background: var(--bg-input);
+  color: var(--text-primary);
   transition: border-color 0.2s;
 }
 
 .modal-input:focus {
   outline: none;
-  border-color: var(--accent, var(--accent));
+  border-color: var(--accent);
 }
 
 .modal-input:focus-visible {
@@ -164,32 +169,32 @@
 .btn-cancel {
   padding: 10px 20px;
   background: transparent;
-  border: 2px solid var(--border-color, #ddd);
+  border: 2px solid var(--border-color);
   border-radius: 8px;
   cursor: pointer;
   font-size: 14px;
   font-weight: bold;
-  color: var(--text-secondary, #666);
+  color: var(--text-secondary);
   transition: all 0.2s;
 }
 
 .btn-cancel:hover {
-  border-color: var(--text-muted, #999);
-  color: var(--text-primary, #333);
+  border-color: var(--accent);
+  color: var(--text-primary);
 }
 
 .btn-save {
   padding: 10px 20px;
-  background: var(--accent, var(--accent));
+  background: var(--accent);
   border: none;
   border-radius: 8px;
   cursor: pointer;
   font-size: 14px;
   font-weight: bold;
-  color: white;
+  color: #fff;
   transition: background 0.2s;
 }
 
 .btn-save:hover {
-  background: var(--accent-hover, #4dd4b6);
+  background: var(--accent-hover);
 }

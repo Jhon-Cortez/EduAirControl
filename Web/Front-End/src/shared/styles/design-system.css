@@ -417,19 +417,19 @@ body.theme-tritanopia .ds-page-bg {
 }
 
 .ds-badge--normal {
-  background: rgba(76, 175, 80, 0.12);
-  color: #4caf50;
-  border-color: rgba(76, 175, 80, 0.25);
+  background: color-mix(in srgb, var(--color-success) 12%, transparent);
+  color: var(--color-success);
+  border-color: color-mix(in srgb, var(--color-success) 25%, transparent);
 }
 .ds-badge--warning {
-  background: rgba(255, 193, 7, 0.12);
-  color: #ffc107;
-  border-color: rgba(255, 193, 7, 0.25);
+  background: color-mix(in srgb, var(--color-warning) 12%, transparent);
+  color: var(--color-warning);
+  border-color: color-mix(in srgb, var(--color-warning) 25%, transparent);
 }
 .ds-badge--alert {
-  background: rgba(244, 67, 54, 0.12);
-  color: #f44336;
-  border-color: rgba(244, 67, 54, 0.25);
+  background: color-mix(in srgb, var(--color-danger) 12%, transparent);
+  color: var(--color-danger);
+  border-color: color-mix(in srgb, var(--color-danger) 25%, transparent);
 }
 .ds-badge--accent {
   background: var(--lb-surface);
@@ -445,13 +445,13 @@ body.theme-tritanopia .ds-page-bg {
   flex-shrink: 0;
 }
 .ds-dot--normal {
-  background: #4caf50;
+  background: var(--color-success);
 }
 .ds-dot--warning {
-  background: #ffc107;
+  background: var(--color-warning);
 }
 .ds-dot--alert {
-  background: #f44336;
+  background: var(--color-danger);
 }
 .ds-dot--accent {
   background: var(--accent);
@@ -504,13 +504,13 @@ body.dark-mode .ds-btn--primary:hover {
 }
 
 .ds-btn--danger {
-  background: rgba(244, 67, 54, 0.1);
-  color: #f44336;
-  border: 1.5px solid rgba(244, 67, 54, 0.3);
+  background: color-mix(in srgb, var(--color-danger) 10%, transparent);
+  color: var(--color-danger);
+  border: 1.5px solid color-mix(in srgb, var(--color-danger) 30%, transparent);
 }
 
 .ds-btn--danger:hover {
-  background: #f44336;
+  background: var(--color-danger);
   color: #fff;
   transform: translateY(-2px);
 }
@@ -584,10 +584,10 @@ body.dark-mode .ds-btn--primary:hover {
 }
 
 .ds-input--error {
-  border-color: #f44336;
+  border-color: var(--color-danger);
 }
 .ds-input--error:focus {
-  box-shadow: 0 0 0 3px rgba(244, 67, 54, 0.12);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-danger) 12%, transparent);
 }
 
 .ds-field {
@@ -607,7 +607,7 @@ body.dark-mode .ds-btn--primary:hover {
 
 .ds-field__error {
   font-size: 12px;
-  color: #f44336;
+  color: var(--color-danger);
   margin-top: 5px;
   display: flex;
   align-items: center;
@@ -806,13 +806,13 @@ body.dark-mode .ds-btn--primary:hover {
   color: var(--text-primary);
 }
 .ds-text-danger {
-  color: #f44336;
+  color: var(--color-danger);
 }
 .ds-text-warning {
-  color: #ffc107;
+  color: var(--color-warning);
 }
 .ds-text-success {
-  color: #4caf50;
+  color: var(--color-success);
 }
 
 /* Truncar texto */
@@ -853,13 +853,13 @@ body.dark-mode .ds-btn--primary:hover {
 
 body:not(.dark-mode) .ds-text-muted,
 body:not(.dark-mode) .ds-field__label {
-  color: #555555 !important; /* Gris oscuro para modo claro */
+  color: var(--text-secondary) !important;
 }
 
 /* Botones con variables de acento */
 .ds-btn--primary {
   background: var(--accent) !important;
-  color: #ffffff !important;
+  color: #fff !important;
 }
 
 .ds-btn--primary:hover {
@@ -873,5 +873,5 @@ body:not(.dark-mode) .ds-field__label {
 
 .ds-btn--outline:hover {
   background: var(--accent) !important;
-  color: #ffffff !important;
+  color: #fff !important;
 }

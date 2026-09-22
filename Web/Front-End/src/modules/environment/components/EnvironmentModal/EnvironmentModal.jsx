@@ -31,7 +31,7 @@ function EnvironmentModal({ isOpen, onClose, environment, isFavorite, onToggleFa
   return (
     <div className="environment-modal-overlay">
       <div className="environment-modal">
-        <button className="modal-close" onClick={onClose} aria-label="Cerrar">
+        <button className="env-modal__close" onClick={onClose} aria-label="Cerrar">
           <FaTimes />
         </button>
 

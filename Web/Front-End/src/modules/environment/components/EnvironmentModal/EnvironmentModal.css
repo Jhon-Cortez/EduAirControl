@@ -2,7 +2,8 @@
   position: fixed;
   inset: 0;
   background: rgba(0, 0, 0, 0.55);
-  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -13,20 +14,18 @@
   width: min(900px, 92vw);
   max-height: 90vh;
   overflow-y: auto;
-  background: #0f1828;
+  background: var(--lb-glass-bg);
+  -webkit-backdrop-filter: var(--lb-glass-blur);
+  backdrop-filter: var(--lb-glass-blur);
+  border: 1px solid var(--lb-glass-border);
   border-radius: 28px;
   padding: 35px;
   position: relative;
-  color: white;
-  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.45);
+  color: var(--text-primary);
+  box-shadow: var(--shadow-xl);
 }
 
-body:not(.dark-mode) .environment-modal {
-  background: white;
-  color: #1e293b;
-}
-
-.modal-close {
+.env-modal__close {
   position: absolute;
   top: 20px;
   right: 20px;
@@ -44,6 +43,7 @@ body:not(.dark-mode) .environment-modal {
 .modal-header h2 {
   margin: 0;
   font-size: 34px;
+  color: var(--text-primary);
 }
 
 .modal-status {
@@ -52,7 +52,7 @@ body:not(.dark-mode) .environment-modal {
   padding: 8px 20px;
   border-radius: 40px;
   background: var(--accent);
-  color: #08111e;
+  color: #fff;
   font-weight: 700;
 }
 
@@ -76,11 +76,8 @@ body:not(.dark-mode) .environment-modal {
 .sensor-card {
   padding: 22px;
   border-radius: 18px;
-  background: rgba(255, 255, 255, 0.04);
-}
-
-body:not(.dark-mode) .sensor-card {
-  background: #f5f8fc;
+  background: var(--lb-surface);
+  border: 1px solid var(--lb-glass-border);
 }
 
 .sensor-card svg {
@@ -100,11 +97,7 @@ body:not(.dark-mode) .sensor-card {
 
 .sensor-card small {
   line-height: 1.7;
-  color: #aab8c5;
-}
-
-body:not(.dark-mode) .sensor-card small {
-  color: #64748b;
+  color: var(--text-muted);
 }
 
 .modal-actions {
@@ -132,17 +125,18 @@ body:not(.dark-mode) .sensor-card small {
 .favorite-btn,
 .modal-favorite-btn {
   background: var(--accent);
-  color: #08111e;
+  color: #fff;
 }
 
 .modal-favorite-btn.active {
-  background: #ff4d5b;
-  color: white;
+  background: var(--color-danger);
+  color: #fff;
 }
 
 .close-btn {
-  background: #263447;
-  color: white;
+  background: var(--bg-subtle);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
 }
 
 /*======================================
@@ -153,12 +147,8 @@ RECOMENDACIONES
   margin-top: 35px;
   padding: 25px;
   border-radius: 20px;
-  background: rgb(var(--accent-rgb) / 0.05);
-  border: 1px solid rgb(var(--accent-rgb) / 0.12);
-}
-
-body:not(.dark-mode) .environment-recommendations {
-  background: #f8fbfd;
+  background: var(--lb-surface);
+  border: 1px solid var(--lb-glass-border);
 }
 
 .environment-recommendations h3 {
@@ -178,18 +168,18 @@ body:not(.dark-mode) .environment-recommendations {
 }
 
 .modal-status.normal {
-  background: var(--accent);
-  color: #08111e;
+  background: var(--color-success);
+  color: #fff;
 }
 
 .modal-status.warning {
-  background: #ffc107;
-  color: #111;
+  background: var(--color-warning);
+  color: #fff;
 }
 
 .modal-status.danger {
-  background: #ff5a5f;
-  color: white;
+  background: var(--color-danger);
+  color: #fff;
 }
 
 /*======================================
@@ -212,9 +202,9 @@ SCORE
   align-items: center;
   font-size: 34px;
   font-weight: 800;
-  color: white;
+  color: #fff;
   position: relative;
-  background: conic-gradient(var(--accent) var(--score), rgba(255, 255, 255, 0.08) 0);
+  background: conic-gradient(var(--accent) var(--score), var(--lb-track-bg) 0);
 }
 
 .environment-score-circle::before {
@@ -223,11 +213,7 @@ SCORE
   width: 90px;
   height: 90px;
   border-radius: 50%;
-  background: #08111e;
-}
-
-body:not(.dark-mode) .environment-score-circle::before {
-  background: white;
+  background: var(--bg-body);
 }
 
 .environment-score-circle span {
@@ -245,7 +231,7 @@ body:not(.dark-mode) .environment-score-circle::before {
 }
 
 .environment-score-info p {
-  color: #9fb2c8;
+  color: var(--text-secondary);
   line-height: 1.7;
 }
 
@@ -271,13 +257,9 @@ EXPLICACIÓN
 .explanation-card {
   padding: 20px;
   border-radius: 18px;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgb(var(--accent-rgb) / 0.1);
+  background: var(--lb-surface);
+  border: 1px solid var(--lb-glass-border);
   transition: 0.3s;
-}
-
-body:not(.dark-mode) .explanation-card {
-  background: #f8fbfd;
 }
 
 .explanation-card:hover {
@@ -291,11 +273,7 @@ body:not(.dark-mode) .explanation-card {
 
 .explanation-card p {
   line-height: 1.7;
-  color: #bfd0de;
-}
-
-body:not(.dark-mode) .explanation-card p {
-  color: #475569;
+  color: var(--text-secondary);
 }
 
 @media (max-width: 768px) {
@@ -333,17 +311,19 @@ body:not(.dark-mode) .explanation-card p {
 
 .environment-modal .close-btn {
   min-width: 150px;
-  background: #263447;
-  color: white;
+  background: var(--bg-subtle);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
 }
 
 .environment-modal .close-btn:hover {
-  background: #334155;
-  color: white;
+  background: var(--lb-glass-bg-hover);
+  border-color: var(--accent);
+  color: var(--text-primary);
   transform: translateY(-1px);
 }
 
-.environment-modal .modal-close {
+.environment-modal .env-modal__close {
   width: 42px;
   height: 42px;
   border-radius: 50%;
@@ -355,9 +335,9 @@ body:not(.dark-mode) .explanation-card p {
     color 0.2s ease;
 }
 
-.environment-modal .modal-close:hover {
-  background: rgba(255, 107, 107, 0.16);
-  color: #ff4d5b;
+.environment-modal .env-modal__close:hover {
+  background: color-mix(in srgb, var(--color-danger) 16%, transparent);
+  color: var(--color-danger);
   transform: none;
 }
 
