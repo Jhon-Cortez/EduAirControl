@@ -11,7 +11,7 @@
       "humidity": 48,
       "co2": 520,
       "noise": 42,
-      "isFavorite": true,
+      "isFavorite": false,
       "lastUpdate": "10:25 AM"
     },
     {
@@ -53,7 +53,7 @@
       "humidity": 45,
       "co2": 480,
       "noise": 38,
-      "isFavorite": true,
+      "isFavorite": false,
       "lastUpdate": "10:30 AM"
     },
     {
@@ -109,19 +109,75 @@
       "humidity": 47,
       "co2": 510,
       "noise": 40,
-      "isFavorite": true,
+      "isFavorite": false,
       "lastUpdate": "10:32 AM"
     }
   ],
   "sensors": [
-    { "id": 1, "sensorId": "EA-2091-T", "type": "temperature", "environmentId": 1, "active": true, "lastSync": "2 min" },
-    { "id": 2, "sensorId": "EA-2091-H", "type": "humidity", "environmentId": 1, "active": true, "lastSync": "2 min" },
-    { "id": 3, "sensorId": "EA-2091-C", "type": "co2", "environmentId": 1, "active": true, "lastSync": "2 min" },
-    { "id": 4, "sensorId": "EA-2092-T", "type": "temperature", "environmentId": 2, "active": true, "lastSync": "4 min" },
-    { "id": 5, "sensorId": "EA-2092-C", "type": "co2", "environmentId": 2, "active": false, "lastSync": "12 min" },
-    { "id": 6, "sensorId": "EA-2093-R", "type": "noise", "environmentId": 3, "active": false, "lastSync": "38 min" },
-    { "id": 7, "sensorId": "EA-305-T", "type": "temperature", "environmentId": 8, "active": true, "lastSync": "1 min" },
-    { "id": 8, "sensorId": "EA-305-H", "type": "humidity", "environmentId": 8, "active": true, "lastSync": "1 min" }
+    {
+      "id": 1,
+      "sensorId": "EA-2091-T",
+      "type": "temperature",
+      "environmentId": 1,
+      "active": true,
+      "lastSync": "2 min"
+    },
+    {
+      "id": 2,
+      "sensorId": "EA-2091-H",
+      "type": "humidity",
+      "environmentId": 1,
+      "active": true,
+      "lastSync": "2 min"
+    },
+    {
+      "id": 3,
+      "sensorId": "EA-2091-C",
+      "type": "co2",
+      "environmentId": 1,
+      "active": true,
+      "lastSync": "2 min"
+    },
+    {
+      "id": 4,
+      "sensorId": "EA-2092-T",
+      "type": "temperature",
+      "environmentId": 2,
+      "active": true,
+      "lastSync": "4 min"
+    },
+    {
+      "id": 5,
+      "sensorId": "EA-2092-C",
+      "type": "co2",
+      "environmentId": 2,
+      "active": false,
+      "lastSync": "12 min"
+    },
+    {
+      "id": 6,
+      "sensorId": "EA-2093-R",
+      "type": "noise",
+      "environmentId": 3,
+      "active": false,
+      "lastSync": "38 min"
+    },
+    {
+      "id": 7,
+      "sensorId": "EA-305-T",
+      "type": "temperature",
+      "environmentId": 8,
+      "active": true,
+      "lastSync": "1 min"
+    },
+    {
+      "id": 8,
+      "sensorId": "EA-305-H",
+      "type": "humidity",
+      "environmentId": 8,
+      "active": true,
+      "lastSync": "1 min"
+    }
   ],
   "profile": {
     "id": 1,
