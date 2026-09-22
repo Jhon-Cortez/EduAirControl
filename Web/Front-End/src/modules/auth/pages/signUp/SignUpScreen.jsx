@@ -5,7 +5,7 @@ import { FaUser, FaEnvelope, FaLock, FaBuilding, FaArrowLeft } from 'react-icons
 import { HiOutlineDocumentText, HiCheckCircle } from 'react-icons/hi2';
 import { ChevronDown } from 'lucide-react';
 import AuthLayout from '../../components/AuthLayout/AuthLayout';
-import { Divider } from '../../../../shared/components';
+import authService from '../../services/authService';
 
 function SignUpScreen() {
   const navigate = useNavigate();
@@ -31,6 +31,7 @@ function SignUpScreen() {
 
   const [showTerms, setShowTerms] = useState(false);
   const [openTerm, setOpenTerm] = useState(-1);
+  const [apiError, setApiError] = useState('');
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -50,8 +51,9 @@ function SignUpScreen() {
   };
   const passwordStrength = Object.values(passwordRequirements).filter(Boolean).length;
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setApiError('');
 
     if (!hasReadFullTerms) {
       setShowTerms(true);
@@ -59,17 +61,21 @@ function SignUpScreen() {
     }
 
     if (!formData.acceptTerms) {
-      alert(t('signup.errorTerms', 'Debes aceptar los términos'));
+      setApiError(t('signup.errorTerms', 'Debes aceptar los términos'));
       return;
     }
 
     if (formData.password !== formData.confirmPassword) {
-      alert(t('signup.errorPassword', 'Las contraseñas no coinciden'));
+      setApiError(t('signup.errorPassword', 'Las contraseñas no coinciden'));
       return;
     }
 
-    alert(`Registro exitoso para la empresa: ${formData.companyCode}`);
-    navigate('/dashboard');
+    try {
+      await authService.register(formData.name, formData.email, formData.password);
+      navigate('/dashboard');
+    } catch (err) {
+      setApiError(err.message || t('signup.error', 'Error al registrarse'));
+    }
   };
 
   return (
@@ -214,14 +220,11 @@ function SignUpScreen() {
             )}
           </div>
 
+          {apiError && <p className="error-text">⚠ {apiError}</p>}
           <button type="submit" className="btn-signup-premium">
             {t('signup.signUpBtn')}
           </button>
         </form>
-
-        <Divider text="OR" className="divider-clean" />
-
-        <SocialLogin />
       </div>
 
       {showTerms && (

@@ -6,14 +6,6 @@ import { useTranslation } from 'react-i18next';
 function SocialLogin() {
   const navigate = useNavigate();
   const { t } = useTranslation();
-  const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:8080';
-
-  const handleGoogleLogin = () => {
-    window.location.href = `${apiUrl}/oauth2/authorization/google`;
-  };
-  const handleFacebookLogin = () => {
-    window.location.href = `${apiUrl}`;
-  };
 
   return (
     <div>
@@ -21,9 +13,6 @@ function SocialLogin() {
       <div className="social-buttons">
         <button className="btn-facebook" onClick={() => navigate('/facebook-signup')}>
           <FaFacebookF /> Facebook
-        </button>
-        <button className="btn-google" onClick={handleGoogleLogin}>
-          <FcGoogle /> Google
         </button>
       </div>
     </div>

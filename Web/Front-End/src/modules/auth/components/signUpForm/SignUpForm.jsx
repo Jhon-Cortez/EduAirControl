@@ -4,9 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { FaUser, FaEnvelope, FaLock, FaBuilding } from 'react-icons/fa';
 import { HiOutlineDocumentText, HiCheckCircle } from 'react-icons/hi2';
 import { ChevronDown } from 'lucide-react';
-import SocialLogin from '../SocialLogin/SocialLogin';
 import authService from '../../services/authService';
-import { Divider } from '../../../../shared/components';
 import '../../pages/signUp/SignUp.css';
 
 function SignUpForm() {
@@ -192,8 +190,6 @@ function SignUpForm() {
           {t('signup.signUpBtn')}
         </button>
       </form>
-      <Divider text="OR" className="divider-clean" />
-      <SocialLogin />
 
       {showTerms && (
         <div className="modal-overlay-modern" onClick={() => setShowTerms(false)}>

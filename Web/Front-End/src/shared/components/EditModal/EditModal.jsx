@@ -32,9 +32,9 @@ function EditModal({ field, value, onSave, onClose }) {
   };
 
   return (
-    <div className="modal-overlay" onClick={onClose}>
-      <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-        <button className="modal-close" onClick={onClose} aria-label="Cerrar">
+    <div className="edit-modal-overlay" onClick={onClose}>
+      <div className="edit-modal-content" onClick={(e) => e.stopPropagation()}>
+        <button className="edit-modal-close" onClick={onClose} aria-label="Cerrar">
           <IoClose />
         </button>
 

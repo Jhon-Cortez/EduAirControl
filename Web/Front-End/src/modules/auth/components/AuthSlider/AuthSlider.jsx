@@ -4,8 +4,6 @@ import { useTranslation } from 'react-i18next';
 import { FaArrowLeft } from 'react-icons/fa';
 import LoginForm from '../loginForm/LoginForm';
 import SignUpForm from '../signUpForm/SignUpForm';
-import SocialLogin from '../SocialLogin/SocialLogin';
-import { Divider } from '../../../../shared/components';
 import './AuthSlider.css';
 
 function AuthSlider({ initialRegister = false }) {
@@ -34,8 +32,6 @@ function AuthSlider({ initialRegister = false }) {
             <p>{t('login.subtitle', 'Bienvenido de nuevo a EduAirControl')}</p>
           </div>
           <LoginForm />
-          <Divider text={t('login.or')} className="divider-clean" />
-          <SocialLogin />
         </section>
 
         <section
