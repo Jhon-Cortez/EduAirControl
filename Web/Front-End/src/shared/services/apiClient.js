@@ -13,7 +13,7 @@ function handleUnauthorized() {
   localStorage.removeItem('token');
   localStorage.removeItem('user');
   const path = window.location.pathname;
-  if (!path.startsWith('/login') && !path.startsWith('/oauth2')) {
+  if (!path.startsWith('/login') && !path.startsWith('/forgot-password') && !path.startsWith('/verify-code') && !path.startsWith('/change-password')) {
     window.location.assign('/login');
   }
 }
@@ -69,6 +69,9 @@ const apiClient = {
   put: (endpoint, body) => request(endpoint, { method: 'PUT', body: JSON.stringify(body) }),
   patch: (endpoint, body) => request(endpoint, { method: 'PATCH', body: JSON.stringify(body) }),
   delete: (endpoint) => request(endpoint, { method: 'DELETE' }),
+  deleteWithBody: (endpoint, body) =>
+    request(endpoint, { method: 'DELETE', body: JSON.stringify(body) }),
+  request,
 };
 
 export const dbClient = {

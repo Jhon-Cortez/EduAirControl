@@ -1,15 +1,14 @@
 package com.eduaircontrol.backend.modules.auth.service.implement;
 
+import com.eduaircontrol.backend.modules.auth.dto.request.ChangePasswordRequest;
 import com.eduaircontrol.backend.modules.auth.dto.request.LoginRequest;
 import com.eduaircontrol.backend.modules.auth.dto.request.RegisterRequest;
 import com.eduaircontrol.backend.modules.auth.entity.Role;
 import com.eduaircontrol.backend.modules.auth.entity.Users;
 import com.eduaircontrol.backend.modules.auth.repository.UserRepository;
 import com.eduaircontrol.backend.modules.security.JwtService;
-import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -50,31 +49,26 @@ public class UserService {
         return jwtService.generateToken(user);
     }
 
-    public String loginWithGoogle(OAuth2User oAuth2User) {
-        String googleId = oAuth2User.getAttribute("sub");
-        String email = oAuth2User.getAttribute("email");
-        String name = oAuth2User.getAttribute("name");
+    public void changePassword(String email, ChangePasswordRequest request) {
+        Users user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Sesión inválida"));
 
-        if (googleId == null || email == null) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Google no retorno los datos requeridos");
+        if (!passwordEncoder.matches(request.getCurrentPassword(), user.getPassword())) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "La contraseña actual es incorrecta");
         }
 
-        Users user = userRepository.findByGoogleId(googleId)
-                .or(() -> userRepository.findByEmail(email).map(existingUser -> {
-                    existingUser.setGoogleId(googleId);
-                    if (existingUser.getName() == null || existingUser.getName().isBlank()) {
-                        existingUser.setName(name != null ? name : email);
-                    }
-                    return userRepository.save(existingUser);
-                }))
-                .orElseGet(() -> userRepository.save(Users.builder()
-                        .name(name != null ? name : email)
-                        .email(email)
-                        .password(passwordEncoder.encode(UUID.randomUUID().toString()))
-                        .googleId(googleId)
-                        .role(Role.USER)
-                        .build()));
+        user.setPassword(passwordEncoder.encode(request.getNewPassword()));
+        userRepository.save(user);
+    }
 
-        return jwtService.generateToken(user);
+    public void deleteAccount(String email, String password) {
+        Users user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Sesión inválida"));
+
+        if (user.getPassword() == null || !passwordEncoder.matches(password, user.getPassword())) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "La contraseña es incorrecta");
+        }
+
+        userRepository.delete(user);
     }
 }

@@ -74,13 +74,18 @@
     "description": "Enter your email address and we'll send you a recovery code.",
     "emailLabel": "Email Address",
     "sendBtn": "Send Recovery Code",
-    "tryAnother": "Try Another Way"
+    "tryAnother": "Try Another Way",
+    "error": "Could not send the code. Please try again."
   },
   "verifyCode": {
     "title": "Verify Code",
-    "description": "Enter the 5-digit code sent to your email.",
+    "description": "Enter the 6-digit code sent to your email.",
     "resend": "Resend Code",
-    "verifyBtn": "Verify Code"
+    "verifyBtn": "Verify Code",
+    "incomplete": "Enter the 6 digits of the code",
+    "error": "Invalid or expired code",
+    "resent": "New code sent",
+    "resendError": "Could not resend the code"
   },
   "changePassword": {
     "title": "Forgot Password",
@@ -88,7 +93,9 @@
     "newPassword": "New Password",
     "confirmPassword": "Confirm Password",
     "confirmBtn": "Confirm Change",
-    "mismatch": "Passwords do not match!"
+    "mismatch": "Passwords do not match!",
+    "error": "Could not update the password",
+    "success": "Password updated. Please sign in."
   },
 "terms": {
   "title": "Terms and Conditions of Use",
@@ -369,6 +376,9 @@
     "deleteAccountDetail": "Your profile, favorite environments, and activity history will be deleted.",
     "deleteBtn": "Delete account",
     "deleteRequestSent": "Request sent. We will contact you shortly.",
+    "deletePasswordLabel": "Confirm with your password",
+    "deletePasswordRequired": "Enter your password to delete the account",
+    "deleteAccountError": "Could not delete the account",
     "help": "Help and Support",
     "helpDescription": "Find answers and contact the support team.",
     "helpFaq": "Frequently asked questions",
@@ -392,7 +402,9 @@
       "success": "Password updated successfully",
       "errorEmpty": "Fill in all fields",
       "errorMatch": "Passwords do not match",
-      "errorLength": "Password must be at least 6 characters"
+      "errorLength": "Password must be at least 8 characters",
+      "errorUppercase": "Password must contain at least one uppercase letter",
+      "errorApi": "Could not update the password"
     },
     "faq": {
       "q1": "How do I add a favorite environment?",

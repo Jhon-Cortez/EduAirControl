@@ -81,11 +81,6 @@ function LoginForm() {
       </div>
 
       <div className="login-options-modern">
-        <label className="custom-checkbox-modern">
-          <input type="checkbox" {...register('rememberMe')} />
-          <span className="checkmark"></span>
-          {t('login.rememberMe')}
-        </label>
         <button
           type="button"
           className="forgot-password-link"

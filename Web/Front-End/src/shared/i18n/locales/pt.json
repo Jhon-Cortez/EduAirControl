@@ -74,13 +74,18 @@
     "description": "Digite seu e-mail e enviaremos um código de recuperação.",
     "emailLabel": "E-mail",
     "sendBtn": "Enviar código de recuperação",
-    "tryAnother": "Tentar de outra forma"
+    "tryAnother": "Tentar de outra forma",
+    "error": "Não foi possível enviar o código. Tente novamente."
   },
   "verifyCode": {
     "title": "Verificar código",
-    "description": "Digite o código de 5 dígitos enviado ao seu e-mail.",
+    "description": "Digite o código de 6 dígitos enviado ao seu e-mail.",
     "resend": "Reenviar código",
-    "verifyBtn": "Verificar código"
+    "verifyBtn": "Verificar código",
+    "incomplete": "Digite os 6 dígitos do código",
+    "error": "Código inválido ou expirado",
+    "resent": "Novo código enviado",
+    "resendError": "Não foi possível reenviar o código"
   },
   "changePassword": {
     "title": "Esqueci minha senha",
@@ -88,7 +93,9 @@
     "newPassword": "Nova senha",
     "confirmPassword": "Confirmar senha",
     "confirmBtn": "Confirmar alteração",
-    "mismatch": "As senhas não coincidem!"
+    "mismatch": "As senhas não coincidem!",
+    "error": "Não foi possível atualizar a senha",
+    "success": "Senha atualizada. Faça login."
   },
   "terms": {
   "title": "Termos e Condições de Uso",
@@ -368,6 +375,9 @@
     "deleteAccountDetail": "Seu perfil, ambientes favoritos e histórico de atividade serão excluídos.",
     "deleteBtn": "Excluir conta",
     "deleteRequestSent": "Solicitação enviada. Entraremos em contato em breve.",
+    "deletePasswordLabel": "Confirme com sua senha",
+    "deletePasswordRequired": "Digite sua senha para excluir a conta",
+    "deleteAccountError": "Não foi possível excluir a conta",
     "help": "Ajuda e Suporte",
     "helpDescription": "Encontre respostas e entre em contato com o suporte.",
     "helpFaq": "Perguntas frequentes",
@@ -391,7 +401,9 @@
       "success": "Senha atualizada com sucesso",
       "errorEmpty": "Preencha todos os campos",
       "errorMatch": "As senhas não coincidem",
-      "errorLength": "A senha deve ter pelo menos 6 caracteres"
+      "errorLength": "A senha deve ter pelo menos 8 caracteres",
+      "errorUppercase": "A senha deve conter pelo menos uma letra maiúscula",
+      "errorApi": "Não foi possível atualizar a senha"
     },
     "faq": {
       "q1": "Como adiciono um ambiente favorito?",

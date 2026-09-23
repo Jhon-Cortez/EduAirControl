@@ -15,6 +15,8 @@ function decodeJWT(token) {
   }
 }
 
+const RESET_EMAIL_KEY = 'resetEmail';
+
 const authService = {
   setSession(token, extraUser = {}) {
     localStorage.setItem('token', token);
@@ -40,6 +42,42 @@ const authService = {
     const data = await apiClient.post('/auth/register', { name, email, password, companyCode });
     this.setSession(data.token, { name, email, companyCode });
     return data;
+  },
+
+  async forgotPassword(email) {
+    return apiClient.post('/auth/forgot-password', { email });
+  },
+
+  async verifyCode(email, code) {
+    return apiClient.post('/auth/verify-code', { email, code });
+  },
+
+  async resetPassword(email, code, newPassword) {
+    return apiClient.post('/auth/reset-password', { email, code, newPassword });
+  },
+
+  async resendCode(email) {
+    return apiClient.post('/auth/resend-code', { email });
+  },
+
+  async changePassword(currentPassword, newPassword) {
+    return apiClient.post('/auth/change-password', { currentPassword, newPassword });
+  },
+
+  async deleteAccount(password) {
+    return apiClient.deleteWithBody('/auth/account', { password });
+  },
+
+  setResetEmail(email) {
+    sessionStorage.setItem(RESET_EMAIL_KEY, email);
+  },
+
+  getResetEmail() {
+    return sessionStorage.getItem(RESET_EMAIL_KEY) || '';
+  },
+
+  clearResetEmail() {
+    sessionStorage.removeItem(RESET_EMAIL_KEY);
   },
 
   logout() {

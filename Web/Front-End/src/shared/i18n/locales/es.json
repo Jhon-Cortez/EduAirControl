@@ -86,13 +86,18 @@
     "description": "Ingresa tu correo electrónico y te enviaremos un código de recuperación.",
     "emailLabel": "Correo electrónico",
     "sendBtn": "Enviar código de recuperación",
-    "tryAnother": "Intentar de otra forma"
+    "tryAnother": "Intentar de otra forma",
+    "error": "No se pudo enviar el código. Inténtalo de nuevo."
   },
   "verifyCode": {
     "title": "Verificar código",
-    "description": "Ingresa el código de 5 dígitos enviado a tu correo.",
+    "description": "Ingresa el código de 6 dígitos enviado a tu correo.",
     "resend": "Reenviar código",
-    "verifyBtn": "Verificar código"
+    "verifyBtn": "Verificar código",
+    "incomplete": "Ingresa los 6 dígitos del código",
+    "error": "Código inválido o expirado",
+    "resent": "Nuevo código enviado",
+    "resendError": "No se pudo reenviar el código"
   },
   "changePassword": {
     "title": "Olvidé mi contraseña",
@@ -100,7 +105,9 @@
     "newPassword": "Nueva contraseña",
     "confirmPassword": "Confirmar contraseña",
     "confirmBtn": "Confirmar cambio",
-    "mismatch": "¡Las contraseñas no coinciden!"
+    "mismatch": "¡Las contraseñas no coinciden!",
+    "error": "No se pudo actualizar la contraseña",
+    "success": "Contraseña actualizada. Inicia sesión."
   },
 "terms": {
   "title": "Términos y Condiciones de Uso",
@@ -305,6 +312,9 @@
     "deleteAccountDetail": "Se eliminarán tu perfil, ambientes favoritos e historial de actividad.",
     "deleteBtn": "Eliminar cuenta",
     "deleteRequestSent": "Solicitud enviada. Nos pondremos en contacto contigo.",
+    "deletePasswordLabel": "Confirma con tu contraseña",
+    "deletePasswordRequired": "Ingresa tu contraseña para eliminar la cuenta",
+    "deleteAccountError": "No se pudo eliminar la cuenta",
     "help": "Ayuda y Soporte",
     "helpDescription": "Encuentra respuestas y contacta al equipo de soporte.",
     "helpFaq": "Preguntas frecuentes",
@@ -328,7 +338,9 @@
       "success": "Contraseña actualizada correctamente",
       "errorEmpty": "Completa todos los campos",
       "errorMatch": "Las contraseñas no coinciden",
-      "errorLength": "La contraseña debe tener al menos 6 caracteres"
+      "errorLength": "La contraseña debe tener al menos 8 caracteres",
+      "errorUppercase": "La contraseña debe contener al menos una mayúscula",
+      "errorApi": "No se pudo actualizar la contraseña"
     },
     "faq": {
       "q1": "¿Cómo agrego un ambiente favorito?",

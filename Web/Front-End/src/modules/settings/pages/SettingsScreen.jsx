@@ -20,6 +20,8 @@ import {
 import { IoSettings } from 'react-icons/io5';
 import { MdEdit } from 'react-icons/md';
 import Navbar from '../../dashboard/components/Navbar/Navbar';
+import { useNavigate } from 'react-router-dom';
+import authService from '../../auth/services/authService';
 
 // Shared
 import { EditModal, Modal, Button } from '../../../shared/components';
@@ -61,6 +63,7 @@ const THEMES = ACCESSIBILITY_THEMES.map((key) => ({ key, dot: THEME_COLORS[key] 
 
 function SettingsScreen() {
   const { t, i18n } = useTranslation();
+  const navigate = useNavigate();
   const [darkMode, setDarkMode] = useDarkMode();
 
   const [autoTimezone, setAutoTimezone] = useState(
@@ -120,7 +123,11 @@ function SettingsScreen() {
   const [passwordData, setPasswordData] = useState({ current: '', new: '', confirm: '' });
   const [passwordError, setPasswordError] = useState('');
   const [passwordSuccess, setPasswordSuccess] = useState(false);
+  const [isSavingPassword, setIsSavingPassword] = useState(false);
   const [deleteStep, setDeleteStep] = useState('confirm');
+  const [deletePassword, setDeletePassword] = useState('');
+  const [deleteError, setDeleteError] = useState('');
+  const [isDeleting, setIsDeleting] = useState(false);
 
   useEffect(() => {
     localStorage.setItem('autoTimezone', JSON.stringify(autoTimezone));
@@ -172,7 +179,7 @@ function SettingsScreen() {
     setPasswordData((prev) => ({ ...prev, [field]: value }));
   };
 
-  const handleSavePassword = () => {
+  const handleSavePassword = async () => {
     if (!passwordData.current || !passwordData.new || !passwordData.confirm) {
       setPasswordError(t('settings.passwordModal.errorEmpty'));
       return;
@@ -181,18 +188,30 @@ function SettingsScreen() {
       setPasswordError(t('settings.passwordModal.errorMatch'));
       return;
     }
-    if (passwordData.new.length < 6) {
+    if (passwordData.new.length < 8) {
       setPasswordError(t('settings.passwordModal.errorLength'));
       return;
     }
-    // Aquí luego conectas backend
+    if (!/[A-Z]/.test(passwordData.new)) {
+      setPasswordError(t('settings.passwordModal.errorUppercase'));
+      return;
+    }
+
     setPasswordError('');
-    setPasswordSuccess(true);
-    setTimeout(() => {
-      setShowPasswordModal(false);
-      setPasswordSuccess(false);
-      setPasswordData({ current: '', new: '', confirm: '' });
-    }, 1800);
+    setIsSavingPassword(true);
+    try {
+      await authService.changePassword(passwordData.current, passwordData.new);
+      setPasswordSuccess(true);
+      setTimeout(() => {
+        setShowPasswordModal(false);
+        setPasswordSuccess(false);
+        setPasswordData({ current: '', new: '', confirm: '' });
+      }, 1800);
+    } catch (err) {
+      setPasswordError(err.message || t('settings.passwordModal.errorApi'));
+    } finally {
+      setIsSavingPassword(false);
+    }
   };
 
   const handleClosePasswordModal = () => {
@@ -204,12 +223,27 @@ function SettingsScreen() {
 
   const handleOpenDeleteModal = () => {
     setDeleteStep('confirm');
+    setDeletePassword('');
+    setDeleteError('');
     setShowDeleteModal(true);
   };
 
-  const handleDeleteRequest = () => {
-    // Aquí luego conectas backend / envías email
-    setDeleteStep('sent');
+  const handleDeleteRequest = async () => {
+    if (!deletePassword) {
+      setDeleteError(t('settings.deletePasswordRequired'));
+      return;
+    }
+    setDeleteError('');
+    setIsDeleting(true);
+    try {
+      await authService.deleteAccount(deletePassword);
+      authService.logout();
+      navigate('/landing');
+    } catch (err) {
+      setDeleteError(err.message || t('settings.deleteAccountError'));
+    } finally {
+      setIsDeleting(false);
+    }
   };
 
   const themeLabel = (key) => {
@@ -551,7 +585,7 @@ function SettingsScreen() {
             </div>
             {passwordError && <p className="password-error">{passwordError}</p>}
             <div className="password-actions">
-              <Button variant="primary" onClick={handleSavePassword}>
+              <Button variant="primary" onClick={handleSavePassword} loading={isSavingPassword}>
                 {t('settings.passwordModal.save')}
               </Button>
               <Button variant="secondary" onClick={handleClosePasswordModal}>
@@ -613,11 +647,20 @@ function SettingsScreen() {
             >
               {t('settings.deleteAccountDetail')}
             </p>
+            <input
+              type="password"
+              aria-label={t('settings.deletePasswordLabel')}
+              placeholder={t('settings.deletePasswordLabel')}
+              value={deletePassword}
+              onChange={(e) => setDeletePassword(e.target.value)}
+              style={{ width: '100%', marginBottom: 8, padding: '8px 12px' }}
+            />
+            {deleteError && <p className="password-error">{deleteError}</p>}
             <div className="password-actions">
               <Button variant="secondary" onClick={() => setShowDeleteModal(false)}>
                 {t('editModal.cancel')}
               </Button>
-              <Button variant="danger-solid" onClick={handleDeleteRequest}>
+              <Button variant="danger-solid" onClick={handleDeleteRequest} loading={isDeleting}>
                 {t('settings.deleteBtn')}
               </Button>
             </div>
