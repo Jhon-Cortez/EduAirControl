@@ -11,9 +11,6 @@ import ForgotPasswordScreen from './modules/auth/pages/forgotPassword/ForgotPass
 import VerifyCodeScreen from './modules/auth/pages/verifyCode/VerifyCodeScreen';
 import ChangePasswordScreen from './modules/auth/pages/ChangePassword/ChangePasswordScreen';
 import TermsScreen from './modules/auth/pages/terms/TermsScreen';
-import GoogleSignUpScreen from './modules/auth/pages/GoogleSignUp/GoogleSignUpScreen';
-import FacebookSignUpScreen from './modules/auth/pages/FacebookSignUp/FacebookSignUpScreen';
-import OAuth2SuccessScreen from './modules/auth/pages/OAuth2SuccessScreen';
 
 // ======================
 // LANDING
@@ -65,13 +62,11 @@ function App() {
           </GuestRoute>
         }
       />
-      <Route path="/forgot-password" element={<ForgotPasswordScreen />} />
-      <Route path="/verify-code" element={<VerifyCodeScreen />} />
-      <Route path="/change-password" element={<ChangePasswordScreen />} />
+      <Route path="/forgot-password" element={<GuestRoute><ForgotPasswordScreen /></GuestRoute>} />
+      <Route path="/verify-code" element={<GuestRoute><VerifyCodeScreen /></GuestRoute>} />
+      <Route path="/change-password" element={<GuestRoute><ChangePasswordScreen /></GuestRoute>} />
       <Route path="/terms" element={<TermsScreen />} />
-      <Route path="/google-signup" element={<GoogleSignUpScreen />} />
-      <Route path="/facebook-signup" element={<FacebookSignUpScreen />} />
-      <Route path="/oauth2/success" element={<OAuth2SuccessScreen />} />
+      <Route path="/signup" element={<Navigate to="/login?panel=register" replace />} />
 
       {/* ---------- Dashboard de análisis ---------- */}
       <Route

@@ -21,8 +21,6 @@ public class Users {
     private String email;
     @Column(nullable = false)
     private String password;
-    @Column(name = "google_id", nullable = true, unique = true)
-    private String googleId;
     @Column(name = "company_code", nullable = true)
     private String companyCode;
     @Enumerated(EnumType.STRING)
