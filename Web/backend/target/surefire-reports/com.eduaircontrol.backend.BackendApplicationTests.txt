@@ -1,4 +1,0 @@
--------------------------------------------------------------------------------
-Test set: com.eduaircontrol.backend.BackendApplicationTests
--------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 7.611 s -- in com.eduaircontrol.backend.BackendApplicationTests
