@@ -8,6 +8,7 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -17,6 +18,7 @@ public class AulaController {
 
     private final AulaService aulaService;
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping
     public ResponseEntity<AulaResponse> crear(@Valid @RequestBody AulaRequest request) {
         AulaResponse response = aulaService.crear(request);
@@ -33,12 +35,14 @@ public class AulaController {
         return ResponseEntity.ok(aulaService.obtenerPorId(id));
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/{id}")
     public ResponseEntity<AulaResponse> actualizar(@PathVariable Long id,
                                                    @Valid @RequestBody AulaRequest request) {
         return ResponseEntity.ok(aulaService.actualizar(id, request));
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> eliminar(@PathVariable Long id) {
         aulaService.eliminar(id);

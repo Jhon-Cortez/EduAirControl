@@ -37,6 +37,9 @@ function Navbar() {
     return () => document.removeEventListener('mousedown', handler);
   }, []);
 
+  const userRole = (authService.getUser()?.role || 'USER').toLowerCase();
+  const isAdmin = authService.isAdmin();
+
   const menuItems = [
     {
       icon: <FaTrophy />,
@@ -53,11 +56,15 @@ function Navbar() {
       label: t('nav.favorites'),
       path: '/favorites',
     },
-    {
-      icon: <FaUser />,
-      label: t('nav.management'),
-      path: '/management',
-    },
+    ...(isAdmin
+      ? [
+          {
+            icon: <FaUser />,
+            label: t('nav.management'),
+            path: '/management',
+          },
+        ]
+      : []),
   ];
 
   const isProfileActive = location.pathname === '/profile' || location.pathname === '/settings';
@@ -72,8 +79,6 @@ function Navbar() {
     authService.logout();
     go('/landing');
   };
-
-  const userRole = (authService.getUser()?.role || 'USER').toLowerCase();
 
   return (
     <>
