@@ -1,6 +1,7 @@
 import { Navigate, Routes, Route } from 'react-router-dom';
 
 import ProtectedRoute from './shared/components/routes/ProtectedRoute';
+import AdminRoute from './shared/components/routes/AdminRoute';
 import GuestRoute from './shared/components/routes/GuestRoute';
 
 // ======================
@@ -99,9 +100,9 @@ function App() {
       <Route
         path="/management"
         element={
-          <ProtectedRoute>
+          <AdminRoute>
             <EnvironmentManagement />
-          </ProtectedRoute>
+          </AdminRoute>
         }
       />
 
