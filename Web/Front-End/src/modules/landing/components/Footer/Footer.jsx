@@ -67,7 +67,7 @@ function Footer() {
 
           <div>
             <Phone size={18} />
-            <span>+57 3229523486</span>
+            <span>+57 300 000 0000</span>
           </div>
 
           <div>

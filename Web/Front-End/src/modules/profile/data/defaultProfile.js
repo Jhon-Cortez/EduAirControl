@@ -1,8 +1,8 @@
 export const DEFAULT_PROFILE = {
-  fullName: 'Maria de los Angeles Olaya Garcia',
-  email: 'mariadelosangelesolayagar@gmail.com',
+  fullName: 'Usuario Demo',
+  email: 'demo@eduaircontrol.test',
   title: 'Product Manager',
-  phone: '+57 322 9523486',
+  phone: '+57 300 000 0000',
   location: 'Neiva, Colombia',
   avatar: null,
 };

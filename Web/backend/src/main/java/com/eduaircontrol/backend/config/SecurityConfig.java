@@ -1,8 +1,8 @@
 package com.eduaircontrol.backend.config;
 
 import com.eduaircontrol.backend.modules.security.JwtAuthFilter;
-import com.eduaircontrol.backend.modules.security.OAuth2AuthenticationSuccessHandler;
 import java.util.List;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -20,16 +20,15 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 @RequiredArgsConstructor
 @EnableWebSecurity
 public class SecurityConfig {
-    
+
     private final JwtAuthFilter jwtAuthFilter;
-    private final OAuth2AuthenticationSuccessHandler oAuth2AuthenticationSuccessHandler;
 
     @Value("${app.cors.allowed-origins:http://localhost:3000,http://localhost:5173}")
     private List<String> allowedOrigins;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
-        
+
         return httpSecurity
                 .csrf(csrf -> csrf.disable())
                 .cors(Customizer.withDefaults())
@@ -39,17 +38,21 @@ public class SecurityConfig {
                                 "/",
                                 "/auth/login",
                                 "/auth/register",
-                                "/api/aulas/**",
-                                "/oauth2/**",
-                                "/login/**",
+                                "/auth/forgot-password",
+                                "/auth/verify-code",
+                                "/auth/reset-password",
+                                "/auth/resend-code",
                                 "/v3/api-docs/**",
                                 "/swagger-ui/**",
                                 "/swagger-ui.html"
                         ).permitAll()
                         .anyRequest().authenticated()
                 )
-                .oauth2Login(oauth -> oauth
-                        .successHandler(oAuth2AuthenticationSuccessHandler)
+                .exceptionHandling(ex -> ex
+                        .authenticationEntryPoint((request, response, authException) ->
+                                response.sendError(
+                                        HttpServletResponse.SC_UNAUTHORIZED,
+                                        "No autenticado"))
                 )
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();

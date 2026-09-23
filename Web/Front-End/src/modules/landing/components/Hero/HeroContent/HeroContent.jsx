@@ -24,7 +24,7 @@ function HeroContent() {
       <p className="hero-description">{t('landing.hero.description')}</p>
 
       <div className="hero-actions">
-        <Link to="/signup" className="primary-btn">
+        <Link to="/login?panel=register" className="primary-btn">
           {t('landing.hero.downloadApp')}
 
           <span className="btn-arrow">→</span>

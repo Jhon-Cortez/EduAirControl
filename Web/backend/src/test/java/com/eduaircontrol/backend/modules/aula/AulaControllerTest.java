@@ -3,6 +3,9 @@ package com.eduaircontrol.backend.modules.aula;
 import com.eduaircontrol.backend.modules.aula.dto.request.AulaRequest;
 import com.eduaircontrol.backend.modules.aula.entity.Aula;
 import com.eduaircontrol.backend.modules.aula.repository.AulaRepository;
+import com.eduaircontrol.backend.modules.auth.entity.Role;
+import com.eduaircontrol.backend.modules.auth.entity.Users;
+import com.eduaircontrol.backend.modules.security.JwtService;
 import tools.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +14,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -30,9 +34,30 @@ class AulaControllerTest {
     @Autowired
     private ObjectMapper objectMapper;
 
+    @Autowired
+    private JwtService jwtService;
+
+    private String token;
+
+    @BeforeEach
+    void initToken() {
+        Users user = Users.builder()
+                .name("Tester")
+                .email("tester@test.com")
+                .password("x")
+                .companyCode("EDU-2024")
+                .role(Role.USER)
+                .build();
+        token = jwtService.generateToken(user);
+    }
+
     @AfterEach
     void cleanUp() {
         aulaRepository.deleteAll();
+    }
+
+    private MockHttpServletRequestBuilder withAuth(MockHttpServletRequestBuilder builder) {
+        return builder.header("Authorization", "Bearer " + token);
     }
 
     private AulaRequest createValidRequest() {
@@ -47,13 +72,20 @@ class AulaControllerTest {
     }
 
     @Test
+    @Order(0)
+    void deberiaRechazarSinToken() throws Exception {
+        mockMvc.perform(get("/api/aulas"))
+                .andExpect(status().isUnauthorized());
+    }
+
+    @Test
     @Order(1)
     void deberiaCrearAula() throws Exception {
         AulaRequest request = createValidRequest();
 
-        mockMvc.perform(post("/api/aulas")
+        mockMvc.perform(withAuth(post("/api/aulas")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(request)))
+                        .content(objectMapper.writeValueAsString(request))))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.codigoAula").value("AUL-001"))
                 .andExpect(jsonPath("$.nombre").value("Sala de Prueba"))
@@ -72,9 +104,9 @@ class AulaControllerTest {
                 .estado("activa")
                 .build());
 
-        mockMvc.perform(post("/api/aulas")
+        mockMvc.perform(withAuth(post("/api/aulas")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(request)))
+                        .content(objectMapper.writeValueAsString(request))))
                 .andExpect(status().isConflict());
     }
 
@@ -83,9 +115,9 @@ class AulaControllerTest {
     void deberiaRechazarRequestConCamposVacios() throws Exception {
         AulaRequest request = new AulaRequest();
 
-        mockMvc.perform(post("/api/aulas")
+        mockMvc.perform(withAuth(post("/api/aulas")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(request)))
+                        .content(objectMapper.writeValueAsString(request))))
                 .andExpect(status().isBadRequest());
     }
 
@@ -95,9 +127,9 @@ class AulaControllerTest {
         AulaRequest request = createValidRequest();
         request.setTipoAula("invalido");
 
-        mockMvc.perform(post("/api/aulas")
+        mockMvc.perform(withAuth(post("/api/aulas")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(request)))
+                        .content(objectMapper.writeValueAsString(request))))
                 .andExpect(status().isBadRequest());
     }
 
@@ -107,9 +139,9 @@ class AulaControllerTest {
         AulaRequest request = createValidRequest();
         request.setCapacidad(0);
 
-        mockMvc.perform(post("/api/aulas")
+        mockMvc.perform(withAuth(post("/api/aulas")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(request)))
+                        .content(objectMapper.writeValueAsString(request))))
                 .andExpect(status().isBadRequest());
     }
 
@@ -129,7 +161,7 @@ class AulaControllerTest {
                 .estado("activa")
                 .build());
 
-        mockMvc.perform(get("/api/aulas"))
+        mockMvc.perform(withAuth(get("/api/aulas")))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.length()").value(2));
     }
@@ -144,7 +176,7 @@ class AulaControllerTest {
                 .estado("activa")
                 .build());
 
-        mockMvc.perform(get("/api/aulas/{id}", aula.getId()))
+        mockMvc.perform(withAuth(get("/api/aulas/{id}", aula.getId())))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.codigoAula").value("AUL-001"));
     }
@@ -152,7 +184,7 @@ class AulaControllerTest {
     @Test
     @Order(8)
     void deberiaRetornar404SiAulaNoExiste() throws Exception {
-        mockMvc.perform(get("/api/aulas/{id}", 99999))
+        mockMvc.perform(withAuth(get("/api/aulas/{id}", 99999)))
                 .andExpect(status().isNotFound());
     }
 
@@ -170,9 +202,9 @@ class AulaControllerTest {
         request.setNombre("Sala Actualizada");
         request.setCapacidad(40);
 
-        mockMvc.perform(put("/api/aulas/{id}", aula.getId())
+        mockMvc.perform(withAuth(put("/api/aulas/{id}", aula.getId())
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(request)))
+                        .content(objectMapper.writeValueAsString(request))))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.nombre").value("Sala Actualizada"))
                 .andExpect(jsonPath("$.capacidad").value(40));
@@ -188,17 +220,17 @@ class AulaControllerTest {
                 .estado("activa")
                 .build());
 
-        mockMvc.perform(delete("/api/aulas/{id}", aula.getId()))
+        mockMvc.perform(withAuth(delete("/api/aulas/{id}", aula.getId())))
                 .andExpect(status().isNoContent());
 
-        mockMvc.perform(get("/api/aulas/{id}", aula.getId()))
+        mockMvc.perform(withAuth(get("/api/aulas/{id}", aula.getId())))
                 .andExpect(status().isNotFound());
     }
 
     @Test
     @Order(11)
     void deberiaRetornar404AlEliminarAulaInexistente() throws Exception {
-        mockMvc.perform(delete("/api/aulas/{id}", 99999))
+        mockMvc.perform(withAuth(delete("/api/aulas/{id}", 99999)))
                 .andExpect(status().isNotFound());
     }
 }
