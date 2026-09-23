@@ -17,7 +17,8 @@ services:
       POSTGRES_USER: ${POSTGRES_USER:?POSTGRES_USER es obligatorio}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?POSTGRES_PASSWORD es obligatorio}
     depends_on:
-      - postgres
+      postgres:
+        condition: service_healthy
     restart: always
 
   frontend:
@@ -26,7 +27,8 @@ services:
     ports:
       - "3000:80"
     depends_on:
-      - backend
+      backend:
+        condition: service_started
     restart: always
 
   postgres:
@@ -40,6 +42,12 @@ services:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
     restart: always
   jenkins:
     build:
