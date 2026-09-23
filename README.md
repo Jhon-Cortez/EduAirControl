@@ -81,13 +81,12 @@ EduAirControl/
 | `/` | Redirecciona a `/landing` |
 | `/landing` | Landing page |
 | `/login` | Inicio de sesion |
-| `/signup` | Registro |
+| `/signup` | Redirecciona a `/login?panel=register` |
 | `/forgot-password` | Recuperar contrasena |
 | `/verify-code` | Verificar codigo |
 | `/change-password` | Cambiar contrasena |
 | `/terms` | Terminos y condiciones |
-| `/oauth2/success` | Callback de OAuth2 |
-| `/dashboard` | Redirecciona a `/all-environments` |
+| `/dashboard` | Dashboard de analisis |
 | `/all-environments` | Ambientes |
 | `/all-environments?environment=:id` | Ambientes con modal abierto |
 | `/ranking` | Ranking ambiental |
@@ -187,28 +186,46 @@ Docker Compose define valores por defecto, pero estas variables se pueden config
 
 | Variable | Uso |
 | --- | --- |
-| `JWT_SECRET` | Firma de tokens JWT |
+| `JWT_SECRET` | Firma de tokens JWT (obligatorio, min 32 caracteres) |
 | `JWT_EXPIRATION` | Duracion del token |
-| `GOOGLE_CLIENT_ID` | OAuth2 Google |
-| `GOOGLE_CLIENT_SECRET` | OAuth2 Google |
-| `FRONTEND_OAUTH2_SUCCESS_URL` | URL de retorno tras login OAuth2 |
 | `CORS_ALLOWED_ORIGINS` | Origenes permitidos por CORS |
+| `POSTGRES_DB` | Nombre de la base de datos |
+| `POSTGRES_USER` | Usuario de PostgreSQL (obligatorio) |
+| `POSTGRES_PASSWORD` | Contrasena de PostgreSQL (obligatorio) |
+| `POSTGRES_URL` | JDBC URL del backend (opcional; por defecto `postgres:5432`) |
+| `SMTP_HOST` | Servidor SMTP para recuperacion de contrasena |
+| `SMTP_PORT` | Puerto SMTP |
+| `SMTP_USERNAME` | Usuario SMTP |
+| `SMTP_PASSWORD` | Contrasena SMTP |
+| `MAIL_FROM` | Remitente de los correos |
+
+Copia `Web/.env.example` a `Web/.env` y completa los valores. Docker Compose y el backend leen ese archivo.
 
 Ejemplo:
 
 ```bash
 JWT_SECRET=una_clave_segura_de_mas_de_32_caracteres
-GOOGLE_CLIENT_ID=...
-GOOGLE_CLIENT_SECRET=...
-FRONTEND_OAUTH2_SUCCESS_URL=http://localhost:5173/oauth2/success
 CORS_ALLOWED_ORIGINS=http://localhost:5173,http://localhost:3000
+POSTGRES_USER=eduair_user
+POSTGRES_PASSWORD=cambia-esta-contrasena
+POSTGRES_URL=jdbc:postgresql://localhost:5432/eduaircontrol
+SMTP_HOST=sandbox.smtp.mailtrap.io
+SMTP_PORT=587
+SMTP_USERNAME=...
+SMTP_PASSWORD=...
+MAIL_FROM=no-reply@eduaircontrol.com
+```
+
+Para Liquibase exporta las variables antes de ejecutar:
+
+```bash
+set -a; source Web/.env; set +a
 ```
 
 ## Funcionalidades actuales
 
 - Landing responsive con navegacion por secciones.
-- Autenticacion con login, registro, recuperacion y cambio de contrasena.
-- Flujo OAuth2 con Google.
+- Autenticacion con login, registro, recuperacion y cambio de contrasena (SMTP).
 - Listado de ambientes con filtros.
 - Modal de ambiente desde tarjetas y desde ranking.
 - Detalle completo de ambiente.

@@ -3,6 +3,11 @@ FROM node:20 AS builder
 
 WORKDIR /app
 
+ARG VITE_API_URL=http://localhost:8080
+ARG VITE_DB_URL=http://localhost:3001
+ENV VITE_API_URL=$VITE_API_URL
+ENV VITE_DB_URL=$VITE_DB_URL
+
 COPY package*.json ./
 RUN npm install
 

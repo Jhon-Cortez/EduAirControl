@@ -1,2 +1,6 @@
 /nbproject/private/
 node_modules/
+.env
+**/.env
+!**/.env.example
+Web/backend/target/
