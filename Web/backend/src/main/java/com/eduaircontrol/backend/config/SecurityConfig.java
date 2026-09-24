@@ -51,10 +51,22 @@ public class SecurityConfig {
                         .anyRequest().authenticated()
                 )
                 .exceptionHandling(ex -> ex
-                        .authenticationEntryPoint((request, response, authException) ->
-                                response.sendError(
-                                        HttpServletResponse.SC_UNAUTHORIZED,
-                                        "No autenticado"))
+                        .authenticationEntryPoint((request, response, authException) -> {
+                            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                            response.setCharacterEncoding("UTF-8");
+                            response.setContentType("application/json");
+                            response.getWriter().write("{\"status\":401,\"message\":\"No autenticado\"}");
+                        })
+                        // Responder con status + body en vez de sendError(): sendError dispara un
+                        // error dispatch de Tomcat que vuelve a entrar en la cadena de seguridad sin
+                        // el contexto JWT y terminaba sobrescribiendo el 403 por un 401 vacío.
+                        .accessDeniedHandler((request, response, accessDeniedException) -> {
+                            response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+                            response.setCharacterEncoding("UTF-8");
+                            response.setContentType("application/json");
+                            response.getWriter().write(
+                                    "{\"status\":403,\"message\":\"No tienes permisos para esta operación\"}");
+                        })
                 )
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
