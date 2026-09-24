@@ -114,6 +114,12 @@ const authService = {
 
     return true;
   },
+
+  isAdmin() {
+    if (!this.isAuthenticated()) return false;
+    const role = this.getUser()?.role || decodeJWT(this.getToken())?.role || '';
+    return String(role).toUpperCase() === 'ADMIN';
+  },
 };
 
 export default authService;

@@ -37,18 +37,25 @@ class AulaControllerTest {
     @Autowired
     private JwtService jwtService;
 
-    private String token;
+    private String adminToken;
+    private String userToken;
 
     @BeforeEach
     void initToken() {
-        Users user = Users.builder()
+        adminToken = jwtService.generateToken(Users.builder()
+                .name("Admin Tester")
+                .email("admin@test.com")
+                .password("x")
+                .companyCode("EDU-2024")
+                .role(Role.ADMIN)
+                .build());
+        userToken = jwtService.generateToken(Users.builder()
                 .name("Tester")
                 .email("tester@test.com")
                 .password("x")
                 .companyCode("EDU-2024")
                 .role(Role.USER)
-                .build();
-        token = jwtService.generateToken(user);
+                .build());
     }
 
     @AfterEach
@@ -57,7 +64,11 @@ class AulaControllerTest {
     }
 
     private MockHttpServletRequestBuilder withAuth(MockHttpServletRequestBuilder builder) {
-        return builder.header("Authorization", "Bearer " + token);
+        return builder.header("Authorization", "Bearer " + adminToken);
+    }
+
+    private MockHttpServletRequestBuilder withUserAuth(MockHttpServletRequestBuilder builder) {
+        return builder.header("Authorization", "Bearer " + userToken);
     }
 
     private AulaRequest createValidRequest() {
@@ -76,6 +87,52 @@ class AulaControllerTest {
     void deberiaRechazarSinToken() throws Exception {
         mockMvc.perform(get("/api/aulas"))
                 .andExpect(status().isUnauthorized());
+    }
+
+    @Test
+    @Order(0)
+    void deberiaPermitirLeerAulasAUsuarioNoAdmin() throws Exception {
+        mockMvc.perform(withUserAuth(get("/api/aulas")))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    @Order(0)
+    void deberiaRechazarCreacionAulaAUsuarioNoAdmin() throws Exception {
+        mockMvc.perform(withUserAuth(post("/api/aulas")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(createValidRequest()))))
+                .andExpect(status().isForbidden());
+    }
+
+    @Test
+    @Order(0)
+    void deberiaRechazarActualizacionAulaAUsuarioNoAdmin() throws Exception {
+        Aula aula = aulaRepository.save(Aula.builder()
+                .codigoAula("AUL-999")
+                .nombre("Sala")
+                .tipoAula("salon")
+                .estado("activa")
+                .build());
+
+        mockMvc.perform(withUserAuth(put("/api/aulas/{id}", aula.getId())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(createValidRequest()))))
+                .andExpect(status().isForbidden());
+    }
+
+    @Test
+    @Order(0)
+    void deberiaRechazarEliminacionAulaAUsuarioNoAdmin() throws Exception {
+        Aula aula = aulaRepository.save(Aula.builder()
+                .codigoAula("AUL-998")
+                .nombre("Sala")
+                .tipoAula("salon")
+                .estado("activa")
+                .build());
+
+        mockMvc.perform(withUserAuth(delete("/api/aulas/{id}", aula.getId())))
+                .andExpect(status().isForbidden());
     }
 
     @Test
