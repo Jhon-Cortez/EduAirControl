@@ -1,0 +1,17 @@
+DROP TABLE IF EXISTS ux.searches;
+DROP TABLE IF EXISTS ux.classroom_ratings;
+DROP TABLE IF EXISTS ux.favorites;
+DROP TABLE IF EXISTS ux.user_preferences;
+DROP TABLE IF EXISTS monitoring.environment_alert;
+DROP TABLE IF EXISTS monitoring.analysis_result;
+DROP TABLE IF EXISTS monitoring.environmental_analysis;
+DROP TABLE IF EXISTS monitoring.environment_measurement;
+DROP TABLE IF EXISTS monitoring.variable_threshold;
+DROP TABLE IF EXISTS monitoring.severity;
+DROP TABLE IF EXISTS sensors.sensor_variable;
+DROP TABLE IF EXISTS sensors.variable;
+DROP TABLE IF EXISTS sensors.sensor_installation;
+DROP TABLE IF EXISTS sensors.sensor;
+DROP TABLE IF EXISTS classrooms.educational_environment;
+DROP TABLE IF EXISTS classrooms.environment_types;
+DROP TABLE IF EXISTS classrooms.campuses;
