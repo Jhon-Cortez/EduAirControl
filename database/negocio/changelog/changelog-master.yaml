@@ -1,0 +1,100 @@
+databaseChangeLog:
+  - changeSet:
+      id: eduair-biz-001-schemas
+      author: eduaircontrol
+      comment: Crea un esquema por dominio de negocio (ADR-003).
+      changes:
+        - sqlFile:
+            path: 01_ddl/01_schemas/001_schemas.sql
+            relativeToChangelogFile: true
+      rollback:
+        - sqlFile:
+            path: 05_rollbacks/01_ddl/01_schemas/001_schemas.rollback.sql
+            relativeToChangelogFile: true
+
+  - changeSet:
+      id: eduair-biz-002-tables
+      author: eduaircontrol
+      comment: Crea las 17 tablas de negocio sin llaves foraneas.
+      changes:
+        - sqlFile:
+            path: 01_ddl/03_tables/01_classrooms/001_campuses.sql
+            relativeToChangelogFile: true
+        - sqlFile:
+            path: 01_ddl/03_tables/01_classrooms/002_environment_types.sql
+            relativeToChangelogFile: true
+        - sqlFile:
+            path: 01_ddl/03_tables/01_classrooms/003_educational_environment.sql
+            relativeToChangelogFile: true
+        - sqlFile:
+            path: 01_ddl/03_tables/02_sensors/001_sensor.sql
+            relativeToChangelogFile: true
+        - sqlFile:
+            path: 01_ddl/03_tables/02_sensors/002_sensor_installation.sql
+            relativeToChangelogFile: true
+        - sqlFile:
+            path: 01_ddl/03_tables/02_sensors/003_variable.sql
+            relativeToChangelogFile: true
+        - sqlFile:
+            path: 01_ddl/03_tables/02_sensors/004_sensor_variable.sql
+            relativeToChangelogFile: true
+        - sqlFile:
+            path: 01_ddl/03_tables/03_monitoring/001_severity.sql
+            relativeToChangelogFile: true
+        - sqlFile:
+            path: 01_ddl/03_tables/03_monitoring/002_variable_threshold.sql
+            relativeToChangelogFile: true
+        - sqlFile:
+            path: 01_ddl/03_tables/03_monitoring/003_environment_measurement.sql
+            relativeToChangelogFile: true
+        - sqlFile:
+            path: 01_ddl/03_tables/03_monitoring/004_environmental_analysis.sql
+            relativeToChangelogFile: true
+        - sqlFile:
+            path: 01_ddl/03_tables/03_monitoring/005_analysis_result.sql
+            relativeToChangelogFile: true
+        - sqlFile:
+            path: 01_ddl/03_tables/03_monitoring/006_environment_alert.sql
+            relativeToChangelogFile: true
+        - sqlFile:
+            path: 01_ddl/03_tables/04_ux/001_user_preferences.sql
+            relativeToChangelogFile: true
+        - sqlFile:
+            path: 01_ddl/03_tables/04_ux/002_favorites.sql
+            relativeToChangelogFile: true
+        - sqlFile:
+            path: 01_ddl/03_tables/04_ux/003_classroom_ratings.sql
+            relativeToChangelogFile: true
+        - sqlFile:
+            path: 01_ddl/03_tables/04_ux/004_searches.sql
+            relativeToChangelogFile: true
+      rollback:
+        - sqlFile:
+            path: 05_rollbacks/01_ddl/03_tables/001_tables.rollback.sql
+            relativeToChangelogFile: true
+
+  - changeSet:
+      id: eduair-biz-003-foreign-keys
+      author: eduaircontrol
+      comment: Agrega las llaves foraneas intra-dominio (entre dominios solo referencias logicas).
+      changes:
+        - sqlFile:
+            path: 01_ddl/04_alter/001_foreign_keys.sql
+            relativeToChangelogFile: true
+      rollback:
+        - sqlFile:
+            path: 05_rollbacks/01_ddl/04_alter/001_foreign_keys.rollback.sql
+            relativeToChangelogFile: true
+
+  - changeSet:
+      id: eduair-biz-004-indexes
+      author: eduaircontrol
+      comment: Crea los indices recomendados en 06-data/domain/*.
+      changes:
+        - sqlFile:
+            path: 01_ddl/10_indexes/001_indexes.sql
+            relativeToChangelogFile: true
+      rollback:
+        - sqlFile:
+            path: 05_rollbacks/01_ddl/10_indexes/001_indexes.rollback.sql
+            relativeToChangelogFile: true
