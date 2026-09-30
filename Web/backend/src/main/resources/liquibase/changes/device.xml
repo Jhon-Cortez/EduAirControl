@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Changelog documental: no está conectado a Spring Boot (ddl-auto=update genera el esquema).
+     Sirve como fuente de verdad del modelo relacional de dispositivos IoT. -->
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <!-- Solo se persiste el SSID; la contraseña Wi-Fi viaja por BLE y vive en la NVS del ESP32. -->
+    <changeSet id="001-create-dispositivo" author="eduaircontrol">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="dispositivo"/>
+            </not>
+        </preConditions>
+
+        <createTable tableName="dispositivo">
+            <column name="id_dispositivo" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="mac_address" type="VARCHAR(17)">
+                <constraints nullable="false" unique="true" uniqueConstraintName="uk_dispositivo_mac"/>
+            </column>
+            <column name="nombre" type="VARCHAR(100)"/>
+            <column name="tipo" type="VARCHAR(50)" defaultValue="esp32">
+                <constraints nullable="false"/>
+            </column>
+            <column name="id_aula" type="BIGINT"/>
+            <column name="ssid" type="VARCHAR(32)"/>
+            <column name="estado" type="VARCHAR(20)" defaultValue="pendiente">
+                <constraints nullable="false"/>
+            </column>
+            <column name="firmware_version" type="VARCHAR(20)"/>
+            <column name="fecha_creacion" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="fecha_actualizacion" type="TIMESTAMP"/>
+        </createTable>
+
+        <addForeignKeyConstraint
+            baseTableName="dispositivo"
+            baseColumnNames="id_aula"
+            constraintName="fk_dispositivo_aula"
+            referencedTableName="aula"
+            referencedColumnNames="id_aula"/>
+    </changeSet>
+
+    <changeSet id="002-add-dispositivo-estado-check" author="eduaircontrol">
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="dispositivo"/>
+        </preConditions>
+        <sql>
+            ALTER TABLE dispositivo
+                ADD CONSTRAINT chk_dispositivo_estado
+                CHECK (estado IN ('pendiente','conectado','offline','error'));
+            ALTER TABLE dispositivo
+                ADD CONSTRAINT chk_dispositivo_tipo
+                CHECK (tipo IN ('esp32','esp32s3','esp8266','otro'));
+        </sql>
+    </changeSet>
+</databaseChangeLog>

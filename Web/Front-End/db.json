@@ -120,7 +120,10 @@
       "type": "temperature",
       "environmentId": 1,
       "active": true,
-      "lastSync": "2 min"
+      "lastSync": "2 min",
+      "min": 18,
+      "max": 28,
+      "status": "active"
     },
     {
       "id": 2,
@@ -128,7 +131,10 @@
       "type": "humidity",
       "environmentId": 1,
       "active": true,
-      "lastSync": "2 min"
+      "lastSync": "2 min",
+      "min": 35,
+      "max": 65,
+      "status": "active"
     },
     {
       "id": 3,
@@ -136,7 +142,10 @@
       "type": "co2",
       "environmentId": 1,
       "active": true,
-      "lastSync": "2 min"
+      "lastSync": "2 min",
+      "min": 400,
+      "max": 1000,
+      "status": "active"
     },
     {
       "id": 4,
@@ -144,15 +153,21 @@
       "type": "temperature",
       "environmentId": 2,
       "active": true,
-      "lastSync": "4 min"
+      "lastSync": "4 min",
+      "min": 18,
+      "max": 28,
+      "status": "active"
     },
     {
       "id": 5,
       "sensorId": "EA-2092-C",
       "type": "co2",
       "environmentId": 2,
-      "active": false,
-      "lastSync": "12 min"
+      "active": true,
+      "lastSync": "12 min",
+      "min": 400,
+      "max": 1000,
+      "status": "warning"
     },
     {
       "id": 6,
@@ -160,7 +175,10 @@
       "type": "noise",
       "environmentId": 3,
       "active": false,
-      "lastSync": "38 min"
+      "lastSync": "38 min",
+      "min": 30,
+      "max": 65,
+      "status": "offline"
     },
     {
       "id": 7,
@@ -168,7 +186,10 @@
       "type": "temperature",
       "environmentId": 8,
       "active": true,
-      "lastSync": "1 min"
+      "lastSync": "1 min",
+      "min": 18,
+      "max": 28,
+      "status": "active"
     },
     {
       "id": 8,
@@ -176,7 +197,10 @@
       "type": "humidity",
       "environmentId": 8,
       "active": true,
-      "lastSync": "1 min"
+      "lastSync": "1 min",
+      "min": 35,
+      "max": 65,
+      "status": "active"
     }
   ],
   "profile": {
