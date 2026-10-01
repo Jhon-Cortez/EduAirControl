@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import { useTranslation } from 'react-i18next'
 import './AddEnvironmentModal.css'
 
 // ── Opciones predefinidas ────────────────────────────────────
@@ -31,8 +30,6 @@ const TEMP_PROFILES = {
 }
 
 function AddEnvironmentModal({ onClose, onAdd }) {
-  const { t } = useTranslation()
-
   const [name,        setName]        = useState('')
   const [capacity,    setCapacity]    = useState('')
   const [location,    setLocation]    = useState('')

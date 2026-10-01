@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   FaGlobe,
@@ -27,6 +27,9 @@ import authService from '../../auth/services/authService';
 import { EditModal, Modal, Button } from '../../../shared/components';
 import { useDarkMode } from '../../../shared/hooks/useDarkMode';
 import { saveDateFormat } from '../../../shared/hooks/useDateFormat';
+import preferencesService, {
+  DEFAULT_REMINDERS,
+} from '../services/preferencesService';
 import {
   ACCESSIBILITY_THEMES,
   getAccessibilitySettings,
@@ -112,6 +115,8 @@ function SettingsScreen() {
     return { ...saved, language: LANG_NAMES[activeLang] || saved.language };
   });
   const [theme, setTheme] = useState(() => getAccessibilitySettings().colorTheme);
+  const [notificationsEnabled, setNotificationsEnabled] = useState(true);
+  const hydratedRef = useRef(false);
   const [modalOpen, setModalOpen] = useState(false);
   const [editField, setEditField] = useState('');
   const [editValue, setEditValue] = useState('');
@@ -143,6 +148,59 @@ function SettingsScreen() {
     window.addEventListener('a11y-change', handleAccessibilityChange);
     return () => window.removeEventListener('a11y-change', handleAccessibilityChange);
   }, []);
+
+  // Hidrata las preferencias del backend (sobrescribe localStorage al entrar).
+  useEffect(() => {
+    let cancelled = false;
+    preferencesService.get().then((prefs) => {
+      if (cancelled) return;
+      hydratedRef.current = true;
+      if (!prefs) return;
+      if (prefs.reminders) setReminders({ ...DEFAULT_REMINDERS, ...prefs.reminders });
+      if (typeof prefs.autoTimezone === 'boolean') setAutoTimezone(prefs.autoTimezone);
+      if (prefs.manualTimezone) {
+        setManualTimezone(prefs.manualTimezone);
+        localStorage.setItem('manualTimezone', prefs.manualTimezone);
+      }
+      if (prefs.dateFormat) {
+        setSettings((prev) => ({ ...prev, dateFormat: prefs.dateFormat }));
+        saveDateFormat(prefs.dateFormat);
+      }
+      if (prefs.language) {
+        localStorage.setItem('language', prefs.language);
+        setSettings((prev) => ({ ...prev, language: LANG_NAMES[prefs.language] || prev.language }));
+        if (i18n.language !== prefs.language) i18n.changeLanguage(prefs.language);
+      }
+      if (typeof prefs.darkMode === 'boolean') setDarkMode(prefs.darkMode);
+      if (typeof prefs.colorTheme === 'string' && prefs.colorTheme !== theme) {
+        saveAccessibilitySettings({ ...getAccessibilitySettings(), colorTheme: prefs.colorTheme });
+        setTheme(prefs.colorTheme);
+      }
+      if (typeof prefs.notificationsEnabled === 'boolean') {
+        setNotificationsEnabled(prefs.notificationsEnabled);
+      }
+    });
+    return () => {
+      cancelled = true;
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // Sincroniza al backend cualquier cambio de preferencias.
+  useEffect(() => {
+    if (!hydratedRef.current) return;
+    preferencesService.save({
+      autoTimezone,
+      manualTimezone,
+      reminders,
+      language: localStorage.getItem('language') || i18n.language || 'es',
+      dateFormat: settings.dateFormat || 'DD-MM-YYYY',
+      darkMode,
+      colorTheme: theme,
+      notificationsEnabled,
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [autoTimezone, manualTimezone, reminders, settings, theme, darkMode, notificationsEnabled]);
 
   const handleTimezoneToggle = (val) => {
     setAutoTimezone(val);

@@ -32,7 +32,7 @@ import {
   YAxis,
 } from 'recharts';
 
-import { useEnvironment } from '../../../context/EnvironmentContext';
+import { useEnvironment } from '../../../context/useEnvironment';
 import Navbar from '../components/Navbar/Navbar';
 
 import './DashboardScreen.css';

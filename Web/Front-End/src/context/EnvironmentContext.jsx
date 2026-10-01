@@ -1,7 +1,6 @@
-import { createContext, useContext, useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
+import { EnvironmentContext } from './useEnvironment';
 import environmentService from '../modules/environment/services/environmentService';
-
-const EnvironmentContext = createContext();
 
 export function EnvironmentProvider({ children }) {
   const [environments, setEnvironments] = useState([]);
@@ -61,9 +60,3 @@ export function EnvironmentProvider({ children }) {
     </EnvironmentContext.Provider>
   );
 }
-
-export function useEnvironment() {
-  return useContext(EnvironmentContext);
-}
-
-export const useEnvironments = useEnvironment;
