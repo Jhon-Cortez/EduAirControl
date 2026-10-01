@@ -1,0 +1,9 @@
+ALTER TABLE monitoring.environment_alert DROP CONSTRAINT IF EXISTS fk_environment_alert_triggering_measurement;
+ALTER TABLE monitoring.environment_alert DROP CONSTRAINT IF EXISTS fk_environment_alert_variable_threshold;
+ALTER TABLE monitoring.analysis_result DROP CONSTRAINT IF EXISTS fk_analysis_result_environmental_analysis;
+ALTER TABLE monitoring.variable_threshold DROP CONSTRAINT IF EXISTS fk_variable_threshold_severity;
+ALTER TABLE sensors.sensor_variable DROP CONSTRAINT IF EXISTS fk_sensor_variable_variable;
+ALTER TABLE sensors.sensor_variable DROP CONSTRAINT IF EXISTS fk_sensor_variable_sensor;
+ALTER TABLE sensors.sensor_installation DROP CONSTRAINT IF EXISTS fk_sensor_installation_sensor;
+ALTER TABLE classrooms.educational_environment DROP CONSTRAINT IF EXISTS fk_educational_environment_type;
+ALTER TABLE classrooms.educational_environment DROP CONSTRAINT IF EXISTS fk_educational_environment_campus;

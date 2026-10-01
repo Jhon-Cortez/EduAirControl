@@ -1,0 +1,19 @@
+databaseChangeLog:
+  - changeSet:
+      id: 004-ux-settings
+      author: eduaircontrol
+      comment: Preferencias de SettingsScreen sin contraparte en el DDL canonico.
+      changes:
+        - sql:
+            dbms: postgresql
+            sql: |
+              ALTER TABLE ux.user_preferences
+                  ADD COLUMN dark_mode BOOLEAN NOT NULL DEFAULT FALSE,
+                  ADD COLUMN auto_time_zone BOOLEAN NOT NULL DEFAULT TRUE;
+      rollback:
+        - sql:
+            dbms: postgresql
+            sql: |
+              ALTER TABLE ux.user_preferences
+                  DROP COLUMN IF EXISTS auto_time_zone,
+                  DROP COLUMN IF EXISTS dark_mode;

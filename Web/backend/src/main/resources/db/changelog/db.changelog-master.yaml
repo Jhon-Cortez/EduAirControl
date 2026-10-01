@@ -1,0 +1,96 @@
+databaseChangeLog:
+  # 1) Limpieza de tablas generadas por Hibernate (ddl-auto=update).
+  - include:
+      file: db/changelog/changes/000-legacy-cleanup.yaml
+  # 2) Esquemas por dominio + esquema identity (extension).
+  - changeSet:
+      id: eduair-biz-001-schemas
+      author: eduaircontrol
+      comment: Crea un esquema por dominio de negocio (ADR-003).
+      changes:
+        - sqlFile:
+            path: db/changelog/canonical/01_schemas/001_schemas.sql
+      rollback:
+        - sqlFile:
+            path: db/changelog/canonical/rollbacks/01_ddl/01_schemas/001_schemas.rollback.sql
+  - include:
+      file: db/changelog/changes/001-identity.yaml
+  # 3) Catalogos excluidos + dispositivos IoT (extensiones).
+  - include:
+      file: db/changelog/changes/002-catalogs-device.yaml
+  # 4) Las 17 tablas canonicas (sin FKs).
+  - changeSet:
+      id: eduair-biz-002-tables
+      author: eduaircontrol
+      comment: Crea las 17 tablas de negocio sin llaves foraneas.
+      changes:
+        - sqlFile:
+            path: db/changelog/canonical/03_tables/01_classrooms/001_campuses.sql
+        - sqlFile:
+            path: db/changelog/canonical/03_tables/01_classrooms/002_environment_types.sql
+        - sqlFile:
+            path: db/changelog/canonical/03_tables/01_classrooms/003_educational_environment.sql
+        - sqlFile:
+            path: db/changelog/canonical/03_tables/02_sensors/001_sensor.sql
+        - sqlFile:
+            path: db/changelog/canonical/03_tables/02_sensors/002_sensor_installation.sql
+        - sqlFile:
+            path: db/changelog/canonical/03_tables/02_sensors/003_variable.sql
+        - sqlFile:
+            path: db/changelog/canonical/03_tables/02_sensors/004_sensor_variable.sql
+        - sqlFile:
+            path: db/changelog/canonical/03_tables/03_monitoring/001_severity.sql
+        - sqlFile:
+            path: db/changelog/canonical/03_tables/03_monitoring/002_variable_threshold.sql
+        - sqlFile:
+            path: db/changelog/canonical/03_tables/03_monitoring/003_environment_measurement.sql
+        - sqlFile:
+            path: db/changelog/canonical/03_tables/03_monitoring/004_environmental_analysis.sql
+        - sqlFile:
+            path: db/changelog/canonical/03_tables/03_monitoring/005_analysis_result.sql
+        - sqlFile:
+            path: db/changelog/canonical/03_tables/03_monitoring/006_environment_alert.sql
+        - sqlFile:
+            path: db/changelog/canonical/03_tables/04_ux/001_user_preferences.sql
+        - sqlFile:
+            path: db/changelog/canonical/03_tables/04_ux/002_favorites.sql
+        - sqlFile:
+            path: db/changelog/canonical/03_tables/04_ux/003_classroom_ratings.sql
+        - sqlFile:
+            path: db/changelog/canonical/03_tables/04_ux/004_searches.sql
+      rollback:
+        - sqlFile:
+            path: db/changelog/canonical/rollbacks/01_ddl/03_tables/001_tables.rollback.sql
+  # 5) FKs intra-dominio.
+  - changeSet:
+      id: eduair-biz-003-foreign-keys
+      author: eduaircontrol
+      comment: Agrega las llaves foraneas intra-dominio (entre dominios solo referencias logicas).
+      changes:
+        - sqlFile:
+            path: db/changelog/canonical/04_alter/001_foreign_keys.sql
+      rollback:
+        - sqlFile:
+            path: db/changelog/canonical/rollbacks/01_ddl/04_alter/001_foreign_keys.rollback.sql
+  # 6) Indices.
+  - changeSet:
+      id: eduair-biz-004-indexes
+      author: eduaircontrol
+      comment: Crea los indices recomendados en 06-data/domain/*.
+      changes:
+        - sqlFile:
+            path: db/changelog/canonical/10_indexes/001_indexes.sql
+      rollback:
+        - sqlFile:
+            path: db/changelog/canonical/rollbacks/01_ddl/10_indexes/001_indexes.rollback.sql
+  # 7) Extensiones aprobadas + CHECKs faltantes.
+  - include:
+      file: db/changelog/changes/003-extensions.yaml
+  # 7b) Preferencias de SettingsScreen (dark_mode, auto_time_zone).
+  - include:
+      file: db/changelog/changes/004-ux-settings.yaml
+  # 8) Seeds de referencia (siempre) y seeds de desarrollo (context=dev).
+  - include:
+      file: db/changelog/changes/010-seed-reference.yaml
+  - include:
+      file: db/changelog/changes/100-seed-dev.yaml

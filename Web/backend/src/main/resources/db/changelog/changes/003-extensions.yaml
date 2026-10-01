@@ -1,0 +1,89 @@
+databaseChangeLog:
+  - changeSet:
+      id: 003-extensions
+      author: eduaircontrol
+      comment: >
+        Extensiones al esquema canonico aprobadas en el plan:
+        (1) variable_threshold.educational_environment_id para umbrales por ambiente
+        (precedencia ambiente > tipo), (2) idempotencia de ingesta
+        (sensor_installation, variable, measured_at), (3) ux.notification_state
+        para el estado de lectura de alertas, (4) preferencias adicionales de UX.
+      changes:
+        - sql:
+            dbms: postgresql
+            sql: |
+              ALTER TABLE monitoring.variable_threshold
+                  ADD COLUMN educational_environment_id UUID;
+              CREATE INDEX idx_variable_threshold_environment
+                  ON monitoring.variable_threshold (variable_id, educational_environment_id);
+              CREATE INDEX idx_variable_threshold_type_variable
+                  ON monitoring.variable_threshold (environment_type_id, variable_id);
+
+              CREATE UNIQUE INDEX uq_environment_measurement_sample
+                  ON monitoring.environment_measurement
+                      (sensor_installation_id, variable_id, measured_at);
+
+              CREATE TABLE ux.notification_state (
+                  user_id  UUID NOT NULL,
+                  alert_id UUID NOT NULL,
+                  read_at  TIMESTAMPTZ NOT NULL DEFAULT now(),
+                  PRIMARY KEY (user_id, alert_id)
+              );
+
+              ALTER TABLE ux.user_preferences
+                  ADD COLUMN date_format VARCHAR(20),
+                  ADD COLUMN reminders JSONB NOT NULL DEFAULT '{}'::jsonb;
+      rollback:
+        - sql:
+            dbms: postgresql
+            sql: |
+              ALTER TABLE ux.user_preferences
+                  DROP COLUMN IF EXISTS reminders,
+                  DROP COLUMN IF EXISTS date_format;
+              DROP TABLE IF EXISTS ux.notification_state CASCADE;
+              DROP INDEX IF EXISTS uq_environment_measurement_sample;
+              DROP INDEX IF EXISTS idx_variable_threshold_type_variable;
+              DROP INDEX IF EXISTS idx_variable_threshold_environment;
+              ALTER TABLE monitoring.variable_threshold
+                  DROP COLUMN IF EXISTS educational_environment_id;
+
+  - changeSet:
+      id: 003-extra-checks
+      author: eduaircontrol
+      comment: >
+        CHECKs documentados en docs-ea-control y presentes en ms-classroom-management
+        que faltan en el DDL de negocio (normalizacion).
+      changes:
+        - sql:
+            dbms: postgresql
+            sql: |
+              ALTER TABLE classrooms.educational_environment
+                  ADD CONSTRAINT chk_educational_environment_floor
+                  CHECK (floor IS NULL OR floor >= 0),
+                  ADD CONSTRAINT chk_educational_environment_area
+                  CHECK (area_m2 IS NULL OR area_m2 > 0),
+                  ADD CONSTRAINT chk_educational_environment_capacity
+                  CHECK (occupancy_capacity IS NULL OR occupancy_capacity > 0);
+
+              ALTER TABLE sensors.sensor_installation
+                  ADD CONSTRAINT ck_sensor_installation_period
+                  CHECK (removed_at IS NULL OR removed_at > installed_at);
+
+              ALTER TABLE monitoring.analysis_result
+                  ADD CONSTRAINT ck_analysis_result_values
+                  CHECK (min_value <= max_value),
+                  ADD CONSTRAINT ck_analysis_result_counts
+                  CHECK (sample_count >= 0 AND exceedance_count >= 0);
+      rollback:
+        - sql:
+            dbms: postgresql
+            sql: |
+              ALTER TABLE monitoring.analysis_result
+                  DROP CONSTRAINT IF EXISTS ck_analysis_result_counts,
+                  DROP CONSTRAINT IF EXISTS ck_analysis_result_values;
+              ALTER TABLE sensors.sensor_installation
+                  DROP CONSTRAINT IF EXISTS ck_sensor_installation_period;
+              ALTER TABLE classrooms.educational_environment
+                  DROP CONSTRAINT IF EXISTS chk_educational_environment_capacity,
+                  DROP CONSTRAINT IF EXISTS chk_educational_environment_area,
+                  DROP CONSTRAINT IF EXISTS chk_educational_environment_floor;

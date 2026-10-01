@@ -1,0 +1,123 @@
+databaseChangeLog:
+  - changeSet:
+      id: 010-seed-catalogs
+      author: eduaircontrol
+      comment: Catalogos base (unidades, modelos/estados de sensor, flags, estados). Siempre aplicable.
+      changes:
+        - sql:
+            dbms: postgresql
+            sql: |
+              INSERT INTO sensors.measurement_units (measurement_unit_id, code, name, symbol) VALUES
+                ('00000000-0000-4000-8000-000000000001','CELSIUS','Grados Celsius','°C'),
+                ('00000000-0000-4000-8000-000000000002','PERCENT','Porcentaje','%'),
+                ('00000000-0000-4000-8000-000000000003','PPM','Partes por millón','ppm'),
+                ('00000000-0000-4000-8000-000000000004','DECIBEL','Decibelios','dB');
+
+              INSERT INTO sensors.sensor_models (sensor_model_id, code, name) VALUES
+                ('00000000-0000-4000-8000-000000000011','DHT22','DHT22 (temp/humedad)'),
+                ('00000000-0000-4000-8000-000000000012','SCD41','Sensirion SCD41 (CO2)'),
+                ('00000000-0000-4000-8000-000000000013','KY038','KY-038 (micrófono)');
+
+              INSERT INTO sensors.sensor_statuses (sensor_status_id, code, name, level) VALUES
+                ('00000000-0000-4000-8000-000000000021','ACTIVE','Activo',1),
+                ('00000000-0000-4000-8000-000000000022','WARNING','Revisar',2),
+                ('00000000-0000-4000-8000-000000000023','OFFLINE','Sin conexión',3);
+
+              INSERT INTO monitoring.quality_flags (quality_flag_id, code, name) VALUES
+                ('00000000-0000-4000-8000-000000000031','GOOD','Buena'),
+                ('00000000-0000-4000-8000-000000000032','SUSPECT','Sospechosa'),
+                ('00000000-0000-4000-8000-000000000033','BAD','Inválida');
+
+              INSERT INTO monitoring.analysis_statuses (analysis_status_id, code, name) VALUES
+                ('00000000-0000-4000-8000-000000000041','PENDING','Pendiente'),
+                ('00000000-0000-4000-8000-000000000042','RUNNING','En ejecución'),
+                ('00000000-0000-4000-8000-000000000043','COMPLETED','Completado'),
+                ('00000000-0000-4000-8000-000000000044','FAILED','Fallido');
+
+              INSERT INTO monitoring.alert_statuses (alert_status_id, code, name) VALUES
+                ('00000000-0000-4000-8000-000000000051','OPEN','Abierta'),
+                ('00000000-0000-4000-8000-000000000052','ACKNOWLEDGED','Reconocida'),
+                ('00000000-0000-4000-8000-000000000053','RESOLVED','Resuelta');
+      rollback:
+        - sql:
+            dbms: postgresql
+            sql: |
+              DELETE FROM monitoring.alert_statuses WHERE alert_status_id LIKE '00000000-0000-4000-8000-%';
+              DELETE FROM monitoring.analysis_statuses WHERE analysis_status_id LIKE '00000000-0000-4000-8000-%';
+              DELETE FROM monitoring.quality_flags WHERE quality_flag_id LIKE '00000000-0000-4000-8000-%';
+              DELETE FROM sensors.sensor_statuses WHERE sensor_status_id LIKE '00000000-0000-4000-8000-%';
+              DELETE FROM sensors.sensor_models WHERE sensor_model_id LIKE '00000000-0000-4000-8000-%';
+              DELETE FROM sensors.measurement_units WHERE measurement_unit_id LIKE '00000000-0000-4000-8000-%';
+
+  - changeSet:
+      id: 011-seed-severity-variables-types
+      author: eduaircontrol
+      comment: Severidades, variables ambientales y tipos de ambiente (referencia obligatoria del modelo).
+      changes:
+        - sql:
+            dbms: postgresql
+            sql: |
+              INSERT INTO monitoring.severity (severity_id, code, name, level) VALUES
+                ('00000000-0000-4000-8000-000000000061','INFO','Informativo',1),
+                ('00000000-0000-4000-8000-000000000062','WARNING','Advertencia',2),
+                ('00000000-0000-4000-8000-000000000063','CRITICAL','Crítico',3);
+
+              INSERT INTO sensors.variable (variable_id, code, name, measurement_unit_id, description) VALUES
+                ('00000000-0000-4000-8000-000000000071','temperature','Temperatura','00000000-0000-4000-8000-000000000001','Temperatura ambiente del aula'),
+                ('00000000-0000-4000-8000-000000000072','humidity','Humedad relativa','00000000-0000-4000-8000-000000000002','Humedad relativa del aire'),
+                ('00000000-0000-4000-8000-000000000073','co2','Dióxido de carbono','00000000-0000-4000-8000-000000000003','Concentración de CO2'),
+                ('00000000-0000-4000-8000-000000000074','noise','Ruido','00000000-0000-4000-8000-000000000004','Nivel sonoro ambiente');
+
+              INSERT INTO classrooms.environment_types (environment_type_id, code, name, description) VALUES
+                ('00000000-0000-4000-8000-000000000081','CLASSROOM','Aula','Aula de clase estándar'),
+                ('00000000-0000-4000-8000-000000000082','LABORATORY','Laboratorio','Laboratorio práctico'),
+                ('00000000-0000-4000-8000-000000000083','AUDITORIUM','Auditorio','Auditorio o salón mayor'),
+                ('00000000-0000-4000-8000-000000000084','COMPUTER_LAB','Sala de cómputo','Sala de computadores'),
+                ('00000000-0000-4000-8000-000000000085','LIBRARY','Biblioteca','Biblioteca o sala de estudio'),
+                ('00000000-0000-4000-8000-000000000086','OFFICE','Oficina','Oficina administrativa'),
+                ('00000000-0000-4000-8000-000000000087','WORKSHOP','Taller','Taller o zona técnica');
+      rollback:
+        - sql:
+            dbms: postgresql
+            sql: |
+              DELETE FROM classrooms.environment_types WHERE environment_type_id LIKE '00000000-0000-4000-8000-%';
+              DELETE FROM sensors.variable WHERE variable_id LIKE '00000000-0000-4000-8000-%';
+              DELETE FROM monitoring.severity WHERE severity_id LIKE '00000000-0000-4000-8000-%';
+
+  - changeSet:
+      id: 012-seed-thresholds
+      author: eduaircontrol
+      comment: >
+        Umbrales por tipo de ambiente y variable en dos niveles: WARNING define la banda
+        "óptima" y CRITICAL la banda "tolerable"; superar CRITICAL => alerta.
+      changes:
+        - sql:
+            dbms: postgresql
+            sql: |
+              INSERT INTO monitoring.variable_threshold
+                  (variable_threshold_id, variable_id, environment_type_id, min_value, max_value, severity_id, valid_from)
+              SELECT gen_random_uuid(),
+                     v.variable_id,
+                     t.environment_type_id,
+                     b.min_value::numeric,
+                     b.max_value::numeric,
+                     b.severity_id::uuid,
+                     CURRENT_DATE - 1
+              FROM classrooms.environment_types t
+              CROSS JOIN sensors.variable v
+              CROSS JOIN (VALUES
+                ('temperature','00000000-0000-4000-8000-000000000062', 18.0, 26.0),
+                ('temperature','00000000-0000-4000-8000-000000000063', 16.0, 30.0),
+                ('humidity',   '00000000-0000-4000-8000-000000000062', 35.0, 65.0),
+                ('humidity',   '00000000-0000-4000-8000-000000000063', 25.0, 80.0),
+                ('co2',        '00000000-0000-4000-8000-000000000062', NULL, 800.0),
+                ('co2',        '00000000-0000-4000-8000-000000000063', NULL, 1000.0),
+                ('noise',      '00000000-0000-4000-8000-000000000062', NULL, 65.0),
+                ('noise',      '00000000-0000-4000-8000-000000000063', NULL, 75.0)
+              ) AS b(variable_code, severity_id, min_value, max_value)
+              WHERE v.code = b.variable_code
+              ON CONFLICT DO NOTHING;
+      rollback:
+        - sql:
+            dbms: postgresql
+            sql: DELETE FROM monitoring.variable_threshold WHERE valid_from <= CURRENT_DATE;

@@ -1,0 +1,65 @@
+databaseChangeLog:
+  - changeSet:
+      id: 001-identity-schema
+      author: eduaircontrol
+      comment: Esquema del modulo identity (extension al esquema canonico de 17 tablas).
+      changes:
+        - sql:
+            dbms: postgresql
+            sql: CREATE SCHEMA IF NOT EXISTS identity;
+      rollback:
+        - sql:
+            dbms: postgresql
+            sql: DROP SCHEMA IF EXISTS identity CASCADE;
+
+  - changeSet:
+      id: 001-identity-users
+      author: eduaircontrol
+      comment: Usuarios con UUID (alineado con user_id UUID de ux/monitoring) + campos de perfil.
+      changes:
+        - sql:
+            dbms: postgresql
+            sql: |
+              CREATE TABLE identity.users (
+                  user_id      UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+                  name         VARCHAR(150) NOT NULL,
+                  email        VARCHAR(255) NOT NULL,
+                  password     VARCHAR(100) NOT NULL,
+                  company_code VARCHAR(20),
+                  role         VARCHAR(20)  NOT NULL DEFAULT 'USER',
+                  title        VARCHAR(100),
+                  phone        VARCHAR(30),
+                  location     VARCHAR(120),
+                  avatar       TEXT,
+                  created_at   TIMESTAMPTZ  NOT NULL DEFAULT now(),
+                  updated_at   TIMESTAMPTZ  NOT NULL DEFAULT now(),
+                  CONSTRAINT uq_users_email UNIQUE (email)
+              );
+      rollback:
+        - sql:
+            dbms: postgresql
+            sql: DROP TABLE IF EXISTS identity.users CASCADE;
+
+  - changeSet:
+      id: 001-identity-password-reset-tokens
+      author: eduaircontrol
+      comment: Tokens de recuperacion de password (codigo de 6 digitos hasheado).
+      changes:
+        - sql:
+            dbms: postgresql
+            sql: |
+              CREATE TABLE identity.password_reset_tokens (
+                  token_id   UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+                  email      VARCHAR(255) NOT NULL,
+                  code_hash  VARCHAR(100) NOT NULL,
+                  expires_at TIMESTAMPTZ  NOT NULL,
+                  used       BOOLEAN      NOT NULL DEFAULT FALSE,
+                  attempts   INTEGER      NOT NULL DEFAULT 0,
+                  created_at TIMESTAMPTZ  NOT NULL DEFAULT now()
+              );
+              CREATE INDEX idx_password_reset_tokens_email
+                  ON identity.password_reset_tokens (email, created_at DESC);
+      rollback:
+        - sql:
+            dbms: postgresql
+            sql: DROP TABLE IF EXISTS identity.password_reset_tokens CASCADE;

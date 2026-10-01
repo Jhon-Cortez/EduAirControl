@@ -1,0 +1,19 @@
+databaseChangeLog:
+  - changeSet:
+      id: 000-legacy-cleanup
+      author: eduaircontrol
+      comment: Elimina las tablas generadas por Hibernate con ddl-auto=update (inicio limpio, esquema canonico).
+      changes:
+        - sql:
+            dbms: postgresql
+            sql: |
+              DROP TABLE IF EXISTS public.password_reset_tokens CASCADE;
+              DROP TABLE IF EXISTS public.users CASCADE;
+              DROP TABLE IF EXISTS public.dispositivo CASCADE;
+              DROP TABLE IF EXISTS public.aula CASCADE;
+              DROP TYPE IF EXISTS public.role CASCADE;
+      rollback:
+        - sql:
+            dbms: postgresql
+            sql: |
+              SELECT 1;

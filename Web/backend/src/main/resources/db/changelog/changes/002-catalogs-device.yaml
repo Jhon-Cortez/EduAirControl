@@ -1,0 +1,107 @@
+databaseChangeLog:
+  - changeSet:
+      id: 002-catalogs
+      author: eduaircontrol
+      comment: >
+        Catalogos excluidos del esquema canonico (17 tablas) cuyos UUID existen como
+        referencias logicas en sensors.variable.measurement_unit_id,
+        sensors.sensor.sensor_model_id / sensor_status_id,
+        monitoring.environment_measurement.quality_flag_id,
+        monitoring.environmental_analysis.analysis_status_id y
+        monitoring.environment_alert.alert_status_id.
+      changes:
+        - sql:
+            dbms: postgresql
+            sql: |
+              CREATE TABLE sensors.measurement_units (
+                  measurement_unit_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+                  code  VARCHAR(20) NOT NULL,
+                  name  VARCHAR(40) NOT NULL,
+                  symbol VARCHAR(10) NOT NULL,
+                  CONSTRAINT uq_measurement_units_code UNIQUE (code),
+                  CONSTRAINT uq_measurement_units_name UNIQUE (name)
+              );
+
+              CREATE TABLE sensors.sensor_models (
+                  sensor_model_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+                  code  VARCHAR(30) NOT NULL,
+                  name  VARCHAR(80) NOT NULL,
+                  CONSTRAINT uq_sensor_models_code UNIQUE (code)
+              );
+
+              CREATE TABLE sensors.sensor_statuses (
+                  sensor_status_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+                  code  VARCHAR(20) NOT NULL,
+                  name  VARCHAR(40) NOT NULL,
+                  level SMALLINT NOT NULL,
+                  CONSTRAINT uq_sensor_statuses_code UNIQUE (code),
+                  CONSTRAINT uq_sensor_statuses_level UNIQUE (level)
+              );
+
+              CREATE TABLE monitoring.quality_flags (
+                  quality_flag_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+                  code  VARCHAR(20) NOT NULL,
+                  name  VARCHAR(40) NOT NULL,
+                  CONSTRAINT uq_quality_flags_code UNIQUE (code)
+              );
+
+              CREATE TABLE monitoring.analysis_statuses (
+                  analysis_status_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+                  code  VARCHAR(20) NOT NULL,
+                  name  VARCHAR(40) NOT NULL,
+                  CONSTRAINT uq_analysis_statuses_code UNIQUE (code)
+              );
+
+              CREATE TABLE monitoring.alert_statuses (
+                  alert_status_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+                  code  VARCHAR(20) NOT NULL,
+                  name  VARCHAR(40) NOT NULL,
+                  CONSTRAINT uq_alert_statuses_code UNIQUE (code)
+              );
+      rollback:
+        - sql:
+            dbms: postgresql
+            sql: |
+              DROP TABLE IF EXISTS monitoring.alert_statuses CASCADE;
+              DROP TABLE IF EXISTS monitoring.analysis_statuses CASCADE;
+              DROP TABLE IF EXISTS monitoring.quality_flags CASCADE;
+              DROP TABLE IF EXISTS sensors.sensor_statuses CASCADE;
+              DROP TABLE IF EXISTS sensors.sensor_models CASCADE;
+              DROP TABLE IF EXISTS sensors.measurement_units CASCADE;
+
+  - changeSet:
+      id: 002-device
+      author: eduaircontrol
+      comment: >
+        Dispositivos IoT (ESP32) en el esquema sensors. api_key_prefix identifica el
+        registro sin exponer la clave; api_key_hash guarda solo su hash BCrypt.
+        device_key_secrets: columna sensible, solo hash.
+      changes:
+        - sql:
+            dbms: postgresql
+            sql: |
+              CREATE TABLE sensors.device (
+                  device_id          UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+                  mac_address        VARCHAR(17) NOT NULL,
+                  name               VARCHAR(100),
+                  device_type        VARCHAR(50) NOT NULL DEFAULT 'esp32',
+                  firmware_version   VARCHAR(20),
+                  ssid               VARCHAR(32),
+                  status             VARCHAR(20) NOT NULL DEFAULT 'pendiente',
+                  api_key_prefix     VARCHAR(12),
+                  api_key_hash       VARCHAR(100),
+                  educational_environment_id UUID,
+                  last_seen_at       TIMESTAMPTZ,
+                  created_at         TIMESTAMPTZ NOT NULL DEFAULT now(),
+                  updated_at         TIMESTAMPTZ NOT NULL DEFAULT now(),
+                  CONSTRAINT uq_device_mac UNIQUE (mac_address),
+                  CONSTRAINT uq_device_api_key_prefix UNIQUE (api_key_prefix),
+                  CONSTRAINT ck_device_type CHECK (device_type IN ('esp32','esp32s3','esp8266','otro')),
+                  CONSTRAINT ck_device_status CHECK (status IN ('pendiente','conectado','offline','error'))
+              );
+              CREATE INDEX idx_device_environment
+                  ON sensors.device (educational_environment_id);
+      rollback:
+        - sql:
+            dbms: postgresql
+            sql: DROP TABLE IF EXISTS sensors.device CASCADE;

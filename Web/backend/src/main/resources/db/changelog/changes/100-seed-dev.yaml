@@ -1,0 +1,57 @@
+databaseChangeLog:
+  - changeSet:
+      id: 100-seed-dev-spaces
+      author: eduaircontrol
+      context: dev
+      comment: Campus/bloques y 8 ambientes educativos de desarrollo.
+      changes:
+        - sqlFile:
+            path: db/changelog/changes/sql/100-seed-dev-spaces.sql
+            relativeToChangelogFile: false
+      rollback:
+        - sql:
+            sql: |
+              DELETE FROM classrooms.educational_environment WHERE educational_environment_id LIKE '00000000-0000-4000-8000-0000000002%';
+              DELETE FROM classrooms.campuses WHERE campus_id LIKE '00000000-0000-4000-8000-0000000001%';
+
+  - changeSet:
+      id: 101-seed-dev-sensors
+      author: eduaircontrol
+      context: dev
+      comment: 32 sensores (1 por ambiente y variable), instalaciones y relacion N:M.
+      changes:
+        - sqlFile:
+            path: db/changelog/changes/sql/101-seed-dev-sensors.sql
+            relativeToChangelogFile: false
+      rollback:
+        - sql:
+            sql: |
+              DELETE FROM sensors.sensor_variable WHERE sensor_id LIKE '00000000-0000-4000-8000-0000000003%';
+              DELETE FROM sensors.sensor_installation WHERE sensor_installation_id LIKE '00000000-0000-4000-8000-0000000004%';
+              DELETE FROM sensors.sensor WHERE sensor_id LIKE '00000000-0000-4000-8000-0000000003%';
+
+  - changeSet:
+      id: 102-seed-dev-measurements
+      author: eduaircontrol
+      context: dev
+      comment: Serie historica de 365 dias cada 3 horas (~93k filas).
+      changes:
+        - sqlFile:
+            path: db/changelog/changes/sql/102-seed-dev-measurements.sql
+            relativeToChangelogFile: false
+      rollback:
+        - sql:
+            sql: DELETE FROM monitoring.environment_measurement;
+
+  - changeSet:
+      id: 103-seed-dev-alerts
+      author: eduaircontrol
+      context: dev
+      comment: Ultimas lecturas con estados variados + alertas abiertas y resueltas.
+      changes:
+        - sqlFile:
+            path: db/changelog/changes/sql/103-seed-dev-alerts.sql
+            relativeToChangelogFile: false
+      rollback:
+        - sql:
+            sql: DELETE FROM monitoring.environment_alert;
