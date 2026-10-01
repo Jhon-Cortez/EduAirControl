@@ -1,0 +1,42 @@
+/*
+  Diagnostico DHT11 - prueba varios pines
+  Monitor Serial: 115200
+  Cambia DHT_PIN abajo si tu DATA esta en otro pin
+*/
+
+#include "DHT.h"
+
+#define DHT_PIN      5       // <-- pon aqui el pin donde conectaste DATA
+#define SERIAL_BAUD  115200
+
+DHT dht(DHT_PIN, DHT11);
+
+void setup() {
+  Serial.begin(SERIAL_BAUD);
+  delay(1000);
+  dht.begin();
+
+  Serial.println();
+  Serial.println("=== Diagnostico DHT11 ===");
+  Serial.print("Probando DATA en pin D");
+  Serial.println(DHT_PIN);
+  Serial.println("Sopla o toca el sensor para ver cambios...");
+  Serial.println();
+}
+
+void loop() {
+  float t = dht.readTemperature();
+  float h = dht.readHumidity();
+
+  if (isnan(t) || isnan(h)) {
+    Serial.println("SIN DATOS - revisa: pin, cables, pull-up, alimentacion");
+  } else {
+    Serial.print("OK  T=");
+    Serial.print(t, 1);
+    Serial.print(" C  H=");
+    Serial.print(h, 1);
+    Serial.println(" %");
+  }
+
+  delay(1000);
+}

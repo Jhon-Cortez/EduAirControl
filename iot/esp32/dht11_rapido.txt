@@ -1,0 +1,43 @@
+/*
+  EduAirControl - prueba rapida solo DHT11
+  DHT11 DATA -> pin D5
+  Monitor Serial: 115200
+  Lee cada 250 ms (lo mas rapido posible sin saturar el DHT11)
+  DHT11 minimo estable: ~1 s; para prueba visual usa 500 ms si quieres
+*/
+
+#include "DHT.h"
+
+#define DHT_PIN      5
+#define SERIAL_BAUD  115200
+#define INTERVAL_MS  500   // 500 ms entre lecturas (rapido)
+
+DHT dht(DHT_PIN, DHT11);
+
+void setup() {
+  Serial.begin(SERIAL_BAUD);
+  delay(1000);
+  dht.begin();
+
+  Serial.println();
+  Serial.println("=== DHT11 - prueba rapida ===");
+}
+
+void loop() {
+  float t = dht.readTemperature();  // °C
+  float h = dht.readHumidity();     // %
+
+  if (isnan(t) || isnan(h)) {
+    Serial.println("ERROR DHT11: sin datos");
+  } else {
+    Serial.print("T=");
+    Serial.print(t, 1);
+    Serial.print("C  H=");
+    Serial.print(h, 1);
+    Serial.print("%  t=");
+    Serial.print(millis() / 1000);
+    Serial.println("s");
+  }
+
+  delay(INTERVAL_MS);
+}

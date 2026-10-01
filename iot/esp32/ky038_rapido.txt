@@ -1,0 +1,42 @@
+/*
+  EduAirControl - prueba KY-038 (sensor de sonido)
+  KY-038 A0 -> pin D34
+  Monitor Serial: 115200
+  Lee cada 500 ms
+*/
+
+#define KY038_PIN    34     // KY-038 A0 -> D34
+#define SERIAL_BAUD  115200
+#define INTERVAL_MS  500
+#define ADC_SAMPLES  50
+
+int leerRuido() {
+  long suma = 0;
+  for (int i = 0; i < ADC_SAMPLES; i++) {
+    suma += analogRead(KY038_PIN);  // ESP32: 0 a 4095
+    delay(2);
+  }
+  return (int)(suma / ADC_SAMPLES);
+}
+
+void setup() {
+  Serial.begin(SERIAL_BAUD);
+  delay(1000);
+  pinMode(KY038_PIN, INPUT);
+
+  Serial.println();
+  Serial.println("=== KY-038 - prueba de sonido ===");
+  Serial.println("A0 en D34 - haz ruido cerca del micro");
+}
+
+void loop() {
+  int ruido = leerRuido();
+
+  Serial.print("Ruido (A0): ");
+  Serial.print(ruido);
+  if (ruido < 500)       Serial.println("  (bajo)");
+  else if (ruido < 1500) Serial.println("  (medio)");
+  else                   Serial.println("  (alto)");
+
+  delay(INTERVAL_MS);
+}
