@@ -1,0 +1,79 @@
+/*
+  EduAirControl - prueba KY-038 con SENSIBILIDAD ajustable
+  KY-038 A0 -> pin D34
+  Monitor Serial: 115200
+
+  Rango ADC ESP32: 0 a 4095 (12 bits)
+    ~0-200   = silencio / muy bajo
+    ~200-800 = ambiente normal
+    ~800+    = ruido fuerte cerca del micro
+
+  Cómo subir sensibilidad:
+    - SENSIBILIDAD  -> multiplica el valor (2..6 va bien)
+    - UMBRAL_BASE   -> resta el ruido de fondo (prueba 150-400)
+*/
+
+#define KY038_PIN      34
+#define SERIAL_BAUD    115200
+#define INTERVAL_MS    500
+#define ADC_SAMPLES    50
+
+// ===== AJUSTA AQUI LA SENSIBILIDAD =====
+#define SENSIBILIDAD   4      // multiplica el valor bruto (1 = normal, 4 = mas sensible en la salida)
+#define UMBRAL_BASE    200    // quita ruido de fondo en silencio
+#define VALOR_MAX      1000   // tope de la salida escalada
+// =======================================
+
+int leerRuidoBruto() {
+  long suma = 0;
+  for (int i = 0; i < ADC_SAMPLES; i++) {
+    suma += analogRead(KY038_PIN);
+    delay(2);
+  }
+  return (int)(suma / ADC_SAMPLES);
+}
+
+int escalarSensibilidad(int bruto) {
+  int util = bruto - UMBRAL_BASE;       // quita base
+  if (util < 0) util = 0;
+  long out = (long)util * SENSIBILIDAD; // multiplica
+  if (out > VALOR_MAX) out = VALOR_MAX;
+  return (int)out;
+}
+
+void setup() {
+  Serial.begin(SERIAL_BAUD);
+  delay(1000);
+  pinMode(KY038_PIN, INPUT);
+
+  Serial.println();
+  Serial.println("=== KY-038 con sensibilidad ===");
+  Serial.print("SENSIBILIDAD=");
+  Serial.print(SENSIBILIDAD);
+  Serial.print("  UMBRAL_BASE=");
+  Serial.println(UMBRAL_BASE);
+  Serial.println("A0 en D34 - haz ruido cerca del micro");
+  Serial.println();
+}
+
+void loop() {
+  int bruto = leerRuidoBruto();           // 0..4095
+  int util  = escalarSensibilidad(bruto); // 0..VALOR_MAX
+
+  Serial.print("Bruto: ");
+  Serial.print(bruto);
+  Serial.print("/4095");
+
+  Serial.print("  |  Sensible: ");
+  Serial.print(util);
+  Serial.print("/");
+
+  Serial.print(VALOR_MAX);
+  Serial.print("  ");
+
+  if (util < 100)        Serial.println("(bajo)");
+  else if (util < 400)   Serial.println("(medio)");
+  else                   Serial.println("(alto)");
+
+  delay(INTERVAL_MS);
+}

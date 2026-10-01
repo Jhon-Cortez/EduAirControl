@@ -1,0 +1,74 @@
+/*
+  EduAirControl - prueba de sensores (Serial cada 5 s)
+  DHT11  DATA  -> pin D5
+  KY-038 A0    -> pin D34
+
+  Librerías (Arduino IDE → Administrar librerías):
+    - DHT sensor library (Adafruit)
+    - Adafruit Unified Sensor
+
+  Monitor Serial: 115200
+*/
+
+#include "DHT.h"
+
+#define DHT_PIN      5      // DHT11 DATA → pin D5
+#define KY038_PIN    34     // KY-038 A0  → pin D34
+#define SERIAL_BAUD  115200 // Monitor Serial = 115200
+#define INTERVAL_MS  5000   // cada 5 segundos
+#define ADC_SAMPLES  50     // muestras del KY-038 por lectura
+
+DHT dht(DHT_PIN, DHT11);
+
+int leerRuido() {
+  long suma = 0;
+  for (int i = 0; i < ADC_SAMPLES; i++) {
+    suma += analogRead(KY038_PIN);  // ESP32: 0 a 4095
+    delay(2);
+  }
+  return (int)(suma / ADC_SAMPLES);
+}
+
+void setup() {
+  Serial.begin(SERIAL_BAUD);
+  delay(1000);
+
+  pinMode(KY038_PIN, INPUT);
+  dht.begin();
+
+  Serial.println();
+  Serial.println("=== EduAirControl - sensores ===");
+  Serial.println("DHT11 (temp/humedad) + KY-038 (ruido)");
+  Serial.println("Cada 5 segundos...");
+}
+
+void loop() {
+  float t = dht.readTemperature();  // °C
+  float h = dht.readHumidity();     // %
+  int ruido = leerRuido();          // 0..4095
+
+  Serial.println("----------------------------");
+  Serial.print(" Tiempo: ");
+  Serial.print(millis() / 1000);
+  Serial.println(" s");
+
+  if (isnan(t) || isnan(h)) {
+    Serial.println(" ERROR DHT11: sin datos (revisa cable DATA y pull-up)");
+  } else {
+    Serial.print(" Temperatura: ");
+    Serial.print(t, 1);
+    Serial.println(" C");
+
+    Serial.print(" Humedad:     ");
+    Serial.print(h, 1);
+    Serial.println(" %");
+  }
+
+  Serial.print(" Ruido (A0):  ");
+  Serial.print(ruido);
+  if (ruido < 500)       Serial.println("  (bajo)");
+  else if (ruido < 1500) Serial.println("  (medio)");
+  else                   Serial.println("  (alto)");
+
+  delay(INTERVAL_MS);
+}
