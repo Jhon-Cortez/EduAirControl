@@ -6,7 +6,7 @@ import EnvironmentSummaryCard from '../components/EnvironmentSummaryCard/Environ
 import EnvironmentModal from '../components/EnvironmentModal/EnvironmentModal';
 import calculateEnvironmentScore from '../utils/calculateEnvironmentScore';
 import { useAllEnvironmentsVM } from '../viewmodels/useAllEnvironmentsVM';
-import { useEnvironment } from '../../../context/EnvironmentContext';
+import { useEnvironment } from '../../../context/useEnvironment';
 import './AllEnvironments.css';
 
 function AllEnvironmentsScreen() {

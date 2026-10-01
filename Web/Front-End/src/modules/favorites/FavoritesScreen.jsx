@@ -2,7 +2,7 @@ import { useState, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { FaHeart } from 'react-icons/fa';
 import Navbar from '../dashboard/components/Navbar/Navbar';
-import { useEnvironment } from '../../context/EnvironmentContext';
+import { useEnvironment } from '../../context/useEnvironment';
 import { Modal, Button } from '../../shared/components';
 import './Favorites.css';
 

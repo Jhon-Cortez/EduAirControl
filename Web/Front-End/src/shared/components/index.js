@@ -9,4 +9,5 @@ export { default as LanguageSelector } from "./LanguageSelector/LanguageSelector
 export { default as Modal } from "./Modal/Modal";
 export { default as ScrollLink } from "./ScrollLink/ScrollLink";
 export { default as Spinner } from "./Spinner/Spinner";
-export { ToastProvider, useToast } from "./Toast/Toast";
+export { ToastProvider } from "./Toast/Toast";
+export { useToast } from "../hooks/useToast";

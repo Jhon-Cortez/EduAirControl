@@ -1,41 +1,51 @@
-import { dbClient } from '../../../shared/services/apiClient';
+import apiClient from '../../../shared/services/apiClient';
+
+/**
+ * Ambientes educativos: el backend devuelve `favorite` y la UI usa `isFavorite`.
+ */
+function toUi(env) {
+  if (!env) return env;
+  return { ...env, isFavorite: Boolean(env.favorite) };
+}
 
 const environmentService = {
   async getAll() {
-    return dbClient.get('/environments');
+    const data = await apiClient.get('/api/v1/environments');
+    return (Array.isArray(data) ? data : data.items || []).map(toUi);
   },
 
   async getById(id) {
-    return dbClient.get(`/environments/${id}`);
+    return toUi(await apiClient.get(`/api/v1/environments/${id}`));
   },
 
   async getFavorites() {
-    return dbClient.get('/environments?isFavorite=true');
+    const all = await this.getAll();
+    return all.filter((env) => env.isFavorite);
   },
 
   async create(environment) {
-    return dbClient.post('/environments', {
-      ...environment,
-      temp: 22,
-      humidity: 50,
-      co2: 600,
-      noise: 40,
-      isFavorite: false,
-      lastUpdate: 'Ahora',
-    });
+    return toUi(await apiClient.post('/api/v1/environments', {
+      name: environment.name,
+      location: environment.location,
+      floor: environment.floor,
+      capacity: environment.capacity,
+      envType: environment.envType,
+      tempMin: environment.tempMin,
+      tempMax: environment.tempMax,
+    }));
   },
 
   async update(id, updates) {
-    return dbClient.patch(`/environments/${id}`, updates);
+    return toUi(await apiClient.patch(`/api/v1/environments/${id}`, updates));
   },
 
   async delete(id) {
-    return dbClient.delete(`/environments/${id}`);
+    return apiClient.delete(`/api/v1/environments/${id}`);
   },
 
   async toggleFavorite(id) {
-    const env = await dbClient.get(`/environments/${id}`);
-    return dbClient.patch(`/environments/${id}`, { isFavorite: !env.isFavorite });
+    const result = await apiClient.post(`/api/v1/environments/${id}/favorite`, {});
+    return result?.isFavorite;
   },
 };
 

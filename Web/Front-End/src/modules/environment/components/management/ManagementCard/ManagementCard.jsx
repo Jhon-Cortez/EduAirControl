@@ -1,4 +1,3 @@
-import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import {
   IoCreateOutline,
@@ -37,7 +36,6 @@ const getBadgeLabel = (qualityKey, statusKey, t) => {
 /* ── component ──────────────────────────────────────────────── */
 
 function ManagementCard({ environment, onEdit, onDelete }) {
-  const navigate = useNavigate();
   const { t } = useTranslation();
 
   const name = getDisplayName(environment, t);

@@ -1,29 +1,38 @@
-import { dbClient } from '../../../shared/services/apiClient';
+import apiClient from '../../../shared/services/apiClient';
+
+const BASE = '/api/v1/sensors';
 
 const sensorService = {
-  async getAll() {
-    return dbClient.get('/sensors');
+  async getAll(environmentId) {
+    const query = environmentId ? `?environmentId=${environmentId}` : '';
+    const data = await apiClient.get(`${BASE}${query}`);
+    return Array.isArray(data) ? data : data.items || [];
   },
 
   async getByEnvironment(environmentId) {
-    return dbClient.get(`/sensors?environmentId=${environmentId}`);
+    return this.getAll(environmentId);
+  },
+
+  async getById(serial) {
+    return apiClient.get(`${BASE}/${serial}`);
   },
 
   async create(sensor) {
-    return dbClient.post('/sensors', sensor);
+    return apiClient.post(BASE, sensor);
   },
 
-  async update(id, updates) {
-    return dbClient.patch(`/sensors/${id}`, updates);
+  async update(serial, updates) {
+    return apiClient.patch(`${BASE}/${serial}`, updates);
   },
 
-  async delete(id) {
-    return dbClient.delete(`/sensors/${id}`);
+  async delete(serial) {
+    return apiClient.delete(`${BASE}/${serial}`);
   },
 
-  async toggleActive(id) {
-    const sensor = await dbClient.get(`/sensors/${id}`);
-    return dbClient.patch(`/sensors/${id}`, { active: !sensor.active });
+  /** Alterna activo/inactivo; el backend usa el estado ACTIVE/OFFLINE. */
+  async toggleActive(serial) {
+    const sensor = await this.getById(serial);
+    return apiClient.patch(`${BASE}/${serial}`, { active: !sensor.active });
   },
 };
 

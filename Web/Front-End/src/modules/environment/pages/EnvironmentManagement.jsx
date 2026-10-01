@@ -56,7 +56,6 @@ function EnvironmentManagement() {
     showAdd,
     editEnv,
     deleteEnv,
-    activeFilter,
     sortBy,
     setSearch,
     setMinCapacity,

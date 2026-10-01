@@ -7,7 +7,7 @@
 import { useState, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { useEnvironments } from '../../../context/EnvironmentContext';
+import { useEnvironments } from '../../../context/useEnvironment';
 
 export function useManagementVM() {
   const { t } = useTranslation();

@@ -1,5 +1,5 @@
-import { useMemo, useState, useEffect } from 'react';
-import { useEnvironments } from '../../../context/EnvironmentContext';
+import { useMemo, useState } from 'react';
+import { useEnvironments } from '../../../context/useEnvironment';
 
 export function useAllEnvironmentsVM() {
   const { environments } = useEnvironments();

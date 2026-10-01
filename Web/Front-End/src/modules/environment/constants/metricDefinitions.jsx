@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components -- constantes de metricas que incluyen JSX de iconos */
 import { WiThermometer, WiHumidity } from "react-icons/wi";
 import { MdCo2 } from "react-icons/md";
 import { HiSpeakerWave } from "react-icons/hi2";

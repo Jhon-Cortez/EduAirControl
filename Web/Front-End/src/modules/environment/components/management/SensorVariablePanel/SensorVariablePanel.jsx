@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import {
   IoAddOutline,
   IoCreateOutline,
@@ -116,8 +116,12 @@ function SensorVariablePanel({ environments }) {
     variable: 'temperature',
   });
 
-  const getEnvironmentName = (id) =>
-    environments.find((environment) => environment.id === Number(id))?.name || 'Sin asignar';
+  const getEnvironmentName = useCallback(
+    (id) =>
+      environments.find((environment) => String(environment.id) === String(id))?.name ||
+      'Sin asignar',
+    [environments]
+  );
   const getVariableValue = (environment, variable) =>
     variable === 'temperature' ? environment?.temp : environment?.[variable];
 
@@ -135,7 +139,7 @@ function SensorVariablePanel({ environments }) {
           (variableFilter === 'all' || sensor.variable === variableFilter)
         );
       }),
-    [sensors, search, statusFilter, variableFilter, environments]
+    [sensors, search, statusFilter, variableFilter, getEnvironmentName]
   );
 
   const summary = useMemo(
