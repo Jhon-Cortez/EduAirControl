@@ -347,6 +347,7 @@ body:not(.dark-mode) .dashboard-analysis-screen .analysis-filter-option.selected
   min-width: 70px;
   height: 37px;
   padding: 0 14px;
+  border: 0;
   color: var(--analysis-muted);
   background: transparent;
   border-radius: 8px;
@@ -1354,6 +1355,7 @@ body:not(.dark-mode) .analysis-filter-option.selected {
     padding: 8px;
   }
   .analysis-period-tabs {
+    flex: 0 0 100%;
     width: 100%;
   }
   .analysis-period-tabs button {
@@ -1371,9 +1373,11 @@ body:not(.dark-mode) .analysis-filter-option.selected {
   }
   .analysis-filter-select,
   .analysis-filter-select.metric-filter {
-    flex: 1;
+    flex: 0 0 100%;
     min-width: 0;
-    height: 37px;
+    width: 100%;
+    height: 40px;
+    margin-left: 0;
   }
   .analysis-kpi-card {
     min-height: 120px;
