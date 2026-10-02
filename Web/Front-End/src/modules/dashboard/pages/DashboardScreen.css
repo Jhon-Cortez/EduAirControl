@@ -123,6 +123,44 @@ body:not(.dark-mode) .dashboard-analysis-screen .analysis-insight p {
   color: var(--analysis-muted);
 }
 
+body:not(.dark-mode) .dashboard-analysis-screen .analysis-period-tabs {
+  background: var(--analysis-panel-soft);
+  border: 1px solid var(--analysis-line);
+}
+
+body:not(.dark-mode) .dashboard-analysis-screen .analysis-period-tabs button {
+  color: var(--analysis-muted-strong);
+}
+
+body:not(.dark-mode) .dashboard-analysis-screen .analysis-period-tabs button:hover:not(.active) {
+  color: var(--analysis-text);
+  background: var(--analysis-panel-hover);
+}
+
+body:not(.dark-mode) .dashboard-analysis-screen .analysis-period-tabs button.active,
+body:not(.dark-mode) .dashboard-analysis-screen .analysis-period-tabs button.active:hover {
+  color: #ffffff;
+}
+
+body:not(.dark-mode) .dashboard-analysis-screen .analysis-filter-trigger {
+  background: var(--analysis-panel-soft);
+}
+
+body:not(.dark-mode) .dashboard-analysis-screen .analysis-filter-trigger:hover {
+  background: var(--analysis-panel-hover);
+  border-color: var(--analysis-accent);
+}
+
+body:not(.dark-mode) .dashboard-analysis-screen .analysis-filter-option:hover,
+body:not(.dark-mode) .dashboard-analysis-screen .analysis-filter-option.selected {
+  color: var(--analysis-text);
+}
+
+.dashboard-analysis-screen .analysis-controls button:focus-visible {
+  outline: 2px solid var(--analysis-accent);
+  outline-offset: 2px;
+}
+
 .dashboard-analysis-screen::before {
   content: '';
   position: absolute;
