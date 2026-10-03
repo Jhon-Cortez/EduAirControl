@@ -2,6 +2,7 @@ package com.eduaircontrol.backend.modules.sensors.application;
 
 import com.eduaircontrol.backend.modules.sensors.dto.DeviceCreateRequest;
 import com.eduaircontrol.backend.modules.sensors.dto.DeviceResponse;
+import com.eduaircontrol.backend.modules.sensors.dto.DeviceUpdateRequest;
 import com.eduaircontrol.backend.modules.sensors.entity.Device;
 import com.eduaircontrol.backend.modules.sensors.repository.DeviceRepository;
 import com.eduaircontrol.backend.shared.contract.EnvironmentLookupPort;
@@ -70,6 +71,46 @@ public class DeviceService {
         applyKey(device, apiKey);
         device.setUpdatedAt(Instant.now());
         return DeviceResponse.withKey(deviceRepository.save(device), apiKey);
+    }
+
+    @Transactional
+    public DeviceResponse update(UUID id, DeviceUpdateRequest request) {
+        Device device = deviceRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
+                        "Dispositivo no encontrado"));
+        if (request.getEducationalEnvironmentId() != null) {
+            environmentLookupPort.findById(request.getEducationalEnvironmentId())
+                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
+                            "Ambiente no encontrado"));
+        }
+        if (request.getName() != null) {
+            device.setName(request.getName());
+        }
+        if (request.getDeviceType() != null && !request.getDeviceType().isBlank()) {
+            device.setDeviceType(request.getDeviceType());
+        }
+        if (request.getFirmwareVersion() != null) {
+            device.setFirmwareVersion(request.getFirmwareVersion());
+        }
+        if (request.getSsid() != null) {
+            device.setSsid(request.getSsid());
+        }
+        if (request.getStatus() != null && !request.getStatus().isBlank()) {
+            device.setStatus(request.getStatus());
+        }
+        if (request.getEducationalEnvironmentId() != null) {
+            device.setEducationalEnvironmentId(request.getEducationalEnvironmentId());
+        }
+        device.setUpdatedAt(Instant.now());
+        return DeviceResponse.from(deviceRepository.save(device));
+    }
+
+    @Transactional
+    public void delete(UUID id) {
+        Device device = deviceRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
+                        "Dispositivo no encontrado"));
+        deviceRepository.delete(device);
     }
 
     private void applyKey(Device device, String apiKey) {
