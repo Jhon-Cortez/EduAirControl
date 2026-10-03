@@ -11,6 +11,7 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -30,21 +31,21 @@ public class SensorQueryService {
 
     @Transactional(readOnly = true)
     public List<SensorRowResponse> list(UUID environmentId) {
-        List<SensorRowDao.ActiveSensorRow> rows = sensorRowDao.findActiveRows(environmentId);
+        List<SensorRowDao.ActiveSensorRow> rows = sensorRowDao.findRows(environmentId);
         if (rows.isEmpty()) {
             return List.of();
         }
 
         Map<UUID, Map<UUID, ThresholdPort.Range>> rangesByEnvironment = new HashMap<>();
         Map<UUID, MeasurementSnapshotPort.Snapshot> snapshots = new HashMap<>();
-        rows.forEach(row -> rangesByEnvironment.computeIfAbsent(row.environmentId(),
-                id -> {
+        rows.stream().map(SensorRowDao.ActiveSensorRow::environmentId).filter(Objects::nonNull).distinct()
+                .forEach(id -> {
                     Map<UUID, ThresholdPort.Range> byVariable = new HashMap<>();
                     thresholdPort.warningRanges(id).forEach(range -> byVariable.put(range.variableId(), range));
-                    return byVariable;
-                }));
+                    rangesByEnvironment.put(id, byVariable);
+                });
 
-        rows.stream().map(SensorRowDao.ActiveSensorRow::environmentId).distinct()
+        rows.stream().map(SensorRowDao.ActiveSensorRow::environmentId).filter(Objects::nonNull).distinct()
                 .forEach(id -> snapshots.put(id, measurementSnapshotPort.snapshot(id)));
 
         Instant now = Instant.now();
@@ -55,17 +56,22 @@ public class SensorQueryService {
                                     .get(row.variableId());
                     BigDecimal value = snapshots.getOrDefault(row.environmentId(), emptySnapshot())
                             .values().get(row.variableCode());
-                    String status = resolveStatus(row, value, range, now);
+                    // Sensor retirado: se muestra como offline hasta que se reactive.
+                    String status = row.installed()
+                            ? resolveStatus(row, value, range, now)
+                            : "offline";
+                    boolean active = row.installed() && !"offline".equals(status);
                     return new SensorRowResponse(
                             row.serialNumber(),
                             row.sensorId(),
                             row.environmentId(),
                             row.variableCode(),
-                            !"offline".equals(status),
+                            active,
                             status,
                             relative(row.lastSeenAt(), now),
                             range != null ? range.min() : null,
-                            range != null ? range.max() : null);
+                            range != null ? range.max() : null,
+                            row.installed());
                 })
                 .sorted(Comparator.comparing(SensorRowResponse::id))
                 .toList();

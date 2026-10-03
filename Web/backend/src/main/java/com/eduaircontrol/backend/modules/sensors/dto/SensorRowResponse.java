@@ -4,8 +4,10 @@ import java.math.BigDecimal;
 import java.util.UUID;
 
 /**
- * Fila del panel de sensores: 1 sensor instalado + su variable.
+ * Fila del panel de sensores: 1 sensor + su variable.
  * "id" es el numero de serie (identificador externo estable de la UI).
+ * "installed" distingue el sensor retirado (se list para poder reactivarlo)
+ * del sensor activo que simplemente dejo de reportar.
  */
 public record SensorRowResponse(
         String id,
@@ -16,5 +18,6 @@ public record SensorRowResponse(
         String status,
         String lastSync,
         BigDecimal min,
-        BigDecimal max) {
+        BigDecimal max,
+        boolean installed) {
 }

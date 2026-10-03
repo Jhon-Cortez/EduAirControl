@@ -54,7 +54,7 @@ public class SensorCommandService {
         bindVariable(sensor, variable);
         applyRange(environment, variable, request);
 
-        return row(sensor, environment, variable, request, "active", "Ahora");
+        return row(sensor, environment, variable, request, "active", "Ahora", true);
     }
 
     @Transactional
@@ -63,29 +63,31 @@ public class SensorCommandService {
         EnvironmentLookupPort.EnvironmentInfo environment = requireEnvironment(request.getEnvironmentId());
         VariableCatalogPort.VariableRef variable = requireVariable(request.getVariable());
 
-        installationRepository.findBySensorIdAndRemovedAtIsNull(sensor.getId())
-                .ifPresent(existing -> {
-                    if (!existing.getEducationalEnvironmentId().equals(environment.id())) {
-                        existing.setRemovedAt(Instant.now());
-                        installationRepository.save(existing);
-                        install(sensor, environment);
-                    }
-                });
-        if (installationRepository.findBySensorIdAndRemovedAtIsNull(sensor.getId()).isEmpty()) {
-            install(sensor, environment);
+        boolean active = !"offline".equals(request.getStatus());
+        if (active) {
+            installationRepository.findBySensorIdAndRemovedAtIsNull(sensor.getId())
+                    .ifPresent(existing -> {
+                        if (!existing.getEducationalEnvironmentId().equals(environment.id())) {
+                            existing.setRemovedAt(Instant.now());
+                            installationRepository.save(existing);
+                            install(sensor, environment);
+                        }
+                    });
+            if (installationRepository.findBySensorIdAndRemovedAtIsNull(sensor.getId()).isEmpty()) {
+                install(sensor, environment);
+            }
         }
 
         bindVariable(sensor, variable);
         applyRange(environment, variable, request);
 
-        boolean active = !"offline".equals(request.getStatus());
         setInstalled(sensor, environment, active);
 
         sensor.setUpdatedAt(Instant.now());
         sensorRepository.save(sensor);
 
         return row(sensor, environment, variable, request, active ? "active" : "offline",
-                active ? "Ahora" : "Sin conexión");
+                active ? "Ahora" : "Sin conexión", active);
     }
 
     @Transactional
@@ -214,17 +216,18 @@ public class SensorCommandService {
 
     private SensorRowResponse row(Sensor sensor, EnvironmentLookupPort.EnvironmentInfo environment,
                                   VariableCatalogPort.VariableRef variable, SensorSaveRequest request,
-                                  String status, String lastSync) {
+                                  String status, String lastSync, boolean installed) {
         return new SensorRowResponse(
                 sensor.getSerialNumber(),
                 sensor.getId(),
                 environment.id(),
                 variable.code(),
-                !"offline".equals(status),
+                installed && !"offline".equals(status),
                 status,
                 lastSync,
                 request.getMin(),
-                request.getMax());
+                request.getMax(),
+                installed);
     }
 
     private Sensor requireSensor(String serial) {
