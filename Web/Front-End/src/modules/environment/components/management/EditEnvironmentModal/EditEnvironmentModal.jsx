@@ -45,10 +45,11 @@ function EditEnvironmentModal({ environment, onClose, onSave }) {
   const [location, setLocation] = useState(defaultLocation);
   const [floor, setFloor] = useState(environment.floor || '');
   const [envType, setEnvType] = useState(environment.envType || '');
-  const [statusKey, setStatusKey] = useState(environment.statusKey || 'dashboard.statusNormal');
   const [tempMin, setTempMin] = useState(environment.tempMin ?? 18);
   const [tempMax, setTempMax] = useState(environment.tempMax ?? 28);
   const [tempProfile, setTempProfile] = useState('Personalizar');
+
+  const statusKey = environment.statusKey || 'dashboard.statusNormal';
 
   const handleProfileChange = (profile) => {
     setTempProfile(profile);
@@ -62,18 +63,13 @@ function EditEnvironmentModal({ environment, onClose, onSave }) {
     if (!name.trim()) return;
     onSave(environment.id, {
       name,
-      nameKey: null,
       capacity: Number(capacity),
       location,
-      locationKey: null,
       floor,
       envType,
-      statusKey,
-      qualityKey: null,
       tempMin: Number(tempMin),
       tempMax: Number(tempMax),
     });
-    onClose();
   };
 
   const isCustom = tempProfile === 'Personalizar';
@@ -151,11 +147,12 @@ function EditEnvironmentModal({ environment, onClose, onSave }) {
             </select>
           </div>
           <div className="add-env-modal__field">
-            <label className="add-env-modal__label">Estado</label>
+            <label className="add-env-modal__label">Estado (calculado)</label>
             <select
               className="add-env-modal__input add-env-modal__select"
               value={statusKey}
-              onChange={(e) => setStatusKey(e.target.value)}
+              disabled
+              title="El estado se calcula con las mediciones del ambiente"
             >
               {STATUS_OPTIONS.map((o) => (
                 <option key={o.value} value={o.value}>
