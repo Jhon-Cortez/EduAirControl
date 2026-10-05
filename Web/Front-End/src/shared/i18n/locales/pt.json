@@ -563,6 +563,11 @@
     "notFound": "Ambiente não encontrado"
   },
   "management": {
+    "toast": {
+      "created": "Ambiente adicionado",
+      "updated": "Alterações salvas",
+      "deleted": "Ambiente removido"
+    },
     "title": "Gestão de Ambientes",
     "addBtn": "Adicionar Ambiente",
     "editBtn": "Editar",
@@ -968,5 +973,10 @@
       "periodIndicators": "Indicadores do período",
       "refreshData": "Atualizar dados"
     }
+  },
+  "notFound": {
+    "title": "Página não encontrada",
+    "description": "A rota que você procura não existe ou foi movida.",
+    "backHome": "Voltar ao início"
   }
 }
