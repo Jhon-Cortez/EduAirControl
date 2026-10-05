@@ -17,6 +17,12 @@ function decodeJWT(token) {
 
 const RESET_EMAIL_KEY = 'resetEmail';
 
+const AUTH_EVENT = 'eduaircontrol:auth';
+
+function notifyAuthChanged() {
+  window.dispatchEvent(new Event(AUTH_EVENT));
+}
+
 const authService = {
   setSession(token, extraUser = {}) {
     localStorage.setItem('token', token);
@@ -29,6 +35,7 @@ const authService = {
       companyCode: extraUser.companyCode || null,
     };
     localStorage.setItem('user', JSON.stringify(user));
+    notifyAuthChanged();
     return user;
   },
 
@@ -83,6 +90,7 @@ const authService = {
   logout() {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
+    notifyAuthChanged();
   },
 
   getToken() {

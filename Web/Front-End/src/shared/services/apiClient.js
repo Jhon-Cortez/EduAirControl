@@ -8,13 +8,16 @@ function isAuthEndpoint(endpoint) {
   return endpoint.startsWith('/auth/');
 }
 
+const PUBLIC_PATHS = ['/landing', '/guide', '/terms', '/login', '/forgot-password', '/verify-code', '/change-password'];
+
 function handleUnauthorized() {
+  const hadSession = Boolean(getToken());
   localStorage.removeItem('token');
   localStorage.removeItem('user');
-  const path = window.location.pathname;
-  if (!path.startsWith('/login') && !path.startsWith('/forgot-password') && !path.startsWith('/verify-code') && !path.startsWith('/change-password')) {
-    window.location.assign('/login');
-  }
+  window.dispatchEvent(new Event('eduaircontrol:auth'));
+  if (!hadSession) return;
+  if (PUBLIC_PATHS.some((path) => window.location.pathname.startsWith(path))) return;
+  window.location.assign('/login');
 }
 
 function messageFor(status, body) {
