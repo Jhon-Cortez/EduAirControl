@@ -36,6 +36,11 @@ public class SensorController {
         return sensorQueryService.list(environmentId);
     }
 
+    @GetMapping("/{id}")
+    public SensorRowResponse get(@PathVariable String id) {
+        return sensorQueryService.get(id);
+    }
+
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping
     public ResponseEntity<SensorRowResponse> create(@Valid @RequestBody SensorSaveRequest request) {
