@@ -39,15 +39,15 @@ public class AuthController {
         User user = userService.register(request);
         String token = jwtService.generateToken(user);
 
-        return new AuthResponse(token);
+        return new AuthResponse(token, user.getName(), user.getEmail(), user.getRole().name());
     }
 
     @PostMapping("/login")
     public AuthResponse login(@Valid @RequestBody LoginRequest request){
+        User user = userService.login(request);
+        String token = jwtService.generateToken(user);
 
-        String token = userService.login(request);
-
-        return new AuthResponse(token);
+        return new AuthResponse(token, user.getName(), user.getEmail(), user.getRole().name());
     }
 
     @PostMapping("/forgot-password")

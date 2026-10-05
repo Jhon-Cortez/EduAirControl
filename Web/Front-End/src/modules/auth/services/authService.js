@@ -41,7 +41,7 @@ const authService = {
 
   async login(email, password, companyCode) {
     const data = await apiClient.post('/auth/login', { email, password, companyCode });
-    this.setSession(data.token, { email });
+    this.setSession(data.token, { name: data.name, email: data.email, role: data.role });
     return data;
   },
 

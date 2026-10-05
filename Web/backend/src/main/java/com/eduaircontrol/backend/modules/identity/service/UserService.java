@@ -34,7 +34,7 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    public String login(LoginRequest request){
+    public User login(LoginRequest request){
         User user = userRepository.findByEmail(request.getEmail())
             .orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Credenciales inválidas"));
 
@@ -46,7 +46,7 @@ public class UserService {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Credenciales inválidas");
         }
 
-        return jwtService.generateToken(user);
+        return user;
     }
 
     public void changePassword(String email, ChangePasswordRequest request) {
