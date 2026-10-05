@@ -31,7 +31,7 @@ const authService = {
     const user = {
       email,
       role: claims?.role || 'USER',
-      name: extraUser.name || (email ? email.split('@')[0] : ''),
+      name: claims?.name || (extraUser.name ? extraUser.name.split('@')[0] : (email ? email.split('@')[0] : '')),
       companyCode: extraUser.companyCode || null,
     };
     localStorage.setItem('user', JSON.stringify(user));
