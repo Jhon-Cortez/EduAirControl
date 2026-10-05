@@ -665,19 +665,32 @@ function SettingsScreen() {
       )}
 
       {/* Modal idioma */}
-      <Modal isOpen={showLangModal} onClose={() => setShowLangModal(false)} size="sm">
-        <h3>{t('settings.language')}</h3>
-        {LANGUAGES.map(({ code, label, flag, flagAlt }) => (
-          <button
-            key={code}
-            className={i18n.language === code ? 'lang-modal-btn--active' : ''}
-            onClick={() => handleChangeLanguage(code)}
-          >
-            <img src={flag} alt={flagAlt} className="lang-modal-flag" loading="lazy" />
-            <span>{label}</span>
-            {i18n.language === code && <span className="lang-modal-check">✓</span>}
-          </button>
-        ))}
+      <Modal
+        isOpen={showLangModal}
+        onClose={() => setShowLangModal(false)}
+        size="sm"
+        title={t('settings.language')}
+      >
+        <div className="lang-modal-options" role="group" aria-label={t('settings.language')}>
+          {LANGUAGES.map(({ code, label, flag, flagAlt }) => {
+            const isSelected = i18n.language === code;
+
+            return (
+              <button
+                key={code}
+                type="button"
+                className={`lang-modal-option ${isSelected ? 'lang-modal-btn--active' : ''}`}
+                onClick={() => handleChangeLanguage(code)}
+                aria-pressed={isSelected}
+                lang={code}
+              >
+                <img src={flag} alt={flagAlt} className="lang-modal-flag" loading="lazy" />
+                <span>{label}</span>
+                {isSelected && <span className="lang-modal-check">✓</span>}
+              </button>
+            );
+          })}
+        </div>
       </Modal>
 
       {/* ── MODAL ELIMINAR CUENTA ── */}
