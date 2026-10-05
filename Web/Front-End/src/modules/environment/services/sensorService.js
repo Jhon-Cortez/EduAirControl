@@ -21,6 +21,9 @@ const sensorService = {
     return apiClient.post(BASE, sensor);
   },
 
+  /**
+   * Edición completa: el backend exige `environmentId` y `variable` en todo PATCH.
+   */
   async update(serial, updates) {
     return apiClient.patch(`${BASE}/${serial}`, updates);
   },
@@ -29,10 +32,9 @@ const sensorService = {
     return apiClient.delete(`${BASE}/${serial}`);
   },
 
-  /** Alterna activo/inactivo; el backend usa el estado ACTIVE/OFFLINE. */
+  /** Alterna activo/inactivo; el backend lo resuelve en POST /{id}/toggle. */
   async toggleActive(serial) {
-    const sensor = await this.getById(serial);
-    return apiClient.patch(`${BASE}/${serial}`, { active: !sensor.active });
+    return apiClient.post(`${BASE}/${serial}/toggle`, {});
   },
 };
 

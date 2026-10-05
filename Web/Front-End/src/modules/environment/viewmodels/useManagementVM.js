@@ -8,9 +8,11 @@ import { useState, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { useEnvironments } from '../../../context/useEnvironment';
+import { useToast } from '../../../shared/hooks/useToast';
 
 export function useManagementVM() {
   const { t } = useTranslation();
+  const toast = useToast();
   const { environments, addEnvironment, editEnvironment, deleteEnvironment } = useEnvironments();
 
   const [search, setSearch] = useState('');
@@ -83,19 +85,34 @@ export function useManagementVM() {
     [environments]
   );
 
-  const handleAdd = (data) => {
-    addEnvironment(data);
-    setShowAdd(false);
+  const handleAdd = async (data) => {
+    try {
+      await addEnvironment(data);
+      setShowAdd(false);
+      toast.success(t('management.toast.created', 'Ambiente agregado'));
+    } catch (err) {
+      toast.error(err.message);
+    }
   };
 
-  const handleEdit = (id, data) => {
-    editEnvironment(id, data);
-    setEditEnv(null);
+  const handleEdit = async (id, data) => {
+    try {
+      await editEnvironment(id, data);
+      setEditEnv(null);
+      toast.success(t('management.toast.updated', 'Cambios guardados'));
+    } catch (err) {
+      toast.error(err.message);
+    }
   };
 
-  const handleDelete = (id) => {
-    deleteEnvironment(id);
-    setDeleteEnv(null);
+  const handleDelete = async (id) => {
+    try {
+      await deleteEnvironment(id);
+      setDeleteEnv(null);
+      toast.success(t('management.toast.deleted', 'Ambiente eliminado'));
+    } catch (err) {
+      toast.error(err.message);
+    }
   };
 
   const openDelete = (id) => {

@@ -563,6 +563,11 @@
     "notFound": "Environnement introuvable"
   },
   "management": {
+    "toast": {
+      "created": "Environnement ajouté",
+      "updated": "Modifications enregistrées",
+      "deleted": "Environnement supprimé"
+    },
     "title": "Gestion des Environnements",
     "addBtn": "Ajouter un environnement",
     "editBtn": "Modifier",
@@ -968,5 +973,10 @@
       "periodIndicators": "Indicateurs de période",
       "refreshData": "Actualiser les données"
     }
+  },
+  "notFound": {
+    "title": "Page introuvable",
+    "description": "La page que vous cherchez n’existe pas ou a été déplacée.",
+    "backHome": "Retour à l’accueil"
   }
 }

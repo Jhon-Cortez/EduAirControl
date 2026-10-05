@@ -3,6 +3,7 @@ import { Navigate, Routes, Route } from 'react-router-dom';
 import ProtectedRoute from './shared/components/routes/ProtectedRoute';
 import AdminRoute from './shared/components/routes/AdminRoute';
 import GuestRoute from './shared/components/routes/GuestRoute';
+import NotFoundScreen from './shared/components/routes/NotFoundScreen';
 
 // ======================
 // AUTH
@@ -131,6 +132,9 @@ function App() {
           </ProtectedRoute>
         }
       />
+
+      {/* ---------- 404 ---------- */}
+      <Route path="*" element={<NotFoundScreen />} />
     </Routes>
   );
 }

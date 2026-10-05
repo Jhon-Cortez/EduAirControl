@@ -500,6 +500,11 @@
     "notFound": "Ambiente no encontrado"
   },
   "management": {
+    "toast": {
+      "created": "Ambiente agregado",
+      "updated": "Cambios guardados",
+      "deleted": "Ambiente eliminado"
+    },
     "title": "Gestión de Ambientes",
     "addBtn": "Agregar Ambiente",
     "editTitle": "Editar Ambiente",
@@ -871,5 +876,10 @@
       "periodIndicators": "Indicadores del periodo",
       "refreshData": "Actualizar datos"
     }
+  },
+  "notFound": {
+    "title": "Página no encontrada",
+    "description": "La ruta que buscas no existe o fue movida.",
+    "backHome": "Volver al inicio"
   }
 }

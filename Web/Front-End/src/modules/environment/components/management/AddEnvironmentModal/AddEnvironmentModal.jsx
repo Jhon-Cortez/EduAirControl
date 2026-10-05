@@ -58,7 +58,6 @@ function AddEnvironmentModal({ onClose, onAdd }) {
       tempMin: Number(tempMin),
       tempMax: Number(tempMax),
     })
-    onClose()
   }
 
   const isCustom = tempProfile === 'Personalizar'

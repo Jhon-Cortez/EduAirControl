@@ -564,6 +564,11 @@
     "notFound": "Environment not found"
   },
   "management": {
+    "toast": {
+      "created": "Environment added",
+      "updated": "Changes saved",
+      "deleted": "Environment removed"
+    },
     "title": "Environment Management",
     "addBtn": "Add Environment",
     "editBtn": "Edit",
@@ -969,5 +974,10 @@
       "periodIndicators": "Period indicators",
       "refreshData": "Refresh data"
     }
+  },
+  "notFound": {
+    "title": "Page not found",
+    "description": "The route you are looking for does not exist or has been moved.",
+    "backHome": "Back to home"
   }
 }
