@@ -217,7 +217,7 @@
   border-radius: 10px;
 }
 .sensor-panel__sensor-icon--mint {
-  color: #00a77d;
+  color: #040f23;
   background: rgb(var(--accent-rgb) / 0.12);
 }
 .sensor-panel__sensor-icon--blue {
@@ -359,7 +359,7 @@
   padding: 28px;
   border: 1px solid var(--lb-glass-border);
   border-radius: 18px;
-  background: var(--bg-card);
+  background: #040f23;
   box-shadow: var(--shadow-xl);
 }
 .sensor-panel__modal-close {
