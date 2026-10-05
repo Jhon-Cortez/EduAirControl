@@ -80,8 +80,8 @@ public class MeasurementAggregationDao {
             statement.setArray(2, con.createArrayOf("numeric", toObjects(mins)));
             statement.setArray(3, con.createArrayOf("numeric", toObjects(maxs)));
             statement.setObject(4, environmentId);
-            statement.setObject(5, start);
-            statement.setObject(6, end);
+            statement.setObject(5, java.sql.Timestamp.from(start));
+            statement.setObject(6, java.sql.Timestamp.from(end));
             return statement;
         }, (rs, rowNum) -> new Row(
                 rs.getObject("variable_id", UUID.class),
