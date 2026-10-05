@@ -29,8 +29,8 @@
 	<properties>
 		<java.version>17</java.version>
 		<testcontainers.version>1.21.3</testcontainers.version>
-		<!-- Docker Engine 29 exige API >= 1.40; docker-java negocia 1.32 por defecto. -->
-		<docker.api.version>1.40</docker.api.version>
+		<!-- Docker Engine 29 rechaza API < 1.44 con HTTP 400; docker-java negocia 1.32 por defecto. -->
+		<docker.api.version>1.44</docker.api.version>
 	</properties>
 	<dependencyManagement>
 		<dependencies>
