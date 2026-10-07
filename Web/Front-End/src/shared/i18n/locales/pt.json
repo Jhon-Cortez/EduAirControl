@@ -448,109 +448,112 @@
           "title": "Aceitação dos termos",
           "items": [
             "Ao criar uma conta ou usar a plataforma, você confirma que aceita estes termos integralmente.",
-            "Se você não concordar com alguma parte deles, deve se abster de usar o EduAirControl."
+            "Se você discordar de alguma parte, deve abster-se de usar o EduAirControl.",
+            "Ao se registrar com Google ou Facebook, você também aceita estes termos."
           ]
         },
         {
           "title": "Sua conta",
           "items": [
-            "Você deve fornecer informações precisas, completas e atualizadas ao se cadastrar.",
-            "Você é responsável por manter a confidencialidade da sua senha e por toda atividade realizada a partir da sua conta.",
-            "Notifique-nos imediatamente se suspeitar de uso não autorizado da sua conta."
+            "Você deve fornecer informações precisas, completas e atualizadas ao se registrar.",
+            "Você é responsável por manter a confidencialidade da sua senha e por toda atividade em sua conta.",
+            "Notifique-nos imediatamente se suspeitar de uso não autorizado da sua conta.",
+            "Se você usar login social (Google/Facebook), é responsável pela segurança dessa conta externa."
           ]
         },
         {
-          "title": "Uso permitido da plataforma",
+          "title": "Uso aceitável",
           "items": [
-            "A plataforma deve ser usada apenas para fins autorizados, educacionais e legais.",
-            "Não é permitido tentar violar, sobrecarregar ou interferir nos sensores, servidores ou no funcionamento do sistema.",
-            "Não é permitido copiar, revender ou redistribuir o serviço sem autorização prévia."
+            "Você usará o EduAirControl apenas para fins legítimos de monitoramento ambiental.",
+            "Você não tentará acessar dados de outras instituições sem autorização.",
+            "Você não interferirá no funcionamento da plataforma."
           ]
         },
         {
-          "title": "Dados ambientais e relatórios",
+          "title": "Funções e permissões",
           "items": [
-            "Os dados ambientais (qualidade do ar, temperatura, umidade etc.) são fornecidos apenas para fins de monitoramento e informação.",
-            "Eles não devem ser usados como única fonte para decisões críticas de segurança; em uma emergência, siga sempre os protocolos oficiais da sua instituição."
+            "Os Super Administradores gerenciam usuários, funções e instituições.",
+            "Os Administradores gerenciam os ambientes e sensores de sua instituição.",
+            "Os Usuários consultam as informações ambientais de sua instituição.",
+            "A função de Administrador é atribuída exclusivamente por um Super Administrador."
           ]
         },
         {
           "title": "Propriedade intelectual",
           "items": [
-            "O nome, o logotipo, o design e o software do EduAirControl pertencem aos seus criadores e são protegidos por direitos autorais.",
-            "Nenhum direito de uso dessas marcas fora da plataforma é concedido sem autorização expressa."
+            "O EduAirControl e seu conteúdo são propriedade do SENA e de seus desenvolvedores.",
+            "A reprodução não autorizada do software ou de sua documentação é proibida."
           ]
         },
         {
-          "title": "Suspensão e cancelamento",
+          "title": "Limitação de responsabilidade",
           "items": [
-            "Podemos suspender ou cancelar contas que violem estes termos ou representem um risco para a plataforma ou outros usuários.",
-            "Você pode solicitar a exclusão da sua conta a qualquer momento na seção de Privacidade."
-          ]
-        },
-        {
-          "title": "Alterações nestes termos",
-          "items": [
-            "Podemos atualizar estes termos periodicamente para refletir melhorias ou mudanças legais.",
-            "O uso continuado da plataforma após uma atualização implica a aceitação das alterações."
+            "Os dados ambientais são informativos e não substituem diagnósticos profissionais.",
+            "Não garantimos disponibilidade ininterrupta do serviço.",
+            "Não somos responsáveis por decisões tomadas com base nos dados exibidos."
           ]
         }
       ],
-      "footer": "Dúvidas sobre estes termos? Escreva para suporte@eduaircontrol.com."
+      "footer": "Última atualização: outubro de 2026. Para consultas: suporte@eduaircontrol.com"
     },
     "privacyModal": {
-      "intro": "No EduAirControl, levamos a sério a proteção das suas informações pessoais. Esta política explica quais dados coletamos e como os protegemos:",
+      "intro": "No EduAirControl levamos a sério a proteção das suas informações pessoais. Esta política explica quais dados coletamos e como os protegemos:",
       "sections": [
         {
           "title": "Quais informações coletamos",
           "items": [
-            "Dados de conta: nome, e-mail e credenciais de acesso.",
-            "Dados ambientais gerados pelos sensores da sua instituição (qualidade do ar, temperatura, umidade etc.).",
+            "Dados da conta: nome, email e credenciais de acesso.",
+            "Dados de login social: se você usa Google ou Facebook, recebemos seu nome, email e foto de perfil desse serviço.",
+            "Dados ambientais gerados pelos sensores da sua instituição (qualidade do ar, temperatura, umidade, etc.).",
             "Dados de uso: preferências, idioma, fuso horário e configurações do aplicativo."
           ]
         },
         {
           "title": "Como usamos suas informações",
           "items": [
-            "Para fornecer acesso ao painel, aos rankings e às notificações da plataforma.",
+            "Para fornecer acesso ao painel, rankings e notificações.",
             "Para gerar relatórios ambientais da sua instituição.",
-            "Para melhorar o serviço e entrar em contato sobre atualizações importantes."
+            "Para personalizar sua experiência e melhorar a plataforma.",
+            "Para verificar sua identidade e manter a segurança do sistema."
           ]
         },
         {
-          "title": "Como protegemos seus dados",
+          "title": "Login social",
           "items": [
-            "Seus dados são transmitidos e armazenados de forma criptografada.",
-            "As senhas nunca são armazenadas em texto simples; são protegidas por algoritmos de criptografia seguros.",
-            "O acesso às informações é restrito à equipe autorizada que precisa dele para operar a plataforma.",
-            "Revisamos periodicamente nossas práticas de segurança para evitar acessos não autorizados."
+            "Quando você usa Google ou Facebook para entrar, recebemos apenas seu nome, email e foto de perfil.",
+            "Não acessamos sua senha do Google ou Facebook.",
+            "Não publicamos nada em suas redes sociais sem sua permissão.",
+            "Você pode revogar o acesso a qualquer momento nas configurações da sua conta Google ou Facebook."
           ]
         },
         {
-          "title": "Com quem compartilhamos suas informações",
+          "title": "Proteção de dados",
           "items": [
-            "Não vendemos nem alugamos seus dados pessoais a terceiros.",
-            "Compartilhamos informações apenas com administradores da sua própria instituição, ou com fornecedores estritamente necessários para operar o serviço (por exemplo, hospedagem).",
-            "Podemos divulgar informações se exigido por lei."
+            "As senhas são armazenadas criptografadas com bcrypt.",
+            "Dados sensíveis viajam criptografados via HTTPS.",
+            "O acesso às informações é controlado por funções (Usuário, Administrador, Super Administrador).",
+            "Os Super Administradores acessam apenas dados necessários para a gestão do sistema."
           ]
         },
         {
           "title": "Seus direitos",
           "items": [
-            "Você pode acessar, corrigir ou atualizar seus dados pessoais no seu perfil.",
-            "Você pode solicitar a exclusão da sua conta e dos seus dados a qualquer momento nesta seção de Configurações.",
-            "Você pode solicitar uma cópia das informações que temos sobre você entrando em contato com o suporte."
+            "Você pode consultar, editar ou excluir suas informações pessoais no seu perfil.",
+            "Você pode excluir sua conta a qualquer momento nas Configurações.",
+            "Você pode solicitar uma cópia dos seus dados entrando em contato com o suporte.",
+            "Você pode revogar o acesso de aplicativos sociais a qualquer momento."
           ]
         },
         {
           "title": "Retenção de dados",
           "items": [
-            "Mantemos suas informações enquanto sua conta estiver ativa.",
-            "Ao solicitar a exclusão da conta, seus dados pessoais são excluídos ou anonimizados dentro de um prazo razoável, salvo exigência legal de retenção."
+            "Os dados da conta são mantidos enquanto sua conta estiver ativa.",
+            "Os dados ambientais são mantidos para análise histórica.",
+            "Ao excluir sua conta, seus dados pessoais são excluídos ou anonimizados."
           ]
         }
       ],
-      "footer": "Dúvidas sobre como tratamos seus dados? Escreva para suporte@eduaircontrol.com."
+      "footer": "Última atualização: outubro de 2026. Para exercer seus direitos: suporte@eduaircontrol.com"
     }
   },
   "google": {

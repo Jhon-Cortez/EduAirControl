@@ -1,0 +1,73 @@
+.social-divider {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 20px 0 14px;
+  color: var(--text-secondary, #666);
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+.social-divider::before,
+.social-divider::after {
+  flex: 1;
+  height: 1px;
+  border-top: 1px solid var(--border-color, #ddd);
+  content: '';
+}
+
+.social-btn-group {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.social-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  min-height: 48px;
+  padding: 12px 16px;
+  border: 1px solid var(--border-color, #ddd);
+  border-radius: 12px;
+  font: inherit;
+  font-weight: 700;
+  font-size: 0.95rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.social-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.12);
+}
+
+.social-btn-google {
+  background: var(--bg-secondary, #fff);
+  color: var(--text-primary, #1a1a2e);
+}
+
+.social-btn-google:hover {
+  background: var(--bg-tertiary, #f5f5f5);
+}
+
+.social-btn-facebook {
+  background: #1877f2;
+  border-color: #1877f2;
+  color: #ffffff;
+}
+
+.social-btn-facebook:hover {
+  background: #145dbf;
+  border-color: #145dbf;
+}
+
+@media (max-width: 480px) {
+  .social-btn-group {
+    grid-template-columns: 1fr;
+  }
+}

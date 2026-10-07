@@ -2,19 +2,20 @@ import { useTranslation } from 'react-i18next';
 import { FcGoogle } from 'react-icons/fc';
 import { FaFacebook } from 'react-icons/fa';
 import authService from '../../services/authService';
+import './SocialLoginButtons.css';
 
 function SocialLoginButtons() {
   const { t } = useTranslation();
 
   return (
     <>
-      <div className="social-text">
+      <div className="social-divider">
         <span>{t('login.socialDivider', 'o continúa con')}</span>
       </div>
-      <div className="social-buttons">
+      <div className="social-btn-group">
         <button
           type="button"
-          className="btn-google"
+          className="social-btn social-btn-google"
           onClick={() => authService.loginWithSocial('google')}
         >
           <FcGoogle size={20} />
@@ -22,7 +23,7 @@ function SocialLoginButtons() {
         </button>
         <button
           type="button"
-          className="btn-facebook"
+          className="social-btn social-btn-facebook"
           onClick={() => authService.loginWithSocial('facebook')}
         >
           <FaFacebook size={20} />
