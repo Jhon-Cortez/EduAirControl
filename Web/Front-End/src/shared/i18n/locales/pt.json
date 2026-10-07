@@ -1027,5 +1027,21 @@
     "title": "Página não encontrada",
     "description": "A rota que você procura não existe ou foi movida.",
     "backHome": "Voltar ao início"
+  },
+  "admin": {
+    "title": "Painel de Administração",
+    "subtitle": "Gerencie usuários, funções e instituições",
+    "usersTab": "Usuários",
+    "institutionsTab": "Instituições",
+    "usersTitle": "Gestão de Usuários",
+    "usersHint": "Atribua a função de Administrador aos usuários que serão administradores de suas empresas",
+    "colEmail": "E-mail",
+    "colUsername": "Usuário",
+    "colRoles": "Funções",
+    "colActions": "Ações",
+    "institutionsTitle": "Gestão de Instituições",
+    "institutionsHint": "Crie e gerencie as instituições (empresas) do sistema",
+    "institutionsPlaceholder": "CRUD de instituições em breve",
+    "roleUpdated": "Funções atualizadas com sucesso"
   }
 }

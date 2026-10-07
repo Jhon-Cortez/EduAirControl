@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { FaBuilding } from 'react-icons/fa';
-import { HiOutlineOfficeBuilding } from 'react-icons/hi2';
+import { HiOutlineBuildingOffice2 } from 'react-icons/hi2';
 import authService from '../../services/authService';
 
 function SocialOnboardingModal({ user, onComplete }) {
@@ -29,7 +29,7 @@ function SocialOnboardingModal({ user, onComplete }) {
       <div className="modal-content-modern" onClick={(e) => e.stopPropagation()}>
         <div className="modal-header">
           <div className="modal-icon">
-            <HiOutlineOfficeBuilding />
+            <HiOutlineBuildingOffice2 />
           </div>
           <h2>{t('signup.onboardingTitle', 'Último paso')}</h2>
           <p>{t('signup.onboardingSubtitle', 'Ingresa el código de tu empresa para continuar')}</p>

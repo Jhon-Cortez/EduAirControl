@@ -1028,5 +1028,21 @@
     "title": "Page not found",
     "description": "The route you are looking for does not exist or has been moved.",
     "backHome": "Back to home"
+  },
+  "admin": {
+    "title": "Administration Panel",
+    "subtitle": "Manage users, roles and institutions",
+    "usersTab": "Users",
+    "institutionsTab": "Institutions",
+    "usersTitle": "User Management",
+    "usersHint": "Assign the Administrator role to users who will be administrators of their companies",
+    "colEmail": "Email",
+    "colUsername": "Username",
+    "colRoles": "Roles",
+    "colActions": "Actions",
+    "institutionsTitle": "Institution Management",
+    "institutionsHint": "Create and manage system institutions (companies)",
+    "institutionsPlaceholder": "Institution CRUD coming soon",
+    "roleUpdated": "Roles updated successfully"
   }
 }

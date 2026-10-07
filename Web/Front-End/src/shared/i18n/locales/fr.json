@@ -1027,5 +1027,21 @@
     "title": "Page introuvable",
     "description": "La page que vous cherchez n’existe pas ou a été déplacée.",
     "backHome": "Retour à l’accueil"
+  },
+  "admin": {
+    "title": "Panneau d'administration",
+    "subtitle": "Gérer les utilisateurs, les rôles et les institutions",
+    "usersTab": "Utilisateurs",
+    "institutionsTab": "Institutions",
+    "usersTitle": "Gestion des utilisateurs",
+    "usersHint": "Attribuez le rôle Administrateur aux utilisateurs qui seront administrateurs de leurs entreprises",
+    "colEmail": "E-mail",
+    "colUsername": "Nom d'utilisateur",
+    "colRoles": "Rôles",
+    "colActions": "Actions",
+    "institutionsTitle": "Gestion des institutions",
+    "institutionsHint": "Créer et gérer les institutions (entreprises) du système",
+    "institutionsPlaceholder": "CRUD des institutions bientôt disponible",
+    "roleUpdated": "Rôles mis à jour avec succès"
   }
 }

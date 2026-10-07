@@ -2,6 +2,7 @@ import { Navigate, Routes, Route } from 'react-router-dom';
 
 import ProtectedRoute from './shared/components/routes/ProtectedRoute';
 import AdminRoute from './shared/components/routes/AdminRoute';
+import SuperAdminRoute from './shared/components/routes/SuperAdminRoute';
 import GuestRoute from './shared/components/routes/GuestRoute';
 import NotFoundScreen from './shared/components/routes/NotFoundScreen';
 
@@ -36,6 +37,7 @@ import EnvironmentManagement from './modules/environment/pages/EnvironmentManage
 // PROFILE
 // ======================
 import ProfileScreen from './modules/profile/pages/ProfileScreen';
+import AdminScreen from './modules/admin/pages/AdminScreen';
 
 // ======================
 // SETTINGS
@@ -104,6 +106,14 @@ function App() {
           <AdminRoute>
             <EnvironmentManagement />
           </AdminRoute>
+        }
+      />
+      <Route
+        path="/admin"
+        element={
+          <SuperAdminRoute>
+            <AdminScreen />
+          </SuperAdminRoute>
         }
       />
 
