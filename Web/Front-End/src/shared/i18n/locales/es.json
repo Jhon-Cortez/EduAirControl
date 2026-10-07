@@ -22,7 +22,10 @@
     "loginBtn": "Ingresar",
     "signUpBtn": "Registrarse",
     "orWith": "Inicia sesión con",
-    "or": "O"
+    "or": "O",
+    "socialDivider": "o continúa con",
+    "googleBtn": "Google",
+    "facebookBtn": "Facebook"
   },
   "signup": {
     "title": "Crear cuenta",
@@ -45,6 +48,10 @@
     "signUpBtn": "Registrarse",
     "passwordMismatch": "¡Las contraseñas no coinciden!",
     "mustAgreeTerms": "Debes aceptar los Términos y Condiciones",
+    "onboardingTitle": "Último paso",
+    "onboardingSubtitle": "Ingresa el código de tu empresa para continuar",
+    "onboardingBtn": "Continuar",
+    "onboardingError": "Error al asignar la empresa",
     "termsModal": {
       "acceptPrefix": "He leído y acepto los",
       "link": "Términos y Políticas de Seguridad",

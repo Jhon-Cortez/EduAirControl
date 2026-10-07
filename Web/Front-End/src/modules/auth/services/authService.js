@@ -126,7 +126,23 @@ const authService = {
   isAdmin() {
     if (!this.isAuthenticated()) return false;
     const role = this.getUser()?.role || decodeJWT(this.getToken())?.role || '';
-    return String(role).toUpperCase() === 'ADMIN';
+    return String(role).toUpperCase() === 'ADMIN' || String(role).toUpperCase() === 'SUPER_ADMIN';
+  },
+
+  isSuperAdmin() {
+    if (!this.isAuthenticated()) return false;
+    const role = this.getUser()?.role || decodeJWT(this.getToken())?.role || '';
+    return String(role).toUpperCase() === 'SUPER_ADMIN';
+  },
+
+  loginWithSocial(provider) {
+    const base = import.meta.env.VITE_API_URL || 'http://localhost:8080';
+    window.location.href = `${base}/api/v1/auth/oauth2/${provider}`;
+  },
+
+  async completeSocialOnboarding(userId, companyCode) {
+    const data = await apiClient.post('/auth/oauth2/onboarding', { userId, companyCode });
+    return data;
   },
 };
 

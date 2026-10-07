@@ -7,6 +7,7 @@ import { FaUser, FaEnvelope, FaLock, FaBuilding } from 'react-icons/fa';
 import { HiOutlineDocumentText, HiCheckCircle } from 'react-icons/hi2';
 import { ChevronDown } from 'lucide-react';
 import authService from '../../services/authService';
+import SocialLoginButtons from '../SocialLoginButtons/SocialLoginButtons';
 import { registerSchema } from '../../schemas/registerSchema';
 import '../../pages/signUp/SignUp.css';
 
@@ -189,6 +190,8 @@ function SignUpForm() {
         <button type="submit" className="btn-signup-premium" disabled={isSubmitting}>
           {isSubmitting ? '...' : t('signup.signUpBtn')}
         </button>
+
+        <SocialLoginButtons />
       </form>
 
       {showTerms && (

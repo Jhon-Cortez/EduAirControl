@@ -4,3 +4,8 @@ node_modules/
 **/.env
 !**/.env.example
 Web/backend/target/
+
+# Instrucciones locales de agentes IA (no se comparten con el equipo)
+AGENTS.md
+opencode.json
+.opencode/
