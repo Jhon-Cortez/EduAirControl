@@ -75,7 +75,8 @@
       "notice": "Este resumen no reemplaza el documento completo. El uso de EduAirControl está sujeto a los Términos y Condiciones completos, la Política de Tratamiento de Datos Personales y la legislación colombiana aplicable.",
       "fullDocumentPrefix": "¿Deseas revisar toda la información?",
       "fullDocumentLink": "Leer el documento completo",
-      "readRequired": "Debes leer y aceptar el documento completo antes de registrarte."
+      "readRequired": "Debes leer y aceptar el documento completo antes de registrarte.",
+      "acceptBtn": "Acepto los términos"
     },
     "passwordStrength": {
       "weak": "Contraseña débil",
