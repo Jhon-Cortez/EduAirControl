@@ -94,3 +94,6 @@ databaseChangeLog:
       file: db/changelog/changes/010-seed-reference.yaml
   - include:
       file: db/changelog/changes/100-seed-dev.yaml
+  # 9) Outbox transaccional (ADR-007): publica eventos hacia ms-environment-monitoring.
+  - include:
+      file: db/changelog/changes/011-outbox.yaml
