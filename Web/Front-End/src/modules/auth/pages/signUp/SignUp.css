@@ -773,3 +773,29 @@ body:not(.dark-mode) .modal-content-modern {
   margin-top: 5px;
   font-size: 12px;
 }
+
+.terms-modal-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.btn-accept-terms {
+  width: 100%;
+  height: 56px;
+  border: none;
+  border-radius: 16px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #fff;
+  background: linear-gradient(90deg, #667eea, #764ba2);
+  box-shadow: 0 15px 35px rgba(102, 126, 234, 0.25);
+  transition: 0.3s;
+}
+
+.btn-accept-terms:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 20px 45px rgba(102, 126, 234, 0.35);
+}

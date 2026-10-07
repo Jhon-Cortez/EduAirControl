@@ -7,6 +7,7 @@ import { FaUser, FaEnvelope, FaLock, FaBuilding } from 'react-icons/fa';
 import { HiOutlineDocumentText, HiCheckCircle } from 'react-icons/hi2';
 import { ChevronDown } from 'lucide-react';
 import authService from '../../services/authService';
+import SocialLoginButtons from '../SocialLoginButtons/SocialLoginButtons';
 import { registerSchema } from '../../schemas/registerSchema';
 import '../../pages/signUp/SignUp.css';
 
@@ -25,6 +26,7 @@ function SignUpForm() {
     register,
     handleSubmit,
     control,
+    setValue,
     formState: { errors, isSubmitting },
   } = useForm({
     resolver: zodResolver(registerSchema),
@@ -54,7 +56,7 @@ function SignUpForm() {
 
   const onSubmit = async (data) => {
     setApiError('');
-    if (!hasReadFullTerms) {
+    if (!data.acceptTerms) {
       setShowTerms(true);
       return;
     }
@@ -167,7 +169,6 @@ function SignUpForm() {
             <input
               id="signup-accept-terms"
               type="checkbox"
-              disabled={!hasReadFullTerms}
               {...register('acceptTerms')}
             />
             <span className="slider-modern"></span>
@@ -178,9 +179,6 @@ function SignUpForm() {
               {t('signup.termsModal.link')}
             </button>
           </p>
-          {!hasReadFullTerms && (
-            <p className="terms-read-required">{t('signup.termsModal.readRequired')}</p>
-          )}
           {errors.acceptTerms && (
             <p className="error-text">⚠ {t(errors.acceptTerms.message)}</p>
           )}
@@ -189,6 +187,8 @@ function SignUpForm() {
         <button type="submit" className="btn-signup-premium" disabled={isSubmitting}>
           {isSubmitting ? '...' : t('signup.signUpBtn')}
         </button>
+
+        <SocialLoginButtons />
       </form>
 
       {showTerms && (
@@ -249,9 +249,20 @@ function SignUpForm() {
                 </button>
               </p>
             </div>
-            <button className="btn-close-modal" onClick={() => setShowTerms(false)}>
-              {t('common.close')}
-            </button>
+            <div className="terms-modal-actions">
+              <button
+                className="btn-accept-terms"
+                onClick={() => {
+                  setValue('acceptTerms', true);
+                  setShowTerms(false);
+                }}
+              >
+                {t('signup.termsModal.acceptBtn', 'Acepto los términos')}
+              </button>
+              <button className="btn-close-modal" onClick={() => setShowTerms(false)}>
+                {t('common.close')}
+              </button>
+            </div>
           </div>
         </div>
       )}

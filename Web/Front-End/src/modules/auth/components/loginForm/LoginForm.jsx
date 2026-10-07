@@ -5,6 +5,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { loginSchema } from '../../schemas/loginSchema';
 import authService from '../../services/authService';
+import SocialLoginButtons from '../SocialLoginButtons/SocialLoginButtons';
 import { FaEnvelope, FaLock, FaBuilding } from 'react-icons/fa';
 import '../../pages/login/Login.css';
 
@@ -97,6 +98,8 @@ function LoginForm() {
       </button>
 
       {isSubmitting && <p className="loading-text">Validando credenciales...</p>}
+
+      <SocialLoginButtons />
     </form>
   );
 }

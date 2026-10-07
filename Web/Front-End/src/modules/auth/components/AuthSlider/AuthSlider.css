@@ -1,7 +1,7 @@
 .auth-slider {
   position: relative;
   width: min(1080px, 100%);
-  height: min(680px, calc(100dvh - 48px));
+  height: min(780px, calc(100dvh - 48px));
   min-height: 0;
   overflow: hidden;
   border: 1px solid var(--lb-glass-border);
@@ -24,7 +24,7 @@
 .auth-slider-form {
   position: absolute;
   inset: 0;
-  padding: 46px clamp(28px, 5vw, 72px) 36px;
+  padding: 36px clamp(28px, 5vw, 72px) 28px;
   overflow-y: auto;
   background: var(--lb-glass-bg);
   transition:
