@@ -1,0 +1,15 @@
+databaseChangeLog:
+
+  # Outbox transaccional. Va al final porque la aplicacion debe seguir arrancando
+  # aunque falte este esquema: el dominio no depende de el para funcionar.
+  - changeSet:
+      id: 011-outbox
+      author: eduaircontrol
+      comment: Outbox transaccional para publicar eventos a ms-environment-monitoring (ADR-007).
+      changes:
+        - sqlFile:
+            path: db/changelog/changes/sql/011-outbox.sql
+      rollback:
+        - sql:
+            dbms: postgresql
+              DROP SCHEMA IF EXISTS outbox CASCADE;
